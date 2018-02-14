@@ -17,7 +17,7 @@ describe('save current pipeline', () => {
 
   describe('#savedState', () => {
     it('returns a new object with correct keys', () => {
-      expect(reducer(INITIAL_STATE, saveState())).to.contain.keys('inputDocuments', 'savedPipelines', 'namespace', 'stages', 'view');
+      expect(reducer(INITIAL_STATE, saveState())).to.contain.keys('inputDocuments', 'savedPipelines', 'namespace', 'pipeline', 'view');
     });
   });
 });
@@ -41,7 +41,7 @@ describe('restore previous state', () => {
         'dataService',
         'namespace',
         'fields',
-        'stages',
+        'pipeline',
         'view'
       );
     });

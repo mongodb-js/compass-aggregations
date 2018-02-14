@@ -16,7 +16,7 @@ class PipelineWorkspace extends PureComponent {
   static displayName = 'PipelineWorkspace';
 
   static propTypes = {
-    stages: PropTypes.array.isRequired
+    pipeline: PropTypes.array.isRequired
   }
 
   /**
@@ -25,13 +25,13 @@ class PipelineWorkspace extends PureComponent {
    * @returns {React.Component} The component.
    */
   render() {
-    const stages = this.props.stages.map((stage, i) => {
+    const pipeline = this.props.pipeline.map((stage, i) => {
       return (<Stage {...this.props} stage={stage} index={i} key={stage.id} />);
     });
     return (
       <div className={classnames(styles['pipeline-workspace'])}>
         <Input {...this.props} />
-        {stages}
+        {pipeline}
       </div>
     );
   }

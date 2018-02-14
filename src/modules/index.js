@@ -5,7 +5,7 @@ import fields, { INITIAL_STATE as FIELDS_INITIAL_STATE } from './fields';
 import inputDocuments, { INITIAL_STATE as INPUT_INITIAL_STATE } from './input-documents';
 import namespace, { INITIAL_STATE as NS_INITIAL_STATE, NAMESPACE_CHANGED } from './namespace';
 import serverVersion, { INITIAL_STATE as SV_INITIAL_STATE } from './server-version';
-import stages, { INITIAL_STATE as STAGE_INITIAL_STATE } from './stages';
+import pipeline, { INITIAL_STATE as PIPELINE_INITIAL_STATE } from './pipeline';
 import savedPipelines, { INITIAL_STATE as SP_INITIAL_STATE } from './saved-pipelines';
 import view, { INITIAL_STATE as VIEW_INITIAL_STATE } from './view';
 
@@ -18,7 +18,7 @@ export const INITIAL_STATE = {
   inputDocuments: INPUT_INITIAL_STATE,
   namespace: NS_INITIAL_STATE,
   serverVersion: SV_INITIAL_STATE,
-  stages: STAGE_INITIAL_STATE,
+  pipeline: PIPELINE_INITIAL_STATE,
   savedPipelines: SP_INITIAL_STATE,
   view: VIEW_INITIAL_STATE
 };
@@ -50,7 +50,7 @@ const appReducer = combineReducers({
   namespace,
   serverVersion,
   savedPipelines,
-  stages,
+  pipeline,
   view
 });
 
@@ -65,7 +65,7 @@ export const savedState = (state = INITIAL_STATE) => {
     , { inputDocuments: state.inputDocuments }
     , { savedPipelines: state.savedPipelines }
     , { namespace: state.namespace }
-    , { stages: state.stages }
+    , { pipeline: state.pipeline }
     , { view: state.view }
   );
 };
@@ -84,7 +84,7 @@ export const restoredState = (state = INITIAL_STATE, stateId) => {
     inputDocuments: {},
     savedPipelines: {},
     namespace: {},
-    stages: {},
+    pipeline: {},
     view: '',
     stateId: stateId
   };
