@@ -4,29 +4,25 @@
   display: flex;
   width: 100%;
   align-items: center;
+  justify-content: space-between;
   font-weight: bold;
   box-shadow: 2px 0px @gray7;
 
-  &-spacer {
-    width: 38px;
-    flex-shrink: 0;
+  &-indicator {
+    padding-right: 15px;
+
+    i {
+      color: #67b144;
+    }
+
+    &-is-modified {
+      i {
+        color: #fbb129;
+      }
+    }
   }
 
-  &-name {
-    height: 25px;
-    width: 300px;
-    margin: 0px 10px 0px 15px;
-    font-size: 12px;
-    font-weight: bold;
-    padding: 0px 5px 0px 5px;
-    border: 1px @gray5 solid;
-    border-radius: 2px;
-    width: 100%;
-
-    &-is-invalid {
-      border: 1px @red solid;
-      border-radius: 2px;
-      background-color: @lightRed;
-    }
+  &-add-stage-button {
+    margin-left: 15px;
   }
 }
