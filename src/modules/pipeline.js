@@ -93,6 +93,7 @@ const EMPTY_STAGE = {
   isEnabled: true,
   isExpanded: true,
   isLoading: false,
+  isComplete: false,
   previewDocuments: [],
   error: null
 };
@@ -139,6 +140,7 @@ const changeStage = (state, action) => {
   const newState = copyState(state);
   newState[action.index].stage = action.stage;
   newState[action.index].executor = generateStage(newState[action.index]);
+  newState[action.index].isComplete = false;
   return newState;
 };
 
@@ -252,6 +254,7 @@ const updateStagePreview = (state, action) => {
   newState[action.index].error = action.error ? action.error.message : null;
   newState[action.index].isLoading = false;
   newState[action.index].isValid = (action.error === null);
+  newState[action.index].isComplete = action.isComplete;
   return newState;
 };
 
@@ -390,14 +393,16 @@ export const stageToggled = (index) => ({
  * @param {Array} docs - The documents.
  * @param {Number} index - The index.
  * @param {Error} error - The error.
+ * @param {Boolean} isComplete - If the preview is complete.
  *
  * @returns {Object} The action.
  */
-export const stagePreviewUpdated = (docs, index, error) => ({
+export const stagePreviewUpdated = (docs, index, error, isComplete) => ({
   type: STAGE_PREVIEW_UPDATED,
   documents: docs,
   index: index,
-  error: error
+  error: error,
+  isComplete: isComplete
 });
 
 /**
@@ -461,7 +466,7 @@ const executeAggregation = (dataService, ns, dispatch, state, index) => {
   if (stage.isValid && stage.isEnabled && stage.stageOperator && stage.stageOperator !== OUT) {
     executeStage(dataService, ns, dispatch, state, index);
   } else {
-    dispatch(stagePreviewUpdated([], index, null));
+    dispatch(stagePreviewUpdated([], index, null, false));
   }
 };
 
@@ -480,7 +485,7 @@ const executeStage = (dataService, ns, dispatch, state, index) => {
   dataService.aggregate(ns, pipeline, OPTIONS, (err, cursor) => {
     if (err) return dispatch(stagePreviewUpdated([], index, err));
     cursor.toArray((e, docs) => {
-      dispatch(stagePreviewUpdated(docs || [], index, e));
+      dispatch(stagePreviewUpdated(docs || [], index, e, true));
       cursor.close();
       dispatch(
         appRegistryEmit(
