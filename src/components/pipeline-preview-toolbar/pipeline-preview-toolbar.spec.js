@@ -6,16 +6,18 @@ import styles from './pipeline-preview-toolbar.less';
 
 describe('PipelinePreviewToolbar [Component]', () => {
   let component;
-  let stageAddedSpy;
+  let toggleCommentsSpy;
 
   beforeEach(() => {
-    stageAddedSpy = sinon.spy();
-    component = mount(<PipelinePreviewToolbar stageAdded={stageAddedSpy} isModified />);
+    toggleCommentsSpy = sinon.spy();
+    component = mount(
+      <PipelinePreviewToolbar toggleComments={toggleCommentsSpy} isModified isCommenting />
+    );
   });
 
   afterEach(() => {
     component = null;
-    stageAddedSpy = null;
+    toggleCommentsSpy = null;
   });
 
   it('renders the wrapper div', () => {
@@ -23,14 +25,14 @@ describe('PipelinePreviewToolbar [Component]', () => {
   });
 
   it('renders the add stage button', () => {
-    expect(component.find(`.${styles['pipeline-preview-toolbar-add-stage-button']}`)).
-      to.have.text('Add Stage');
+    expect(component.find(`.${styles['pipeline-preview-toolbar-comment-mode']}`)).
+      to.have.text('Comment Mode');
   });
 
-  context('when clicking the add stage button', () => {
+  context('when toggling comments', () => {
     it('calls the action', () => {
-      component.find(`.${styles['pipeline-preview-toolbar-add-stage-button']}`).simulate('click');
-      expect(stageAddedSpy.calledOnce).to.equal(true);
+      component.find(`.${styles['pipeline-preview-toolbar-toggle-comments-button']}`).simulate('click');
+      expect(toggleCommentsSpy.calledOnce).to.equal(true);
     });
   });
 });
