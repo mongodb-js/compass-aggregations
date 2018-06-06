@@ -91,7 +91,11 @@ class StageEditor extends PureComponent {
   onStageChange = (value) => {
     this.props.stageChanged(value, this.props.index);
     this.props.setIsModified(true);
-    if (this.props.stage.isValid) {
+
+    if (
+      this.props.stage.fromStageOperators === false &&
+      this.props.stage.isValid
+    ) {
       this.debounceRun();
     }
   }
