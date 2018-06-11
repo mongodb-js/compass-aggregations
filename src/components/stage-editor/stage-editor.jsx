@@ -57,7 +57,7 @@ class StageEditor extends PureComponent {
       this.props.stage.stageOperator
     );
     tools.setCompleters([ this.completer ]);
-    this.debounceRun = debounce(this.onRunStage, 500);
+    this.debounceRun = debounce(this.onRunStage, 750);
   }
 
   /**
