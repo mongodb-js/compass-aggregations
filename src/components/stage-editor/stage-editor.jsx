@@ -56,10 +56,10 @@ class StageEditor extends PureComponent {
           return callback(null, []);
         }
         this.completer.getCompletions(editor, session, pos, prefix, (error, expressions) => {
-          if (error === null) {
-            return callback(null, expressions);
+          if (error !== null) {
+            return callback(error);
           }
-          return callback(null, []);
+          return callback(null, expressions);
         });
       }
     };
