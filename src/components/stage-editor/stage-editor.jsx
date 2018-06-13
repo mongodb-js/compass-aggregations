@@ -159,7 +159,6 @@ class StageEditor extends PureComponent {
       <div>
         <div className={classnames(styles['stage-editor'])}>
           <AceEditor
-            ref="code"
             mode="mongodb"
             theme="mongodb"
             width="100%"
