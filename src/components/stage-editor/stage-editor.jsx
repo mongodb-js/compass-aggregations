@@ -52,7 +52,10 @@ class StageEditor extends PureComponent {
     const textCompleter = tools.textCompleter;
     const customCompleter = {
       getCompletions: (editor, session, pos, prefix, callback) => {
-        if (this.props.stage.stage.indexOf('*/') >= editor.env.document.doc.positionToIndex(pos, 0)) {
+        if (
+          this.props.stage.stage.indexOf('/*') <= editor.env.document.doc.positionToIndex(pos, 0) &&
+          this.props.stage.stage.indexOf('*/') >= editor.env.document.doc.positionToIndex(pos, 0)
+        ) {
           return callback(null, []);
         }
         this.completer.getCompletions(editor, session, pos, prefix, (error, expressions) => {
