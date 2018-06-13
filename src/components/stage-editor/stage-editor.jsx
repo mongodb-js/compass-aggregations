@@ -50,13 +50,29 @@ class StageEditor extends PureComponent {
     super(props);
     const tools = ace.acequire('ace/ext/language_tools');
     const textCompleter = tools.textCompleter;
+    const customCompleter = {
+      getCompletions: (editor, session, pos, prefix, callback) => {
+        if (
+          this.props.stage.stage.indexOf('/*') <= editor.env.document.doc.positionToIndex(pos, 0) &&
+          this.props.stage.stage.indexOf('*/') >= editor.env.document.doc.positionToIndex(pos, 0)
+        ) {
+          return callback(null, []);
+        }
+        this.completer.getCompletions(editor, session, pos, prefix, (error, expressions) => {
+          if (error !== null) {
+            return callback(error);
+          }
+          return callback(null, expressions);
+        });
+      }
+    };
     this.completer = new StageAutoCompleter(
       this.props.serverVersion,
       textCompleter,
       this.props.fields,
       this.props.stage.stageOperator
     );
-    tools.setCompleters([ this.completer ]);
+    tools.setCompleters([ customCompleter ]);
     this.debounceRun = debounce(this.onRunStage, 750);
   }
 
