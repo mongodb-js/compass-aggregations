@@ -24,7 +24,7 @@ describe('AddAfterStage [Component]', () => {
     });
 
     it('renders + text', () => {
-      expect(component.find('button').contains('+')).to.equal(true);
+      expect(component.find('button')).to.have.text('+');
     });
   });
 

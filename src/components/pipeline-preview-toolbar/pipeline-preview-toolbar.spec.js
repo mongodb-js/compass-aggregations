@@ -38,7 +38,7 @@ describe('PipelinePreviewToolbar [Component]', () => {
   });
 
   it('renders the sample mode text', () => {
-    expect(component.find(`.${styles['pipeline-preview-toolbar-sample-mode']}`).hostNodes()).
+    expect(component.find(`.${styles['pipeline-preview-toolbar-sample-mode']}`)).
       to.have.text('Sample Mode');
   });
 
@@ -51,7 +51,7 @@ describe('PipelinePreviewToolbar [Component]', () => {
 
   context('when toggling sampling', () => {
     it('calls the action', () => {
-      component.find(`.${styles['pipeline-preview-toolbar-toggle-sample-button']}`).hostNodes().simulate('click');
+      component.find(`.${styles['pipeline-preview-toolbar-toggle-sample-button']}`).simulate('click');
       expect(toggleSampleSpy.calledOnce).to.equal(true);
     });
   });
