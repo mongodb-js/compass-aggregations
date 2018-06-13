@@ -50,13 +50,26 @@ class StageEditor extends PureComponent {
     super(props);
     const tools = ace.acequire('ace/ext/language_tools');
     const textCompleter = tools.textCompleter;
+    const customCompleter = {
+      getCompletions: (editor, session, pos, prefix, callback) => {
+        if (this.props.stage.stage.indexOf('*/') >= editor.env.document.doc.positionToIndex(pos, 0)) {
+          return callback(null, []);
+        }
+        this.completer.getCompletions(editor, session, pos, prefix, (error, expressions) => {
+          if (error === null) {
+            return callback(null, expressions);
+          }
+          return callback(null, []);
+        });
+      }
+    };
     this.completer = new StageAutoCompleter(
       this.props.serverVersion,
       textCompleter,
       this.props.fields,
       this.props.stage.stageOperator
     );
-    tools.setCompleters([ this.completer ]);
+    tools.setCompleters([ customCompleter ]);
     this.debounceRun = debounce(this.onRunStage, 750);
   }
 
@@ -146,6 +159,7 @@ class StageEditor extends PureComponent {
       <div>
         <div className={classnames(styles['stage-editor'])}>
           <AceEditor
+            ref="code"
             mode="mongodb"
             theme="mongodb"
             width="100%"
