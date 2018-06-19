@@ -6,7 +6,10 @@ import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
 import { toggleComments } from 'modules/comments';
 import { toggleSample } from 'modules/sample';
-import { toggleInputDocumentsCollapsed } from 'modules/input-documents';
+import {
+  toggleInputDocumentsCollapsed,
+  refreshInputDocuments
+} from 'modules/input-documents';
 
 import { copyToClipboard } from 'modules/clipboard';
 import { openLink } from 'modules/link';
@@ -90,6 +93,7 @@ const MappedAggregations = connect(
     namespaceChanged,
     nameChanged,
     toggleInputDocumentsCollapsed,
+    refreshInputDocuments,
     toggleComments,
     toggleSample,
     deletePipeline,
