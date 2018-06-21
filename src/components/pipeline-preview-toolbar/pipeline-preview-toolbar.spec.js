@@ -48,7 +48,7 @@ describe('PipelinePreviewToolbar [Component]', () => {
   });
 
   it('renders the auto preview mode text', () => {
-    expect(component.find(`.${styles['pipeline-preview-toolbar-auto-preview-mode']}`).hostNodes()).
+    expect(component.find(`.${styles['pipeline-preview-toolbar-auto-preview-mode']}`)).
       to.have.text('Auto Preview');
   });
 
@@ -68,7 +68,7 @@ describe('PipelinePreviewToolbar [Component]', () => {
 
   context('when toggling auto previewing', () => {
     it('calls the action', () => {
-      component.find(`.${styles['pipeline-preview-toolbar-toggle-auto-preview-button']}`).hostNodes().simulate('click');
+      component.find(`.${styles['pipeline-preview-toolbar-toggle-auto-preview-button']}`).simulate('click');
       expect(toggleAutoPreviewSpy.calledOnce).to.equal(true);
     });
   });
