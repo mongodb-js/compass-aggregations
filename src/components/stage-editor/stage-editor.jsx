@@ -38,6 +38,7 @@ class StageEditor extends Component {
     serverVersion: PropTypes.string.isRequired,
     fields: PropTypes.array.isRequired,
     stageChanged: PropTypes.func.isRequired,
+    isAutoPreviewing: PropTypes.bool.isRequired,
     setIsModified: PropTypes.func.isRequired
   }
 
@@ -95,7 +96,8 @@ class StageEditor extends Component {
 
     if (
       this.props.stage.fromStageOperators === false &&
-      this.props.stage.isValid
+      this.props.stage.isValid &&
+      this.props.isAutoPreviewing
     ) {
       this.debounceRun();
     }
@@ -157,6 +159,15 @@ class StageEditor extends Component {
             setOptions={OPTIONS}
             onLoad={(editor) => {
               this.editor = editor;
+              this.editor.commands.addCommand({
+                name: 'executePipeline',
+                bindKey: {
+                  win: 'Ctrl-Enter', mac: 'Command-Enter'
+                },
+                exec: () => {
+                  this.onRunStage();
+                }
+              });
             }}
           />
         </div>
