@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import StageBuilderToolbar from 'components/stage-builder-toolbar';
@@ -9,7 +9,7 @@ import styles from './stage-toolbar.less';
 /**
  * The stage toolbar component.
  */
-class StageToolbar extends PureComponent {
+class StageToolbar extends Component {
   static displayName = 'StageToolbar';
   static propTypes = {
     stage: PropTypes.object.isRequired,

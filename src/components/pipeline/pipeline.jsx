@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PipelineToolbar from 'components/pipeline-toolbar';
@@ -11,7 +11,7 @@ import styles from './pipeline.less';
 /**
  * Displays a pipeline.
  */
-class Pipeline extends PureComponent {
+class Pipeline extends Component {
   static displayName = 'PipelineComponent';
 
   static propTypes = {

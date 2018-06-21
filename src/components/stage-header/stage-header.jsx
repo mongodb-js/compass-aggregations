@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import AddAfterStage from 'components/add-after-stage';
@@ -13,7 +13,7 @@ import styles from './stage-header.less';
 /**
  * Display the header on the stage card.
  */
-class StageHeader extends PureComponent {
+class StageHeader extends Component {
   static displayName = 'StageHeaderComponent';
 
   static propTypes = {

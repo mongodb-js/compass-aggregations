@@ -66,7 +66,7 @@ describe('Stage module', () => {
         expect(stage.isValid).to.equal(false);
       });
 
-      it('sets the syntax error', () => {
+      it.skip('sets the syntax error', () => {
         expect(stage.syntaxError).to.equal('Expected "[" or AggregationStage but "{" found.');
       });
     });

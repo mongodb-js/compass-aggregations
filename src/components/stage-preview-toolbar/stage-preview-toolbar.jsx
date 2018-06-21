@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import decomment from 'decomment';
@@ -19,7 +19,7 @@ const DISABLED = 'Stage is disabled. Results not passed in the pipeline.';
 /**
  * The stage preview toolbar component.
  */
-class StagePreviewToolbar extends PureComponent {
+class StagePreviewToolbar extends Component {
   static displayName = 'StagePreviewToolbar';
   static propTypes = {
     isEnabled: PropTypes.bool.isRequired,

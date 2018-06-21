@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import StageEditor from 'components/stage-editor';
@@ -9,7 +9,7 @@ import styles from './stage-workspace.less';
 /**
  * The stage workspace component.
  */
-class StageWorkspace extends PureComponent {
+class StageWorkspace extends Component {
   static displayName = 'StageWorkspace';
 
   static propTypes = {

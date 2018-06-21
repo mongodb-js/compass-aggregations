@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PipelineBuilderToolbar from 'components/pipeline-builder-toolbar';
@@ -9,8 +9,9 @@ import styles from './pipeline-toolbar.less';
 /**
  * The toolbar component.
  */
-class PipelineToolbar extends PureComponent {
-  static displayName = 'ToolbarComponent';
+
+class PipelineToolbar extends Component {
+  static displayName = 'PipelineToolbarComponent';
 
   static propTypes = {
     savedPipelinesListToggle: PropTypes.func.isRequired,

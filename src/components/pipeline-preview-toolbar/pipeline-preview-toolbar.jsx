@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Switch from 'react-ios-switch';
@@ -8,7 +8,7 @@ import styles from './pipeline-preview-toolbar.less';
 /**
  * The pipeline preview toolbar component.
  */
-class PipelinePreviewToolbar extends PureComponent {
+class PipelinePreviewToolbar extends Component {
   static displayName = 'PipelinePreviewToolbarComponent';
 
   static propTypes = {

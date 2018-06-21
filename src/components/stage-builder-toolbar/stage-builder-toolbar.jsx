@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { InfoSprinkle } from 'hadron-react-components';
@@ -45,7 +45,7 @@ const SPRINKLE_MAPPINGS = {
 /**
  * The stage builder toolbar component.
  */
-class StageBuilderToolbar extends PureComponent {
+class StageBuilderToolbar extends Component {
   static displayName = 'StageBuilderToolbar';
   static propTypes = {
     stage: PropTypes.object.isRequired,

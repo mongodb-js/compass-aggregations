@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import semver from 'semver';
@@ -10,7 +10,7 @@ import styles from './stage-operator-select.less';
 /**
  * Select from a list of stage operators.
  */
-class StageOperatorSelect extends PureComponent {
+class StageOperatorSelect extends Component {
   static displayName = 'StageOperatorSelectComponent';
 
   static propTypes = {

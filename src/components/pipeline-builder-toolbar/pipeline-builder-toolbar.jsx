@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton, IconButton } from 'hadron-react-buttons';
@@ -9,7 +9,7 @@ import styles from './pipeline-builder-toolbar.less';
 /**
  * The pipeline builder toolbar component.
  */
-class PipelineBuilderToolbar extends PureComponent {
+class PipelineBuilderToolbar extends Component {
   static displayName = 'PipelineBuilderToolbarComponent';
 
   static propTypes = {

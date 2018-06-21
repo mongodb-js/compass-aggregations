@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { DragDropContext } from 'react-dnd';
@@ -13,7 +13,7 @@ import styles from './pipeline-workspace.less';
  * The pipeline workspace component.
  */
 @DragDropContext(HTML5Backend)
-class PipelineWorkspace extends PureComponent {
+class PipelineWorkspace extends Component {
   static displayName = 'PipelineWorkspace';
 
   static propTypes = {
