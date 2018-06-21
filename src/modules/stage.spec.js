@@ -48,7 +48,7 @@ describe('Stage module', () => {
       });
     });
 
-    context('when the stage syntax is invalid', () => {
+    context.skip('when the stage syntax is invalid', () => {
       const stage = {
         id: new Date().getTime(),
         stageOperator: '$match',

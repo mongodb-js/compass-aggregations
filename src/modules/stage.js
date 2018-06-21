@@ -1,6 +1,5 @@
 import parser from 'mongodb-query-parser';
 import decomment from 'decomment';
-import { parse } from 'mongodb-stage-validator';
 
 /**
  * Generates an Object representing the stage to be passed to the DataService.
@@ -16,11 +15,11 @@ export default function generateStage(state) {
   const stage = {};
   try {
     const decommented = decomment(state.stage);
-    parse(`{${state.stageOperator}: ${decommented}}`);
+    // parse(`{${state.stageOperator}: ${decommented}}`);
     stage[state.stageOperator] = parser(decommented);
   } catch (e) {
-    state.syntaxError = e.message;
-    state.isValid = false;
+    // state.syntaxError = e.message;
+    // state.isValid = false;
     state.previewDocuments = [];
     return {};
   }
