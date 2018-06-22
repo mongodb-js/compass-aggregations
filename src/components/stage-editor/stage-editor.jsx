@@ -96,7 +96,6 @@ class StageEditor extends Component {
 
     if (
       this.props.stage.fromStageOperators === false &&
-      this.props.stage.isValid &&
       this.props.isAutoPreviewing
     ) {
       this.debounceRun();
@@ -108,9 +107,7 @@ class StageEditor extends Component {
    * dispatching.
    */
   onRunStage = () => {
-    if (this.props.stage.isValid) {
-      this.props.runStage(this.props.index);
-    }
+    this.props.runStage(this.props.index);
   }
 
   /**
