@@ -25,6 +25,14 @@ class StageWorkspace extends Component {
     stageChanged: PropTypes.func.isRequired
   }
 
+  shouldComponentUpdate(nextProps) {
+    return nextProps.stage !== this.props.stage ||
+      nextProps.index !== this.props.index ||
+      nextProps.serverVersion !== this.props.serverVersion ||
+      nextProps.isAutoPreviewing !== this.props.isAutoPreviewing ||
+      nextProps.fields.length !== this.props.fields.length;
+  }
+
   /**
    * Renders the stage workspace.
    *
@@ -34,7 +42,13 @@ class StageWorkspace extends Component {
     return (
       <div className={classnames(styles['stage-workspace'])}>
         <StageEditor
-          stage={this.props.stage}
+          stage={this.props.stage.stage}
+          stageOperator={this.props.stage.stageOperator}
+          snippet={this.props.stage.snippet}
+          error={this.props.stage.error}
+          syntaxError={this.props.stage.syntaxError}
+          isValid={this.props.stage.isValid}
+          fromStageOperators={this.props.stage.fromStageOperators || false}
           runStage={this.props.runStage}
           index={this.props.index}
           serverVersion={this.props.serverVersion}
