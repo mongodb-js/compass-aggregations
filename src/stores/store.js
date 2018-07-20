@@ -41,6 +41,13 @@ store.onActivated = (appRegistry) => {
   });
 
   /**
+   * Refresh documents on data refresh.
+   */
+  appRegistry.on('refresh-data', () => {
+    store.dispatch(refreshInputDocuments());
+  });
+
+  /**
    * Set the data service in the store when connected.
    *
    * @param {Error} error - The error.
