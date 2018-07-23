@@ -44,7 +44,10 @@ store.onActivated = (appRegistry) => {
    * Refresh documents on data refresh.
    */
   appRegistry.on('refresh-data', () => {
-    store.dispatch(refreshInputDocuments());
+    const ns = appRegistry.getStore('App.NamespaceStore').ns;
+    // TODO: only refresh when we are in the index tab; for now just check if
+    // we are in the documents set of tabs.
+    if (ns.indexOf('.' === 0)) store.dispatch(refreshInputDocuments());
   });
 
   /**
