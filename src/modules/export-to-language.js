@@ -1,4 +1,4 @@
-import generateStage from 'modules/stage';
+import { generateStringStage } from 'modules/stage';
 
 /**
  * Generate the pipeline for export to language.
@@ -8,14 +8,14 @@ import generateStage from 'modules/stage';
  * @returns {Array} The raw pipeline.
  */
 export const generatePipeline = (state) => {
-  const pipeline = [];
+  let pipeline = '[';
   state.pipeline.forEach((stage) => {
     if (stage.isEnabled && stage.stageOperator) {
-      stage.executor = generateStage(stage);
-      pipeline.push(stage.executor);
+      const executor = generateStringStage(stage);
+      pipeline = pipeline + executor + ',';
     }
   });
-  return pipeline;
+  return pipeline + ']';
 };
 
 /**

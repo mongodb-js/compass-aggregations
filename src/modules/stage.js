@@ -28,3 +28,12 @@ export default function generateStage(state) {
   state.syntaxError = null;
   return stage;
 }
+
+export function generateStringStage(state) {
+  if (!state.isEnabled || !state.stageOperator || state.stage === '') {
+    return {};
+  }
+
+  const decommented = decomment(state.stage);
+  return `{${state.stageOperator}: ${decommented}}`;
+}
