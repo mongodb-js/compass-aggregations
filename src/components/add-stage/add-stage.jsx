@@ -24,6 +24,7 @@ class AddStage extends PureComponent {
     return (
       <div className={classnames(styles['add-stage'])}>
         <TextButton
+          title="Add new stage"
           text="Add Stage"
           className="btn btn-xs btn-primary"
           clickHandler={this.props.stageAdded} />
