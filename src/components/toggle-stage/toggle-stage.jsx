@@ -34,7 +34,7 @@ class ToggleStage extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const title = (this.props.isEnabled ? 'Disable' : 'Enable') + ' this stage';
+    const title = (this.props.isEnabled ? 'Disable' : 'Enable') + ' Stage';
     return (
       <div className={classnames(styles['toggle-stage'])} title={title}>
         <Switch
