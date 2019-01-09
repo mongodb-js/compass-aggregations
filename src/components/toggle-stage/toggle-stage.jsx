@@ -17,7 +17,7 @@ class ToggleStage extends PureComponent {
     runStage: PropTypes.func.isRequired,
     stageToggled: PropTypes.func.isRequired,
     setIsModified: PropTypes.func.isRequired
-  }
+  };
 
   /**
    * Handle stage toggled clicks.
@@ -26,7 +26,7 @@ class ToggleStage extends PureComponent {
     this.props.stageToggled(this.props.index);
     this.props.setIsModified(true);
     this.props.runStage(this.props.index);
-  }
+  };
 
   /**
    * Render the button component.
@@ -34,15 +34,16 @@ class ToggleStage extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
+    const title = (this.props.isEnabled ? 'Disable' : 'Enable') + ' this stage';
     return (
-      <div className={classnames(styles['toggle-stage'])}>
+      <div className={classnames(styles['toggle-stage'])} title={title}>
         <Switch
           checked={this.props.isEnabled}
           onChange={this.onStageToggled}
           className={classnames(styles['toggle-stage-button'])}
           onColor="rgb(19, 170, 82)"
-          style={{ backgroundColor: 'rgb(255,255,255)'}}
-          />
+          style={{ backgroundColor: 'rgb(255,255,255)' }}
+        />
       </div>
     );
   }
