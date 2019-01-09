@@ -21,17 +21,21 @@ class StageOperatorSelect extends PureComponent {
     stageOperatorSelected: PropTypes.func.isRequired,
     serverVersion: PropTypes.string.isRequired,
     setIsModified: PropTypes.func.isRequired
-  }
+  };
 
   /**
    * Called when the stage operator is selected.
    *
    * @param {String} name - The name of the stage operator.
    */
-  onStageOperatorSelected = (name) => {
-    this.props.stageOperatorSelected(this.props.index, name, this.props.isCommenting);
+  onStageOperatorSelected = name => {
+    this.props.stageOperatorSelected(
+      this.props.index,
+      name,
+      this.props.isCommenting
+    );
     this.props.setIsModified(true);
-  }
+  };
 
   /**
    * Render the stage operator select component.
@@ -39,7 +43,7 @@ class StageOperatorSelect extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const operators = STAGE_OPERATORS.filter((o) => {
+    const operators = STAGE_OPERATORS.filter(o => {
       return semver.gte(this.props.serverVersion, o.version);
     });
     return (
@@ -54,7 +58,10 @@ class StageOperatorSelect extends PureComponent {
           className={classnames(styles['stage-operator-select-control'])}
           options={operators}
           value={this.props.stageOperator}
-          onChange={this.onStageOperatorSelected} />
+          onChange={this.onStageOperatorSelected}
+          placeholder="Select Stage Operator..."
+          ariaLabel="Select Stage Operator"
+        />
       </div>
     );
   }
