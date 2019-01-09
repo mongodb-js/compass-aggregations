@@ -16,7 +16,7 @@ class StageGrabber extends PureComponent {
    */
   render() {
     return (
-      <div className={classnames(styles['stage-grabber'])}>
+      <div className={classnames(styles['stage-grabber'])} title="Reorder Stage">
         <i className="fa fa-bars" aria-hidden />
       </div>
     );
