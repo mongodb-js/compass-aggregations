@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton } from 'hadron-react-buttons';
+import { Tooltip } from 'hadron-react-components';
 
 import styles from './add-stage.less';
 
@@ -13,7 +14,7 @@ class AddStage extends PureComponent {
 
   static propTypes = {
     stageAdded: PropTypes.func.isRequired
-  }
+  };
 
   /**
    * Render the stage component.
@@ -23,11 +24,14 @@ class AddStage extends PureComponent {
   render() {
     return (
       <div className={classnames(styles['add-stage'])}>
-        <TextButton
-          title="Add New Stage"
-          text="Add Stage"
-          className="btn btn-xs btn-primary"
-          clickHandler={this.props.stageAdded} />
+        <span data-tip="Add New Stage">
+          <TextButton
+            text="Add Stage"
+            className="btn btn-xs btn-primary"
+            clickHandler={this.props.stageAdded}
+          />
+        </span>
+        <Tooltip />
       </div>
     );
   }
