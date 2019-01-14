@@ -2,9 +2,19 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Switch from 'react-ios-switch';
+import { Tooltip } from 'hadron-react-components';
 
 import styles from './pipeline-preview-toolbar.less';
 
+const TOOLTIP_PREVIEW_MODE =
+  'Show a preview of resulting documents after <br />' +
+  'each stage in the pipeline.';
+
+const TOOLTIP_SAMPLING_MODE =
+  'Use a random sample of documents instead of<br />' +
+  'the entire collection so you can develop your<br />' +
+  'pipeline quickly. Sample size can be specified<br />' +
+  'in the settings panel.';
 /**
  * The pipeline preview toolbar component.
  */
@@ -19,12 +29,15 @@ class PipelinePreviewToolbar extends PureComponent {
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
     isModified: PropTypes.bool.isRequired
-  }
+  };
 
   modifiedText() {
     if (this.props.isModified) {
       return (
-        <div className={classnames(styles['pipeline-preview-toolbar-indicator-text'])}>
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-indicator-text']
+          )}>
           Unsaved changes
         </div>
       );
@@ -38,45 +51,87 @@ class PipelinePreviewToolbar extends PureComponent {
    */
   render() {
     const isModifiedClassName = classnames({
-      [ styles['pipeline-preview-toolbar-indicator'] ]: true,
-      [ styles['pipeline-preview-toolbar-indicator-is-modified'] ]: this.props.isModified
+      [styles['pipeline-preview-toolbar-indicator']]: true,
+      [styles['pipeline-preview-toolbar-indicator-is-modified']]: this.props
+        .isModified
     });
     return (
       <div className={classnames(styles['pipeline-preview-toolbar'])}>
-        <div className={classnames(styles['pipeline-preview-toolbar-toggle-comments'])}>
-          <Switch
-            checked={this.props.isCommenting}
-            onChange={this.props.toggleComments}
-            className={classnames(styles['pipeline-preview-toolbar-toggle-comments-button'])}
-            onColor="rgb(19, 170, 82)"
-            style={{ backgroundColor: 'rgb(255,255,255)'}}
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-toggle-comments']
+          )}>
+          <span
+            data-tip={TOOLTIP_PREVIEW_MODE}
+            data-place="top"
+            data-html="true">
+            <Switch
+              checked={this.props.isCommenting}
+              onChange={this.props.toggleComments}
+              className={classnames(
+                styles['pipeline-preview-toolbar-toggle-comments-button']
+              )}
+              onColor="rgb(19, 170, 82)"
+              style={{ backgroundColor: 'rgb(255,255,255)' }}
             />
+          </span>
         </div>
-        <div className={classnames(styles['pipeline-preview-toolbar-comment-mode'])}>
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-comment-mode']
+          )}>
           Comment Mode
         </div>
-        <div className={classnames(styles['pipeline-preview-toolbar-toggle-sample'])}>
-          <Switch
-            checked={this.props.isSampling}
-            onChange={this.props.toggleSample}
-            className={classnames(styles['pipeline-preview-toolbar-toggle-sample-button'])}
-            onColor="rgb(19, 170, 82)"
-            style={{ backgroundColor: 'rgb(255,255,255)'}}
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-toggle-sample']
+          )}>
+          <span
+            data-tip={TOOLTIP_SAMPLING_MODE}
+            data-place="top"
+            data-html="true">
+            <Switch
+              checked={this.props.isSampling}
+              onChange={this.props.toggleSample}
+              className={classnames(
+                styles['pipeline-preview-toolbar-toggle-sample-button']
+              )}
+              onColor="rgb(19, 170, 82)"
+              style={{ backgroundColor: 'rgb(255,255,255)' }}
             />
+          </span>
+          <Tooltip />
         </div>
-        <div className={classnames(styles['pipeline-preview-toolbar-sample-mode'])}>
-          Sample Mode
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-sample-mode']
+          )}>
+            Sample Mode
         </div>
-        <div className={classnames(styles['pipeline-preview-toolbar-toggle-auto-preview'])}>
-          <Switch
-            checked={this.props.isAutoPreviewing}
-            onChange={this.props.toggleAutoPreview}
-            className={classnames(styles['pipeline-preview-toolbar-toggle-auto-preview-button'])}
-            onColor="rgb(19, 170, 82)"
-            style={{ backgroundColor: 'rgb(255,255,255)'}}
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-toggle-auto-preview']
+          )}>
+          <span
+            data-tip={TOOLTIP_PREVIEW_MODE}
+            data-place="top"
+            data-html="true">
+            <Switch
+              checked={this.props.isAutoPreviewing}
+              onChange={this.props.toggleAutoPreview}
+              className={classnames(
+                styles['pipeline-preview-toolbar-toggle-auto-preview-button']
+              )}
+              onColor="rgb(19, 170, 82)"
+              style={{ backgroundColor: 'rgb(255,255,255)' }}
             />
+          </span>
+          <Tooltip />
         </div>
-        <div className={classnames(styles['pipeline-preview-toolbar-auto-preview-mode'])}>
+        <div
+          className={classnames(
+            styles['pipeline-preview-toolbar-auto-preview-mode']
+          )}>
           Auto Preview
         </div>
         <div className={isModifiedClassName}>

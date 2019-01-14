@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Switch from 'react-ios-switch';
+import { Tooltip } from 'hadron-react-components';
 
 import styles from './toggle-stage.less';
 
@@ -34,16 +35,19 @@ class ToggleStage extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const title = (this.props.isEnabled ? 'Disable' : 'Enable') + ' Stage';
+    const title = (this.props.isEnabled ? 'Exclude stage from pipeline' : 'Include stage in pipeline');
     return (
-      <div className={classnames(styles['toggle-stage'])} title={title}>
-        <Switch
-          checked={this.props.isEnabled}
-          onChange={this.onStageToggled}
-          className={classnames(styles['toggle-stage-button'])}
-          onColor="rgb(19, 170, 82)"
-          style={{ backgroundColor: 'rgb(255,255,255)' }}
-        />
+      <div className={classnames(styles['toggle-stage'])}>
+        <span data-tip={title} data-place="top">
+          <Switch
+            checked={this.props.isEnabled}
+            onChange={this.onStageToggled}
+            className={classnames(styles['toggle-stage-button'])}
+            onColor="rgb(19, 170, 82)"
+            style={{ backgroundColor: 'rgb(255,255,255)' }}
+          />
+          </span>
+        <Tooltip />
       </div>
     );
   }

@@ -24,7 +24,7 @@ class AddStage extends PureComponent {
   render() {
     return (
       <div className={classnames(styles['add-stage'])}>
-        <span data-tip="Add New Stage">
+        <span data-tip="Add stage below" data-place="top">
           <TextButton
             text="Add Stage"
             className="btn btn-xs btn-primary"
