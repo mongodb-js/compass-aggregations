@@ -30,7 +30,7 @@ describe('DeleteStage [Component]', () => {
     });
 
     it('renders the collapse text', () => {
-      expect(component.find('button')).to.have.prop('title', 'Delete Stage');
+      expect(component.find('button')).to.have.prop('title', 'Delete stage');
     });
 
     it('renders the delete button', () => {
