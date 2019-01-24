@@ -11,6 +11,12 @@ To develop in electron:
 npm start
 ```
 
+To develop in Storybook:
+
+```bash
+npm run storybook
+```
+
 ## Testing
 
 To run all the tests:

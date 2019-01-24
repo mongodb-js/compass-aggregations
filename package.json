@@ -14,7 +14,8 @@
     "check": "mongodb-js-precommit './src/**/*{.js,.jsx}' './test/**/*.js' './electron/**/*.js' './config/**/*{.js,.jsx}'",
     "link-plugin": "./scripts/link.sh",
     "unlink-plugin": "./scripts/unlink.sh",
-    "prepublish": "npm run compile"
+    "prepublish": "npm run compile",
+    "storybook": "start-storybook -p 9001 -c .storybook"
   },
   "precommit": [
     "check"
@@ -36,6 +37,11 @@
   "devDependencies": {
     "@mongodb-js/compass-crud": "^6.1.2",
     "@mongodb-js/compass-field-store": "^2.0.0",
+    "@storybook/addon-actions": "^3.4.11",
+    "@storybook/addon-knobs": "^3.4.11",
+    "@storybook/addon-links": "^3.4.11",
+    "@storybook/addon-options": "^3.4.11",
+    "@storybook/react": "^3.4.11",
     "autoprefixer": "^7.1.2",
     "babel-cli": "^6.10.1",
     "babel-core": "^6.24.1",
@@ -98,22 +104,25 @@
     "react-ace": "^6.1.1",
     "react-dom": "^16.6.0",
     "react-hot-loader": "^4.1.0",
+    "react-storybook-addon-chapters": "^2.1.9",
     "resolve": "^1.4.0",
     "rimraf": "^2.6.1",
     "shebang-loader": "0.0.1",
-    "sinon": "^3.2.0",
+    "sinon": "^7.2.2",
     "sinon-chai": "^2.11.0",
+    "storybook-addon-redux-listener": "^0.1.7",
+    "storybook-readme": "^3.3.0",
     "style-loader": "^0.18.2",
     "url-loader": "^0.6.2",
     "webpack": "^3.5.5",
     "webpack-bundle-analyzer": "^2.9.0",
-    "webpack-dev-server": "^2.4.5",
+    "webpack-dev-server": "^2.11.3",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0",
     "webpack-sources": "1.0.1"
   },
   "dependencies": {
-    "bson": "^1.0.4",
+    "bson": "^4.0.1",
     "bson-transpilers": "^0.9.0",
     "decomment": "^0.9.1",
     "lodash.debounce": "^4.0.8",
