@@ -1,6 +1,8 @@
 import { ComponentPreview } from './component-preview';
 import { Page } from './page';
 
+import styles from './index.less';
+
 const withChaptersOptions = {
   showSource: false,
   allowSourceToggling: true,
