@@ -70,49 +70,46 @@ class Pipeline extends PureComponent {
     isCollationExpanded: PropTypes.bool.isRequired
   };
 
-  // static defaultProps = {
-  //   name: '',
-  //   pipeline: [],
-  //   restorePipeline: {
-  //     // isModalVisible: false
-  //   },
-  //   // savedPipeline: {
-  //   //   // isNameValid: true
-  //   // }
-  // };
+  static defaultProps = {
+    name: '',
+    isLoading: false,
+    isModified: false,
+    /**
+     * Is comment mode enabled?
+     */
+    isCommenting: true,
+    /**
+     * Is sampling mode enabled?
+     */
+    isSampling: true,
+    /**
+     * Is auto-preview mode enabled?
+     */
+    isAutoPreviewing: true,
+    isExpanded: true,
+    isEnabled: true,
+    isValid: true,
+    collationString: "{locale: 'simple'}",
+    serverVersion: '4.0.0'
+  };
 
-  /**
-   * Render the pipeline component.
-   *
-   * @returns {Component} The component.
-   */
-  render() {
-    const restorePipelineModal = this.props.restorePipeline.isModalVisible ? (
+  renderRestorePipelineModal() {
+    if (
+      !this.props.restorePipeline ||
+      this.props.restorePipeline.isModalVisible
+    ) {
+      return null;
+    }
+    return (
       <RestorePipelineModal
         restorePipelineModalToggle={this.props.restorePipelineModalToggle}
         getPipelineFromIndexedDB={this.props.getPipelineFromIndexedDB}
         restorePipeline={this.props.restorePipeline}
       />
-    ) : null;
-    const importPipelineModal = (
-      <ImportPipeline
-        isOpen={this.props.isImportPipelineOpen}
-        closeImport={this.props.closeImport}
-        changeText={this.props.changeText}
-        createNew={this.props.createNew}
-        error={this.props.importPipelineError}
-        text={this.props.importPipelineText}
-      />
     );
-    const confirmImportPipelineModal = (
-      <ConfirmImportPipeline
-        isConfirmationNeeded={this.props.isImportConfirmationNeeded}
-        closeImport={this.props.closeImport}
-        isAutoPreviewing={this.props.isAutoPreviewing}
-        runStage={this.props.runStage}
-        confirmNew={this.props.confirmNew}
-      />
-    );
+  }
+
+  renderCollationToolbar() {
     let collation = null;
     let separator = (
       <div className={classnames(styles['pipeline-separator'])} />
@@ -138,6 +135,37 @@ class Pipeline extends PureComponent {
         />
       ];
     }
+    return {collation, separator};
+  }
+
+  /**
+   * Render the pipeline component.
+   *
+   * @returns {Component} The component.
+   */
+  render() {
+    const restorePipelineModal = this.renderRestorePipelineModal();
+
+    const importPipelineModal = (
+      <ImportPipeline
+        isOpen={this.props.isImportPipelineOpen}
+        closeImport={this.props.closeImport}
+        changeText={this.props.changeText}
+        createNew={this.props.createNew}
+        error={this.props.importPipelineError}
+        text={this.props.importPipelineText}
+      />
+    );
+    const confirmImportPipelineModal = (
+      <ConfirmImportPipeline
+        isConfirmationNeeded={this.props.isImportConfirmationNeeded}
+        closeImport={this.props.closeImport}
+        isAutoPreviewing={this.props.isAutoPreviewing}
+        runStage={this.props.runStage}
+        confirmNew={this.props.confirmNew}
+      />
+    );
+    const { collation, separator } = this.renderCollationToolbar();
 
     return (
       <div className={classnames(styles.pipeline)}>

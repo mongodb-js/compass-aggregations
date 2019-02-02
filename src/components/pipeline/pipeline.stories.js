@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
 import { ComponentPreview } from '../../../.storybook/decorators';
 
@@ -9,7 +8,8 @@ import Pipeline from '.';
 import { DragDropContextProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
+// import { withKnobs } from '@storybook/addon-knobs';
+// text, boolean, number
 
 /**
  * From Nathan's aggregation examples
@@ -22,8 +22,17 @@ const STATS_EXPR = `{
     min_cpi: {$min: "$trends.icecream_cpi" },
     cpi_deviation: {$stdDevPop: "$trends.icecream_cpi" }
 }`;
+
+// PropTypes.shape({
+//   id: PropTypes.oneOfType([
+//     PropTypes.string,
+//     PropTypes.number,
+//   ]).isRequired
+// });
+
 const STATS_PIPELINE = [
   {
+    // TODO (@imlucas) Doc this shape/schema somewhere. Stage object.
     id: new Date().getTime(),
     stageOperator: '$project',
     stage: STATS_EXPR,
@@ -32,12 +41,7 @@ const STATS_PIPELINE = [
     isExpanded: true,
     isLoading: false,
     isComplete: true,
-    previewDocuments: {
-      documents: [],
-      isLoading: false,
-      isExpanded: true,
-      count: 0
-    },
+    previewDocuments: [],
     snippet: 'TODO',
     error: '',
     syntaxError: '',
@@ -54,9 +58,9 @@ const STATS_DOCUMENTS = {
 
 const FIELDS = [];
 
-const RESTORE_PIPELINE = {
-  isModalVisible: false
-};
+// const RESTORE_PIPELINE = {
+//   isModalVisible: false
+// };
 const SAVED_PIPELINE = {
   isNameValid: true,
   pipelines: [],
@@ -76,31 +80,17 @@ const SAVED_PIPELINE = {
 // stageCollapseToggled={action('stageCollapseToggled')}
 
 storiesOf('Pipeline', module)
-  .addDecorator(withKnobs)
+  // .addDecorator(withKnobs)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('default', () => {
     return (
       <DragDropContextProvider backend={HTML5Backend}>
         <Pipeline
-          name="my pipeline"
           pipeline={STATS_PIPELINE}
-          isExpanded={boolean('Expanded', true)}
-          isEnabled={boolean('Enabled', true)}
-          isValid={boolean('Valid', true)}
-          serverVersion={text('Server Version', '4.0.0')}
-          isCommenting={boolean('isCommenting', true)}
-          previewCount={number('Preview Count', 100)}
           inputDocuments={STATS_DOCUMENTS}
           fields={FIELDS}
-          restorePipeline={RESTORE_PIPELINE}
           savedPipeline={SAVED_PIPELINE}
-          collationString="{locale: 'simple'}"
-          isLoading
-          isModified
-          isCommenting
-          isSampling
-          isAutoPreviewing
-          openLink={action('openLink')}
+          openLink={(url) => window.open(url)}
         />
       </DragDropContextProvider>
     );
