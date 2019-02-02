@@ -61,7 +61,7 @@ module.exports = function(env = 'development', argv = {}) {
         // For styles that have to be global (see https://github.com/css-modules/css-modules/pull/65)
         {
           test: /\.less$/,
-          include: [/\.global/, /bootstrap/],
+          include: [/global/, /bootstrap/],
           use: [
             { loader: 'style-loader' },
             {
@@ -70,9 +70,9 @@ module.exports = function(env = 'development', argv = {}) {
                 modules: false
               }
             },
-            {
-              loader: 'postcss-loader'
-            },
+            // {
+            //   loader: 'postcss-loader'
+            // },
             {
               loader: 'less-loader',
               options: {
@@ -81,10 +81,11 @@ module.exports = function(env = 'development', argv = {}) {
             }
           ]
         },
+
         // For CSS-Modules locally scoped styles
         {
           test: /\.less$/,
-          exclude: [/\.global/, /bootstrap/, /node_modules/],
+          exclude: [/\.global/, /bootstrap/, /node_modules/, /global\.less/],
           use: [
             { loader: 'style-loader' },
             {
@@ -92,15 +93,7 @@ module.exports = function(env = 'development', argv = {}) {
               options: {
                 modules: true,
                 importLoaders: 1,
-                localIdentName: 'migrator_[name]_[local]---[hash:base64:5]'
-              }
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                plugins() {
-                  return [autoprefixer('last 2 versions')];
-                }
+                localIdentName: 'compass-aggregations_[name]_[local]'
               }
             },
             {

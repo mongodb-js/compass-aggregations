@@ -68,7 +68,18 @@ class Pipeline extends PureComponent {
     openLink: PropTypes.func.isRequired,
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired
-  }
+  };
+
+  // static defaultProps = {
+  //   name: '',
+  //   pipeline: [],
+  //   restorePipeline: {
+  //     // isModalVisible: false
+  //   },
+  //   // savedPipeline: {
+  //   //   // isNameValid: true
+  //   // }
+  // };
 
   /**
    * Render the pipeline component.
@@ -76,12 +87,13 @@ class Pipeline extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const restorePipelineModal = this.props.restorePipeline.isModalVisible
-      ? (<RestorePipelineModal
-          restorePipelineModalToggle={this.props.restorePipelineModalToggle}
-          getPipelineFromIndexedDB={this.props.getPipelineFromIndexedDB}
-          restorePipeline={this.props.restorePipeline} />)
-      : null;
+    const restorePipelineModal = this.props.restorePipeline.isModalVisible ? (
+      <RestorePipelineModal
+        restorePipelineModalToggle={this.props.restorePipelineModalToggle}
+        getPipelineFromIndexedDB={this.props.getPipelineFromIndexedDB}
+        restorePipeline={this.props.restorePipeline}
+      />
+    ) : null;
     const importPipelineModal = (
       <ImportPipeline
         isOpen={this.props.isImportPipelineOpen}
@@ -89,7 +101,8 @@ class Pipeline extends PureComponent {
         changeText={this.props.changeText}
         createNew={this.props.createNew}
         error={this.props.importPipelineError}
-        text={this.props.importPipelineText} />
+        text={this.props.importPipelineText}
+      />
     );
     const confirmImportPipelineModal = (
       <ConfirmImportPipeline
@@ -97,10 +110,13 @@ class Pipeline extends PureComponent {
         closeImport={this.props.closeImport}
         isAutoPreviewing={this.props.isAutoPreviewing}
         runStage={this.props.runStage}
-        confirmNew={this.props.confirmNew} />
+        confirmNew={this.props.confirmNew}
+      />
     );
     let collation = null;
-    let separator = (<div className={classnames(styles['pipeline-separator'])}></div>);
+    let separator = (
+      <div className={classnames(styles['pipeline-separator'])} />
+    );
     if (this.props.isCollationExpanded) {
       collation = (
         <CollationToolbar
@@ -108,12 +124,19 @@ class Pipeline extends PureComponent {
           collationChanged={this.props.collationChanged}
           collationString={this.props.collationString}
           collationStringChanged={this.props.collationStringChanged}
-          openLink={this.props.openLink} />
+          openLink={this.props.openLink}
+        />
       );
-      separator = ([
-        <div key="top-separator" className={classnames(styles['pipeline-top-separator'])}></div>,
-        <div key="bottom-separator" className={classnames(styles['pipeline-bottom-separator'])}></div>
-      ]);
+      separator = [
+        <div
+          key="top-separator"
+          className={classnames(styles['pipeline-top-separator'])}
+        />,
+        <div
+          key="bottom-separator"
+          className={classnames(styles['pipeline-bottom-separator'])}
+        />
+      ];
     }
 
     return (
@@ -138,7 +161,8 @@ class Pipeline extends PureComponent {
           isAutoPreviewing={this.props.isAutoPreviewing}
           collationCollapseToggled={this.props.collationCollapseToggled}
           isCollationExpanded={this.props.isCollationExpanded}
-          name={this.props.name} />
+          name={this.props.name}
+        />
         {collation}
         {separator}
         <PipelineWorkspace {...this.props} />
@@ -147,10 +171,11 @@ class Pipeline extends PureComponent {
           restorePipelineFrom={this.props.restorePipelineFrom}
           deletePipeline={this.props.deletePipeline}
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
-          savedPipeline={this.props.savedPipeline} />
-        { restorePipelineModal }
-        { importPipelineModal }
-        { confirmImportPipelineModal }
+          savedPipeline={this.props.savedPipeline}
+        />
+        {restorePipelineModal}
+        {importPipelineModal}
+        {confirmImportPipelineModal}
       </div>
     );
   }

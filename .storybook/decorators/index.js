@@ -1,7 +1,7 @@
 import { ComponentPreview } from './component-preview';
 import { Page } from './page';
 
-import styles from './index.less';
+import 'mongodb-compass-theme/global.less';
 
 const withChaptersOptions = {
   showSource: false,
