@@ -9,7 +9,8 @@ import styles from './stage-preview-toolbar.less';
 /**
  * Zero state text.
  */
-const ZERO_STATE = 'A sample of the aggregated results from this stage will be shown below';
+const ZERO_STATE =
+  'A sample of the aggregated results from this stage will be shown below';
 
 /**
  * Disabled text.
@@ -26,8 +27,9 @@ class StagePreviewToolbar extends PureComponent {
     isValid: PropTypes.bool.isRequired,
     stageOperator: PropTypes.string,
     stageValue: PropTypes.any,
-    count: PropTypes.number.isRequired
-  }
+    count: PropTypes.number.isRequired,
+    openLink: PropTypes.func.isRequired
+  };
 
   /**
    * Get the word.
@@ -36,6 +38,11 @@ class StagePreviewToolbar extends PureComponent {
    */
   getWord() {
     return this.props.count === 1 ? 'document' : 'documents';
+  }
+
+  getOperatorDocsURL() {
+    const operatorId = this.props.stageOperator.replace(/\$/, '');
+    return `https://docs.mongodb.com/manual/reference/operator/aggregation/${operatorId}/#examples`;
   }
 
   /**
@@ -47,9 +54,19 @@ class StagePreviewToolbar extends PureComponent {
     if (this.props.isEnabled) {
       if (this.props.stageOperator) {
         if (this.props.stageOperator === OUT && this.props.isValid) {
-          return `Documents will be saved to the collection: ${decomment(this.props.stageValue)}`;
+          return `Documents will be saved to the collection: ${decomment(
+            this.props.stageValue
+          )}`;
         }
-        return `Output after ${this.props.stageOperator} stage (Sample of ${this.props.count} ${this.getWord()})`;
+        return (
+          <div>
+            Output after{' '}
+            <a onClick={this.props.openLink.bind(this, this.getOperatorDocsURL())}>
+              {this.props.stageOperator}
+            </a>{' '}
+            stage (Sample of {this.props.count} {this.getWord()})
+          </div>
+        );
       }
       return ZERO_STATE;
     }
