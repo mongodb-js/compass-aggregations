@@ -33,7 +33,7 @@ require('debug').enable('*');
 
 import { configure, addDecorator, setAddon } from '@storybook/react';
 import { setOptions } from '@storybook/addon-options';
-import { withKnobs } from '@storybook/addon-knobs';
+// import { withKnobs } from '@storybook/addon-knobs';
 
 import chaptersAddon from 'react-storybook-addon-chapters';
 // import { Page } from '@mongodb-js/migrator-storybook-decorators';
@@ -48,7 +48,7 @@ setAddon(chaptersAddon);
 
 // Add decorators globally to wrap our stories with
 // addDecorator(Page);
-addDecorator(withKnobs);
+// addDecorator(withKnobs);
 
 // Dynamically load all stories found in the components directory that
 // match the .stories.js or .story.js extension

@@ -40,6 +40,9 @@ module.exports = function(env = 'development', argv = {}) {
         utils: path.join(project.path.src, 'utils')
       }
     },
+    node: {
+      fs: 'empty'
+    },
     devtool: isProduction ? 'source-map' : 'eval-source-map',
     externals: isProduction
       ? [
