@@ -4,10 +4,10 @@ import classnames from 'classnames';
 import { InfoSprinkle } from 'hadron-react-components';
 import DeleteStage from './delete-stage';
 import AddAfterStage from './add-after-stage';
-import ToggleStage from 'components/toggle-stage';
-import StageGrabber from 'components/stage-grabber';
-import StageCollapser from 'components/stage-collapser';
-import StageOperatorSelect from 'components/stage-operator-select';
+import ToggleStage from './toggle-stage';
+import StageGrabber from './stage-grabber';
+import StageCollapser from './stage-collapser';
+import StageOperatorSelect from './stage-operator-select';
 
 import styles from './stage-builder-toolbar.less';
 
