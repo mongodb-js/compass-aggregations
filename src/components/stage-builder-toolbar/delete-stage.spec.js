@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import DeleteStage from 'components/delete-stage';
+import DeleteStage from './delete-stage';
 import styles from './delete-stage.less';
 
 describe('DeleteStage [Component]', () => {

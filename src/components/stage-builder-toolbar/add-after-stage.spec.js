@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import AddAfterStage from 'components/add-after-stage';
+import AddAfterStage from './add-after-stage';
 import styles from './add-after-stage.less';
 
 describe('AddAfterStage [Component]', () => {
