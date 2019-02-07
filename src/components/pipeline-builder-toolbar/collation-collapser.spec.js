@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import CollationCollapser from 'components/collation-collapser';
+import CollationCollapser from './collation-collapser';
 import styles from './collation-collapser.less';
 
 describe('CollationCollaper [Component]', () => {
