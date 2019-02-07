@@ -54,6 +54,10 @@ import appRegistry, {
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'modules/app-registry';
 
+import collapser, {
+  INITIAL_STATE as COLLAPSER_INITIAL_STATE
+} from './collapser';
+
 /**
  * The intial state of the root reducer.
  */
@@ -76,7 +80,8 @@ export const INITIAL_STATE = {
   autoPreview: AUTO_PREVIEW_INITIAL_STATE,
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
-  importPipeline: IMPORT_PIPELINE_INITIAL_STATE
+  importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
+  isCollapsed: COLLAPSER_INITIAL_STATE
 };
 
 /**
@@ -105,11 +110,6 @@ export const NEW_PIPELINE = 'aggregations/NEW_PIPELINE';
 export const CLONE_PIPELINE = 'aggregations/CLONE_PIPELINE';
 
 /**
- * Collapse all stages toggled action name.
- */
-export const COLLAPSE_TOGGLED = 'aggregations/COLLAPSE_TOGGLED';
-
-/**
  * The main application reducer.
  *
  * this does not include save state and restore state reducers as those need to
@@ -136,7 +136,8 @@ const appReducer = combineReducers({
   isCollationExpanded,
   id,
   isModified,
-  importPipeline
+  importPipeline,
+  collapser
 });
 
 /**
@@ -196,6 +197,7 @@ const doRestorePipeline = (state, action) => {
     collation: savedState.collation,
     collationString: savedState.collationString,
     isCollationExpanded: savedState.collationString ? true : false,
+    isCollapsed: savedState.isCollapsed || false,
     id: savedState.id,
     comments: commenting,
     sample: sampling,
