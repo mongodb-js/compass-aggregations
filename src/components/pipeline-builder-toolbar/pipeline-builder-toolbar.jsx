@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton, IconButton } from 'hadron-react-buttons';
 import { Dropdown, MenuItem } from 'react-bootstrap';
-import CollationCollapser from 'components/collation-collapser';
+import CollationCollapser from './collation-collapser';
 
 import styles from './pipeline-builder-toolbar.less';
 

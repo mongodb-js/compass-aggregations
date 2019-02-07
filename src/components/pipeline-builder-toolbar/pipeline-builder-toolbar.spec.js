@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import PipelineBuilderToolbar from 'components/pipeline-builder-toolbar';
+import PipelineBuilderToolbar from './pipeline-builder-toolbar';
 import styles from './pipeline-builder-toolbar.less';
 
 describe('PipelineBuilderToolbar [Component]', () => {

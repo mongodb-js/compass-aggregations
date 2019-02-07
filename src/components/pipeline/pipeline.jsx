@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import PipelineToolbar from 'components/pipeline-toolbar';
-import CollationToolbar from 'components/collation-toolbar';
+import CollationToolbar from './collation-toolbar';
 import PipelineWorkspace from 'components/pipeline-workspace';
 import SavePipeline from 'components/save-pipeline';
 import RestorePipelineModal from 'components/restore-pipeline-modal';
