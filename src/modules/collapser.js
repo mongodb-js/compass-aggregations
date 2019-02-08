@@ -26,11 +26,11 @@ export default function reducer(state = INITIAL_STATE, action) {
 /**
  * Action creator for collapse changed events.
  *
- * @param {String} collapsed - The collapsed value.
+ * @param {String} isCollapsed - The isCollapsed value.
  *
  * @returns {Object} The name changed action.
  */
-export const collapseChanged = collapsed => ({
+export const collapseChanged = isCollapsed => ({
   type: COLLAPSE_CHANGED,
-  collapsed: collapsed
+  collapsed: isCollapsed
 });

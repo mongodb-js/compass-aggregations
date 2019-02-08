@@ -5,7 +5,7 @@ describe('collapser module', () => {
     it('returns the COLLAPSE_CHANGED action', () => {
       expect(collapseChanged(true)).to.deep.equal({
         type: COLLAPSE_CHANGED,
-        collapsed: true
+        isCollapsed: true
       });
     });
   });
