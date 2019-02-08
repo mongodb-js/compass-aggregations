@@ -31,6 +31,5 @@ export default function reducer(state = INITIAL_STATE, action) {
  * @returns {Object} The name changed action.
  */
 export const collapseChanged = isCollapsed => ({
-  type: COLLAPSE_CHANGED,
-  collapsed: isCollapsed
+  type: COLLAPSE_CHANGED, isCollapsed
 });
