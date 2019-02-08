@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import Pipeline from 'components/pipeline';
 import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
+import { collapseChanged } from 'modules/collapser';
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';
 import { collationStringChanged } from 'modules/collation-string';
@@ -17,11 +18,7 @@ import {
 
 import { exportToLanguage } from 'modules/export-to-language';
 import { openLink } from 'modules/link';
-import {
-  deletePipeline,
-  newPipeline,
-  clonePipeline
-} from 'modules';
+import { deletePipeline, newPipeline, clonePipeline } from 'modules';
 import {
   runStage,
   runOutStage,
@@ -43,7 +40,10 @@ import {
 } from 'modules/saved-pipeline';
 import { setIsModified } from 'modules/is-modified';
 import { restoreSavedPipeline, getPipelineFromIndexedDB } from 'modules/index';
-import { restorePipelineModalToggle, restorePipelineFrom } from 'modules/restore-pipeline';
+import {
+  restorePipelineModalToggle,
+  restorePipelineFrom
+} from 'modules/restore-pipeline';
 import {
   newPipelineFromText,
   closeImport,
@@ -80,7 +80,7 @@ class Aggregations extends Component {
  *
  * @returns {Object} The mapped properties.
  */
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   fields: state.fields,
   inputDocuments: state.inputDocuments,
   namespace: state.namespace,
@@ -99,7 +99,8 @@ const mapStateToProps = (state) => ({
   isImportPipelineOpen: state.importPipeline.isOpen,
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
-  importPipelineError: state.importPipeline.syntaxError
+  importPipelineError: state.importPipeline.syntaxError,
+  isCollapsed: state.collapsed
 });
 
 /**
@@ -148,8 +149,9 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified
-  },
+    setIsModified,
+    collapseChanged
+  }
 )(Aggregations);
 
 export default MappedAggregations;
