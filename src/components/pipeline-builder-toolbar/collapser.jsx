@@ -33,16 +33,16 @@ class Collapser extends PureComponent {
   static propTypes = {
     isCollapsed: PropTypes.bool.isRequired,
     collapseToggled: PropTypes.func.isRequired
-  }
+  };
 
   /**
-   * Render the collation collapser component.
+   * Render the collapser component.
    *
    * @returns {Component} The component.
    */
   render() {
-    const iconClassName = this.props.isCollapsed ? ANGLE_DOWN : ANGLE_RIGHT;
-    const buttonTitle = this.props.isCollapsed ? COLLAPSE : EXPAND;
+    const iconClassName = this.props.isCollapsed ? ANGLE_RIGHT : ANGLE_DOWN;
+    const buttonTitle = this.props.isCollapsed ? EXPAND : COLLAPSE;
 
     return (
       <div className={classnames(styles.collapser)}>
@@ -51,7 +51,7 @@ class Collapser extends PureComponent {
           title={buttonTitle}
           onClick={this.props.collapseToggled}
           className="btn btn-default btn-xs">
-            <i className={iconClassName} aria-hidden />
+          <i className={iconClassName} aria-hidden />
         </button>
       </div>
     );

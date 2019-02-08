@@ -5,12 +5,12 @@ import Collapser from './collapser';
 import styles from './collapser.less';
 
 describe('Collapser [Component]', () => {
-  context('when the collation is expanded', () => {
+  context('when expanded', () => {
     let component;
     const spy = sinon.spy();
 
     beforeEach(() => {
-      component = mount(<Collapser isCollapsed collapseToggled={spy} />);
+      component = mount(<Collapser isCollapsed={false} collapseToggled={spy} />);
     });
 
     afterEach(() => {
@@ -33,13 +33,13 @@ describe('Collapser [Component]', () => {
     });
   });
 
-  context('when the collation is collapsed', () => {
+  context('when is collapsed', () => {
     let component;
     const spy = sinon.spy();
 
     beforeEach(() => {
       component = mount(
-        <Collapser isCollapsed={false} collapseToggled={spy} />
+        <Collapser isCollapsed collapseToggled={spy} />
       );
     });
 
@@ -63,7 +63,7 @@ describe('Collapser [Component]', () => {
     beforeEach(() => {
       component = mount(
         <Collapser
-          isCollapsed={false}
+          isCollapsed
           collapseToggled={spy}
         />
       );

@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import Pipeline from 'components/pipeline';
 import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
-import { collapseChanged } from 'modules/collapser';
+import { collapseToggled } from 'modules/collapser';
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';
 import { collationStringChanged } from 'modules/collation-string';
@@ -100,7 +100,7 @@ const mapStateToProps = state => ({
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
-  collapsed: state.collapsed
+  isCollapsed: state.isCollapsed
 });
 
 /**
@@ -132,6 +132,7 @@ const MappedAggregations = connect(
     stageOperatorSelected,
     stageToggled,
     collationCollapseToggled,
+    collapseToggled,
     exportToLanguage,
     savedPipelinesListToggle,
     saveCurrentPipeline,
@@ -149,8 +150,7 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified,
-    collapseChanged
+    setIsModified
   }
 )(Aggregations);
 
