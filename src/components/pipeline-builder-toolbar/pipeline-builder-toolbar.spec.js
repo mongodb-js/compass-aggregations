@@ -16,6 +16,7 @@ describe('PipelineBuilderToolbar [Component]', () => {
   let saveSpy;
   let setIsModifiedSpy;
   let collationCollapseSpy;
+  let collapseToggledSpy;
 
   beforeEach(() => {
     savedPipelinesListToggleSpy = sinon.spy();
@@ -28,6 +29,7 @@ describe('PipelineBuilderToolbar [Component]', () => {
     saveSpy = sinon.spy();
     setIsModifiedSpy = sinon.spy();
     collationCollapseSpy = sinon.spy();
+    collapseToggledSpy = sinon.spy();
 
     component = mount(
       <PipelineBuilderToolbar
@@ -42,9 +44,12 @@ describe('PipelineBuilderToolbar [Component]', () => {
         name=""
         isModified
         isCollationExpanded
+        isCollapsed={false}
+        collapsedToggled={collapseToggledSpy}
         setIsModified={setIsModifiedSpy}
         collationCollapseToggled={collationCollapseSpy}
-        exportToLanguage={exportToLanguageSpy} />
+        exportToLanguage={exportToLanguageSpy}
+      />
     );
   });
 
@@ -59,15 +64,21 @@ describe('PipelineBuilderToolbar [Component]', () => {
     nameChangedSpy = null;
     saveSpy = null;
     setIsModifiedSpy = null;
+    collapseToggledSpy = null;
   });
 
   it('renders the wrapper div', () => {
-    expect(component.find(`.${styles['pipeline-builder-toolbar']}`)).to.be.present();
+    expect(
+      component.find(`.${styles['pipeline-builder-toolbar']}`)
+    ).to.be.present();
   });
 
   it('renders the save pipeline button', () => {
-    expect(component.find(`.${styles['pipeline-builder-toolbar-save-pipeline-button']}`)).
-      to.be.present();
+    expect(
+      component.find(
+        `.${styles['pipeline-builder-toolbar-save-pipeline-button']}`
+      )
+    ).to.be.present();
   });
 
   it('renders the dropdown menu', () => {
