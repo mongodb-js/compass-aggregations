@@ -54,7 +54,7 @@ import appRegistry, {
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'modules/app-registry';
 
-import collapser, {
+import isCollapsed, {
   INITIAL_STATE as COLLAPSER_INITIAL_STATE
 } from './collapser';
 
@@ -137,7 +137,7 @@ const appReducer = combineReducers({
   id,
   isModified,
   importPipeline,
-  collapser
+  isCollapsed
 });
 
 /**
@@ -280,6 +280,7 @@ const doConfirmNewFromText = state => {
     collation: {},
     collationString: '',
     isCollationExpanded: false,
+    isCollapsed: false,
     id: new ObjectId().toHexString(),
     pipeline: error ? [] : pipe,
     importPipeline: {

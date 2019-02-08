@@ -100,7 +100,7 @@ const mapStateToProps = state => ({
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
-  isCollapsed: state.collapsed
+  collapsed: state.collapsed
 });
 
 /**

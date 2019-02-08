@@ -1,25 +1,24 @@
-import reducer, { collapseChanged, COLLAPSE_CHANGED } from './collapser';
+import reducer, { collapseToggled, COLLAPSE_TOGGLED } from './collapser';
 
 describe('collapser module', () => {
-  describe('#collapseChanged', () => {
-    it('returns the COLLAPSE_CHANGED action', () => {
-      expect(collapseChanged(true)).to.deep.equal({
-        type: COLLAPSE_CHANGED,
-        isCollapsed: true
+  describe('#collapseToggled', () => {
+    it('returns the COLLAPSE_TOGGLED action', () => {
+      expect(collapseToggled()).to.deep.equal({
+        type: COLLAPSE_TOGGLED
       });
     });
   });
 
   describe('#reducer', () => {
-    context('when the action is not collapse changed', () => {
+    context('when the action is not collapse toggled', () => {
       it('returns the default state', () => {
         expect(reducer(undefined, { type: 'test' })).to.equal(false);
       });
     });
 
-    context('when the action is collapse changed', () => {
+    context('when the action is collapse toggled', () => {
       it('returns the new state', () => {
-        expect(reducer(undefined, collapseChanged(true))).to.equal(true);
+        expect(reducer(undefined, collapseToggled())).to.equal(true);
       });
     });
   });
