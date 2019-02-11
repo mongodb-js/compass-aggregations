@@ -32,8 +32,9 @@ class InputCollapser extends PureComponent {
 
   static propTypes = {
     isExpanded: PropTypes.bool.isRequired,
+    isCollapsed: PropTypes.bool.isRequired,
     toggleInputDocumentsCollapsed: PropTypes.func.isRequired
-  }
+  };
 
   /**
    * Render the input collapser component.
@@ -41,8 +42,10 @@ class InputCollapser extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const iconClassName = this.props.isExpanded ? ANGLE_DOWN : ANGLE_RIGHT;
-    const buttonTitle = this.props.isExpanded ? COLLAPSE : EXPAND;
+    const isExpanded = !this.props.isCollapsed;
+
+    const iconClassName = isExpanded ? ANGLE_DOWN : ANGLE_RIGHT;
+    const buttonTitle = isExpanded ? COLLAPSE : EXPAND;
 
     return (
       <div className={classnames(styles['input-collapser'])}>
@@ -51,7 +54,7 @@ class InputCollapser extends PureComponent {
           title={buttonTitle}
           onClick={this.props.toggleInputDocumentsCollapsed}
           className="btn btn-default btn-xs">
-            <i className={iconClassName} aria-hidden />
+          <i className={iconClassName} aria-hidden />
         </button>
       </div>
     );

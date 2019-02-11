@@ -37,8 +37,10 @@ class PipelineWorkspace extends PureComponent {
     stageMoved: PropTypes.func.isRequired,
     stageOperatorSelected: PropTypes.func.isRequired,
     stageToggled: PropTypes.func.isRequired,
-    fields: PropTypes.array.isRequired
-  }
+    fields: PropTypes.array.isRequired,
+    collapseToggled: PropTypes.func.isRequired,
+    isCollapsed: PropTypes.bool.isRequired
+  };
 
   /**
    * Renders the pipeline workspace.
@@ -79,23 +81,30 @@ class PipelineWorkspace extends PureComponent {
           stageToggled={this.props.stageToggled}
           fields={this.props.fields}
           setIsModified={this.props.setIsModified}
-          key={stage.id} />
+          key={stage.id}
+          isCollapsed={this.props.isCollapsed}
+        />
       );
     });
     return (
       <div className={classnames(styles['pipeline-workspace'])}>
         <Input
-          toggleInputDocumentsCollapsed={this.props.toggleInputDocumentsCollapsed}
+          toggleInputDocumentsCollapsed={
+            this.props.toggleInputDocumentsCollapsed
+          }
           refreshInputDocuments={this.props.refreshInputDocuments}
           documents={inputDocuments.documents}
           isLoading={inputDocuments.isLoading}
           isExpanded={inputDocuments.isExpanded}
           openLink={this.props.openLink}
-          count={inputDocuments.count} />
+          count={inputDocuments.count}
+          isCollapsed={this.props.isCollapsed}
+        />
         {stages}
         <AddStage
           stageAdded={this.props.stageAdded}
-          setIsModified={this.props.setIsModified} />
+          setIsModified={this.props.setIsModified}
+        />
       </div>
     );
   }

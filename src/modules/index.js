@@ -188,6 +188,7 @@ const doRestorePipeline = (state, action) => {
     savedState.autoPreview === null || savedState.autoPreview === undefined
       ? true
       : savedState.autoPreview;
+
   return {
     ...INITIAL_STATE,
     appRegistry: state.appRegistry,
@@ -197,7 +198,7 @@ const doRestorePipeline = (state, action) => {
     collation: savedState.collation,
     collationString: savedState.collationString,
     isCollationExpanded: savedState.collationString ? true : false,
-    isCollapsed: false,
+    isCollapsed: !savedState.isCollapsed ? false : true,
     id: savedState.id,
     comments: commenting,
     sample: sampling,

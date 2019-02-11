@@ -34,8 +34,9 @@ class StageCollapser extends PureComponent {
     isExpanded: PropTypes.bool.isRequired,
     index: PropTypes.number.isRequired,
     stageCollapseToggled: PropTypes.func.isRequired,
-    setIsModified: PropTypes.func.isRequired
-  }
+    setIsModified: PropTypes.func.isRequired,
+    isCollapsed: PropTypes.bool.isRequired
+  };
 
   /**
    * Called when the collapse icon is toggled.
@@ -43,7 +44,7 @@ class StageCollapser extends PureComponent {
   onStageCollapseToggled = () => {
     this.props.stageCollapseToggled(this.props.index);
     this.props.setIsModified(true);
-  }
+  };
 
   /**
    * Render the stage collapser component.
@@ -51,8 +52,10 @@ class StageCollapser extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const iconClassName = this.props.isExpanded ? ANGLE_DOWN : ANGLE_RIGHT;
-    const buttonTitle = this.props.isExpanded ? COLLAPSE : EXPAND;
+    const isExpanded = !this.props.isCollapsed;
+
+    const iconClassName = isExpanded ? ANGLE_DOWN : ANGLE_RIGHT;
+    const buttonTitle = isExpanded ? COLLAPSE : EXPAND;
 
     return (
       <div className={classnames(styles['stage-collapser'])}>
@@ -61,7 +64,7 @@ class StageCollapser extends PureComponent {
           title={buttonTitle}
           onClick={this.onStageCollapseToggled}
           className="btn btn-default btn-xs">
-            <i className={iconClassName} aria-hidden />
+          <i className={iconClassName} aria-hidden />
         </button>
       </div>
     );

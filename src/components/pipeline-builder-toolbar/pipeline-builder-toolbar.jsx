@@ -84,15 +84,15 @@ class PipelineBuilderToolbar extends PureComponent {
           isCollapsed={this.props.isCollapsed}
           collapseToggled={this.props.collapseToggled}
         />
-        <CollationCollapser
-          isCollationExpanded={this.props.isCollationExpanded}
-          collationCollapseToggled={this.props.collationCollapseToggled}
-        />
         <IconButton
           title="Toggle Saved Pipelines"
           className={openPipelinesClassName}
           iconClassName="fa fa-folder-open-o"
           clickHandler={clickHandler}
+        />
+        <CollationCollapser
+          isCollationExpanded={this.props.isCollationExpanded}
+          collationCollapseToggled={this.props.collationCollapseToggled}
         />
         <div
           className={classnames(

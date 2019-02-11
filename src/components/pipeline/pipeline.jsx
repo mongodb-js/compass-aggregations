@@ -79,16 +79,11 @@ class Pipeline extends PureComponent {
    */
   renderSeparator() {
     if (this.props.isCollationExpanded) {
-      return [
-        <div
-          key="top-separator"
-          className={classnames(styles['pipeline-top-separator'])}
-        />,
-        <div
-          key="bottom-separator"
-          className={classnames(styles['pipeline-bottom-separator'])}
+      return (<div
+          key="expanded-separator"
+          className={classnames(styles['pipeline-expanded-separator'])}
         />
-      ];
+      );
     }
     return <div className={classnames(styles['pipeline-separator'])} />;
   }
