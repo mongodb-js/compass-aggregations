@@ -29,8 +29,7 @@ class StageToolbar extends PureComponent {
     isCommenting: PropTypes.bool.isRequired,
     openLink: PropTypes.func.isRequired,
     stageCollapseToggled: PropTypes.func.isRequired,
-    previewCount: PropTypes.number.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    previewCount: PropTypes.number.isRequired
   }
 
   /**
@@ -57,7 +56,7 @@ class StageToolbar extends PureComponent {
           stageDeleted={this.props.stageDeleted}
           setIsModified={this.props.setIsModified}
           serverVersion={this.props.serverVersion}
-          isCollapsed={this.props.isCollapsed}/>
+          />
         <StagePreviewToolbar
           isEnabled={this.props.isEnabled}
           isValid={this.props.isValid}

@@ -122,8 +122,8 @@ class Stage extends Component {
       nextProps.fromStageOperators !== this.props.fromStageOperators ||
       nextProps.index !== this.props.index ||
       nextProps.isCommenting !== this.props.isCommenting ||
-      nextProps.isAutoPreviewing !== this.props.isAutoPreviewing ||
       nextProps.isCollapsed !== this.props.isCollapsed ||
+      nextProps.isAutoPreviewing !== this.props.isAutoPreviewing ||
       nextProps.serverVersion !== this.props.serverVersion ||
       nextProps.fields.length !== this.props.fields.length ||
       (this.props.stageOperator === '$out' &&
@@ -137,9 +137,7 @@ class Stage extends Component {
    * @returns {React.Component} The workspace.
    */
   renderWorkspace() {
-    // TODO (@imlucas) this.props.isCollapsed
-    // Allow 1 row to be expanded when overview?
-    if (!this.props.isCollapsed) {
+    if (!this.props.isExpanded) {
       return (
         <StageWorkspace
           stage={this.props.stage}
@@ -197,7 +195,6 @@ class Stage extends Component {
             isCommenting={this.props.isCommenting}
             setIsModified={this.props.setIsModified}
             stageCollapseToggled={this.props.stageCollapseToggled}
-            isCollapsed={this.props.isCollapsed}
           />
           {this.renderWorkspace()}
         </div>

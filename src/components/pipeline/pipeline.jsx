@@ -69,7 +69,9 @@ class Pipeline extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
     collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    isCollapsed: PropTypes.bool.isRequired,
+    expandAllStages: PropTypes.func.isRequired,
+    collapseAllStages: PropTypes.func.isRequired
   };
 
   /**
@@ -79,7 +81,8 @@ class Pipeline extends PureComponent {
    */
   renderSeparator() {
     if (this.props.isCollationExpanded) {
-      return (<div
+      return (
+        <div
           key="expanded-separator"
           className={classnames(styles['pipeline-expanded-separator'])}
         />
@@ -177,6 +180,8 @@ class Pipeline extends PureComponent {
           name={this.props.name}
           isCollapsed={this.props.isCollapsed}
           collapseToggled={this.props.collapseToggled}
+          expandAllStages={this.props.expandAllStages}
+          collapseAllStages={this.props.collapseAllStages}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}

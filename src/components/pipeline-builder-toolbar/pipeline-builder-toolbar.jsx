@@ -30,7 +30,9 @@ class PipelineBuilderToolbar extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
     collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    isCollapsed: PropTypes.bool.isRequired,
+    expandAllStages: PropTypes.func.isRequired,
+    collapseAllStages: PropTypes.func.isRequired
   };
 
   /**
@@ -83,6 +85,8 @@ class PipelineBuilderToolbar extends PureComponent {
         <Collapser
           isCollapsed={this.props.isCollapsed}
           collapseToggled={this.props.collapseToggled}
+          expandAllStages={this.props.expandAllStages}
+          collapseAllStages={this.props.collapseAllStages}
         />
         <IconButton
           title="Toggle Saved Pipelines"

@@ -11,6 +11,8 @@ import reducer, {
   generatePipeline,
   generatePipelineAsString,
   loadingStageResults,
+  collapseAllStages,
+  expandAllStages,
   STAGE_ADDED,
   STAGE_ADDED_AFTER,
   STAGE_CHANGED,
@@ -20,7 +22,9 @@ import reducer, {
   STAGE_OPERATOR_SELECTED,
   STAGE_PREVIEW_UPDATED,
   LOADING_STAGE_RESULTS,
-  STAGE_TOGGLED } from 'modules/pipeline';
+  STAGE_TOGGLED,
+COLLAPSE_ALL_STAGES,
+EXPAND_ALL_STAGES } from 'modules/pipeline';
 
 const LIMIT_TO_PROCESS = 100000;
 const LIMIT_TO_DISPLAY = 20;
@@ -659,4 +663,40 @@ describe('pipeline module', () => {
       });
     });
   });
+  describe('#collapseAllStages', () => {
+    it('returns the COLLAPSE_ALL_STAGES action', () => {
+      expect(collapseAllStages()).to.deep.equal({
+        type: COLLAPSE_ALL_STAGES
+      });
+    });
+  });
+  describe('#expandAllStages', () => {
+    it('returns the EXPAND_ALL_STAGES action', () => {
+      expect(expandAllStages()).to.deep.equal({
+        type: EXPAND_ALL_STAGES
+      });
+    });
+  });
+    // context('with checking sequence', () => {
+    //   const state = [
+    //     {
+    //       stage: '{ name: 1 }',
+    //       isValid: true,
+    //       isEnabled: true,
+    //       stageOperator: '$project',
+    //       isExpanded: true
+    //     },
+    //     {
+    //       stage: '{ name: -1 }',
+    //       isValid: true,
+    //       isEnabled: true,
+    //       stageOperator: '$sort',
+    //       isExpanded: true
+    //     }
+    //   ];
+
+    //   it('inserts new stage in the middle', () => {
+    //     expect(reducer(state, stageAddedAfter(0))[1].stageOperator).to.equal(null);
+    //   });
+    // });
 });

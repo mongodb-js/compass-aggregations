@@ -30,7 +30,9 @@ import {
   stageDeleted,
   stageMoved,
   stageOperatorSelected,
-  stageToggled
+  stageToggled,
+  expandAllStages,
+  collapseAllStages
 } from 'modules/pipeline';
 import {
   savedPipelinesListToggle,
@@ -133,6 +135,8 @@ const MappedAggregations = connect(
     stageToggled,
     collationCollapseToggled,
     collapseToggled,
+    expandAllStages,
+    collapseAllStages,
     exportToLanguage,
     savedPipelinesListToggle,
     saveCurrentPipeline,

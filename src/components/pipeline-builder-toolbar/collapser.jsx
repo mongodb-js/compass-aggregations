@@ -32,7 +32,21 @@ class Collapser extends PureComponent {
 
   static propTypes = {
     isCollapsed: PropTypes.bool.isRequired,
-    collapseToggled: PropTypes.func.isRequired
+    collapseToggled: PropTypes.func.isRequired,
+    expandAllStages: PropTypes.func.isRequired,
+    collapseAllStages: PropTypes.func.isRequired
+  };
+
+  /**
+   * Called when the collapse icon is toggled.
+   */
+  handleExpandCollapseAllStages = () => {
+    if (this.props.isCollapsed === true) {
+      this.props.expandAllStages();
+    } else {
+      this.props.collapseAllStages();
+    }
+    this.props.collapseToggled();
   };
 
   /**
@@ -49,7 +63,7 @@ class Collapser extends PureComponent {
         <button
           type="button"
           title={buttonTitle}
-          onClick={this.props.collapseToggled}
+          onClick={this.handleExpandCollapseAllStages}
           className="btn btn-default btn-xs">
           <i className={iconClassName} aria-hidden />
         </button>

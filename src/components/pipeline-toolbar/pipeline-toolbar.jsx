@@ -34,8 +34,10 @@ class PipelineToolbar extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
     collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
-  }
+    isCollapsed: PropTypes.bool.isRequired,
+    expandAllStages: PropTypes.func.isRequired,
+    collapseAllStages: PropTypes.func.isRequired
+  };
 
   /**
    * Renders the toolbar.
@@ -44,10 +46,10 @@ class PipelineToolbar extends PureComponent {
    */
   render() {
     return (
-      <div className={classnames(
-        styles['pipeline-toolbar'],
-        { [ styles['pipeline-toolbar-border'] ]: !this.props.isCollationExpanded }
-      )}>
+      <div
+        className={classnames(styles['pipeline-toolbar'], {
+          [styles['pipeline-toolbar-border']]: !this.props.isCollationExpanded
+        })}>
         <PipelineBuilderToolbar
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           getSavedPipelines={this.props.getSavedPipelines}
@@ -66,6 +68,8 @@ class PipelineToolbar extends PureComponent {
           isCollationExpanded={this.props.isCollationExpanded}
           collapseToggled={this.props.collapseToggled}
           isCollapsed={this.props.isCollapsed}
+          expandAllStages={this.props.expandAllStages}
+          collapseAllStages={this.props.collapseAllStages}
         />
         <PipelinePreviewToolbar
           toggleComments={this.props.toggleComments}
@@ -74,7 +78,8 @@ class PipelineToolbar extends PureComponent {
           isCommenting={this.props.isCommenting}
           isSampling={this.props.isSampling}
           isAutoPreviewing={this.props.isAutoPreviewing}
-          isModified={this.props.isModified} />
+          isModified={this.props.isModified}
+        />
       </div>
     );
   }

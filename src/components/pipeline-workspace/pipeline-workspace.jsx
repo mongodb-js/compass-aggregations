@@ -39,6 +39,8 @@ class PipelineWorkspace extends PureComponent {
     stageToggled: PropTypes.func.isRequired,
     fields: PropTypes.array.isRequired,
     collapseToggled: PropTypes.func.isRequired,
+    expandAllStages: PropTypes.func.isRequired,
+    collapseAllStages: PropTypes.func.isRequired,
     isCollapsed: PropTypes.bool.isRequired
   };
 
@@ -99,6 +101,9 @@ class PipelineWorkspace extends PureComponent {
           openLink={this.props.openLink}
           count={inputDocuments.count}
           isCollapsed={this.props.isCollapsed}
+          collapseToggled={this.props.collapseToggled}
+          expandAllStages={this.props.expandAllStages}
+          collapseAllStages={this.props.collapseAllStages}
         />
         {stages}
         <AddStage
