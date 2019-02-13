@@ -17,12 +17,12 @@ const EXPAND = 'Expand';
 /**
  * Angle right class.
  */
-const ANGLE_RIGHT = 'fa caret-right';
+const ANGLE_RIGHT = 'fa fa-caret-right';
 
 /**
  * Angle down class.
  */
-const ANGLE_DOWN = 'fa caret-down';
+const ANGLE_DOWN = 'fa fa-caret-down';
 
 /**
  * Collapse/Expand a collation.
