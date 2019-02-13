@@ -1,3 +1,6 @@
+/**
+ * TODO (@imlucas) Rename -> Aggregation pipeline? Sep ./containers?
+ */
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -5,9 +8,9 @@ import PipelineToolbar from 'components/pipeline-toolbar';
 import CollationToolbar from './collation-toolbar';
 import PipelineWorkspace from 'components/pipeline-workspace';
 import SavePipeline from 'components/save-pipeline';
-import RestorePipelineModal from 'components/restore-pipeline-modal';
-import ImportPipeline from 'components/import-pipeline';
-import ConfirmImportPipeline from 'components/confirm-import-pipeline';
+import RestorePipelineModal from './modals/restore-pipeline-modal';
+import ImportPipeline from './modals/import-pipeline';
+import ConfirmImportPipeline from './modals/confirm-import-pipeline';
 
 import styles from './pipeline.less';
 

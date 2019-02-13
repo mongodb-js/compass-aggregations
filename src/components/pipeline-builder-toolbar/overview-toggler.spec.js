@@ -1,16 +1,25 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import Collapser from './collapser';
-import styles from './collapser.less';
+import OverviewToggler from './overview-toggler';
+import styles from './overview-toggler.less';
 
-describe('Collapser [Component]', () => {
+const OVERVIEW_ON = {
+  isOn: true
+};
+
+const OVERVIEW_OFF = {
+  isOn: false
+};
+
+
+describe('OverviewToggler [Component]', () => {
   context('when expanded', () => {
     let component;
     const spy = sinon.spy();
 
     beforeEach(() => {
-      component = mount(<Collapser isCollapsed={false} collapseToggled={spy} />);
+      component = mount(<OverviewToggler overview={OVERVIEW_OFF} overviewToggled={spy} />);
     });
 
     afterEach(() => {
@@ -33,13 +42,13 @@ describe('Collapser [Component]', () => {
     });
   });
 
-  context('when is collapsed', () => {
+  context('when is off (all stages collapsed)', () => {
     let component;
     const spy = sinon.spy();
 
     beforeEach(() => {
       component = mount(
-        <Collapser isCollapsed collapseToggled={spy} />
+        <OverviewToggler overview={OVERVIEW_ON} overviewToggled={spy} />
       );
     });
 
@@ -62,9 +71,8 @@ describe('Collapser [Component]', () => {
 
     beforeEach(() => {
       component = mount(
-        <Collapser
-          isCollapsed
-          collapseToggled={spy}
+        <OverviewToggler
+          overview={OVERVIEW_ON} overviewToggled={spy}
         />
       );
     });

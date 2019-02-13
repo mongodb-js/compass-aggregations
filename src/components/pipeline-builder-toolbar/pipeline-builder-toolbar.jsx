@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton, IconButton } from 'hadron-react-buttons';
 import { Dropdown, MenuItem } from 'react-bootstrap';
-import Collapser from './collapser';
+import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
 
 import styles from './pipeline-builder-toolbar.less';
@@ -15,24 +15,33 @@ class PipelineBuilderToolbar extends PureComponent {
   static displayName = 'PipelineBuilderToolbarComponent';
 
   static propTypes = {
-    savedPipelinesListToggle: PropTypes.func.isRequired,
-    getSavedPipelines: PropTypes.func.isRequired,
-    savedPipeline: PropTypes.object.isRequired,
+    clonePipeline: PropTypes.func.isRequired,
     exportToLanguage: PropTypes.func.isRequired,
     newPipeline: PropTypes.func.isRequired,
     newPipelineFromText: PropTypes.func.isRequired,
-    clonePipeline: PropTypes.func.isRequired,
+
+    /**
+     * TODO (@imlucas) Replace all these { var, toggler() } props when we get hooks.
+     */
     nameChanged: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
-    saveCurrentPipeline: PropTypes.func.isRequired,
+
     setIsModified: PropTypes.func.isRequired,
     isModified: PropTypes.bool.isRequired,
+
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
-    collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired,
-    expandAllStages: PropTypes.func.isRequired,
-    collapseAllStages: PropTypes.func.isRequired
+
+    overview: PropTypes.object.isRequired,
+    overviewToggled: PropTypes.func.isRequired,
+
+    /**
+     * Saved Pipelines
+     */
+    savedPipeline: PropTypes.object.isRequired, // TODO List of saved-pipelines.
+    savedPipelinesListToggle: PropTypes.func.isRequired,
+    getSavedPipelines: PropTypes.func.isRequired,
+    saveCurrentPipeline: PropTypes.func.isRequired
   };
 
   /**
@@ -82,11 +91,9 @@ class PipelineBuilderToolbar extends PureComponent {
 
     return (
       <div className={classnames(styles['pipeline-builder-toolbar'])}>
-        <Collapser
-          isCollapsed={this.props.isCollapsed}
-          collapseToggled={this.props.collapseToggled}
-          expandAllStages={this.props.expandAllStages}
-          collapseAllStages={this.props.collapseAllStages}
+        <OverviewToggler
+          overview={this.props.overview}
+          overviewToggled={this.props.overviewToggled}
         />
         <IconButton
           title="Toggle Saved Pipelines"

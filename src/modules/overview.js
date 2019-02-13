@@ -58,6 +58,18 @@ const doStageOp = (state, action) => {
 };
 
 /**
+ * ? overviewmode?
+ * start: 
+ *   overview={mode: 'open', isOn: false, hasAnyStagesExpanded: false} -> class=fa-caret-down
+ * "Collapse all my stages" (click(<OverviewToggler />))
+ *   overview={mode: 'closed', isOn: false, hasAnyStagesExpanded: false} -> class=fa-caret-right
+ * "I've collapsed all my stages then expanded 1 or more stages"
+ *   overview={mode: 'partial', isOn: true, hasAnyStagesExpanded: true} -> class=fa-caret-down
+ * "Expand all my other stages"
+ *   overview={mode: 'open', isOn: true, hasAnyStagesExpanded: false} -> class=fa-caret-down
+ */
+
+/**
  * Reducer function for handle state changes to overview.
  *
  * @param {String} state - The name state.
@@ -69,7 +81,8 @@ export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === OVERVIEW_TOGGLED) {
     return {
       ...state,
-      isOn: !state.isOn
+      isOn: !state.isOn,
+      hasAnyStagesExpanded: !state.hasAnyStagesExpanded
     };
   }
 
