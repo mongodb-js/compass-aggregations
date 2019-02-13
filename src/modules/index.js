@@ -54,9 +54,9 @@ import appRegistry, {
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'modules/app-registry';
 
-import isCollapsed, {
-  INITIAL_STATE as COLLAPSER_INITIAL_STATE
-} from './collapser';
+import overview, {
+  INITIAL_STATE as OVERVIEW_INITIAL_STATE
+} from './overview';
 
 /**
  * The intial state of the root reducer.
@@ -81,7 +81,7 @@ export const INITIAL_STATE = {
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
   importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
-  isCollapsed: COLLAPSER_INITIAL_STATE
+  overview: OVERVIEW_INITIAL_STATE
 };
 
 /**
@@ -137,7 +137,7 @@ const appReducer = combineReducers({
   id,
   isModified,
   importPipeline,
-  isCollapsed
+  overview
 });
 
 /**
@@ -281,7 +281,6 @@ const doConfirmNewFromText = state => {
     collation: {},
     collationString: '',
     isCollationExpanded: false,
-    isCollapsed: false,
     id: new ObjectId().toHexString(),
     pipeline: error ? [] : pipe,
     importPipeline: {

@@ -4,6 +4,7 @@ import { appRegistryEmit } from 'modules/app-registry';
 import { ObjectId } from 'bson';
 import toNS from 'mongodb-ns';
 import isEmpty from 'lodash.isempty';
+import { generateStageWithDefaults } from 'utils/stage';
 
 /**
  * Action name prefix.
@@ -105,28 +106,16 @@ export const FULL_SCAN_OPS = ['$group', '$bucket', '$bucketAuto'];
 export const OUT = '$out';
 
 /**
- * An initial stage.
+ * A new empty stage to initially populate the pipeline with.
  *
- * @todo: Loading needs to clear out server errors.
+ * @todo: (durran) Loading needs to clear out server errors.
  */
-const EMPTY_STAGE = {
-  id: new ObjectId().toHexString(),
-  stageOperator: null,
-  stage: '',
-  isValid: true,
-  isEnabled: true,
-  isExpanded: true,
-  isLoading: false,
-  isComplete: false,
-  previewDocuments: [],
-  syntaxError: null,
-  error: null
-};
+export const EMPTY_STAGE = [generateStageWithDefaults()];
 
 /**
  * The initial state.
  */
-export const INITIAL_STATE = [EMPTY_STAGE];
+export const INITIAL_STATE = [ EMPTY_STAGE ];
 
 /**
  * The default snippet.
