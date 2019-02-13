@@ -669,6 +669,45 @@ describe('pipeline module', () => {
         type: COLLAPSE_ALL_STAGES
       });
     });
+
+    const state = [
+      {
+        stage: '{}',
+        isValid: true,
+        isEnabled: true,
+        stageOperator: '$match',
+        isExpanded: true
+      },
+      {
+        stage: '{ name: -1 }',
+        isValid: true,
+        isEnabled: true,
+        stageOperator: '$sort',
+        isExpanded: true
+      }
+    ];
+
+    it('sets all stages to isExpanded=false', ()=> {
+      const result = reducer(state, collapseAllStages());
+      expect(result).to.deep.equal(
+        [
+          {
+            stage: '{}',
+            isValid: true,
+            isEnabled: true,
+            stageOperator: '$match',
+            isExpanded: false
+          },
+          {
+            stage: '{ name: -1 }',
+            isValid: true,
+            isEnabled: true,
+            stageOperator: '$sort',
+            isExpanded: false
+          }
+        ]
+      );
+    });
   });
   describe('#expandAllStages', () => {
     it('returns the EXPAND_ALL_STAGES action', () => {
@@ -676,27 +715,44 @@ describe('pipeline module', () => {
         type: EXPAND_ALL_STAGES
       });
     });
-  });
-    // context('with checking sequence', () => {
-    //   const state = [
-    //     {
-    //       stage: '{ name: 1 }',
-    //       isValid: true,
-    //       isEnabled: true,
-    //       stageOperator: '$project',
-    //       isExpanded: true
-    //     },
-    //     {
-    //       stage: '{ name: -1 }',
-    //       isValid: true,
-    //       isEnabled: true,
-    //       stageOperator: '$sort',
-    //       isExpanded: true
-    //     }
-    //   ];
 
-    //   it('inserts new stage in the middle', () => {
-    //     expect(reducer(state, stageAddedAfter(0))[1].stageOperator).to.equal(null);
-    //   });
-    // });
+    it('sets all stages to isExpanded=true', () => {
+      const state = [
+        {
+          stage: '{}',
+          isValid: true,
+          isEnabled: true,
+          stageOperator: '$match',
+          isExpanded: false
+        },
+        {
+          stage: '{ name: -1 }',
+          isValid: true,
+          isEnabled: true,
+          stageOperator: '$sort',
+          isExpanded: false
+        }
+      ];
+
+      const result = reducer(state, expandAllStages());
+      expect(result).to.deep.equal(
+        [
+          {
+            stage: '{}',
+            isValid: true,
+            isEnabled: true,
+            stageOperator: '$match',
+            isExpanded: true
+          },
+          {
+            stage: '{ name: -1 }',
+            isValid: true,
+            isEnabled: true,
+            stageOperator: '$sort',
+            isExpanded: true
+          }
+        ]
+      );
+    });
+  });
 });
