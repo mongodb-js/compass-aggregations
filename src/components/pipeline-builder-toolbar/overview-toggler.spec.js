@@ -4,14 +4,6 @@ import { mount } from 'enzyme';
 import OverviewToggler from './overview-toggler';
 import styles from './overview-toggler.less';
 
-const OVERVIEW_ON = {
-  isOn: true
-};
-
-const OVERVIEW_OFF = {
-  isOn: false
-};
-
 
 describe('OverviewToggler [Component]', () => {
   context('when expanded', () => {
@@ -19,7 +11,7 @@ describe('OverviewToggler [Component]', () => {
     const spy = sinon.spy();
 
     beforeEach(() => {
-      component = mount(<OverviewToggler overview={OVERVIEW_OFF} overviewToggled={spy} />);
+      component = mount(<OverviewToggler isOverviewOn={false} overviewToggled={spy} />);
     });
 
     afterEach(() => {
@@ -27,7 +19,7 @@ describe('OverviewToggler [Component]', () => {
     });
 
     it('renders the correct root classname', () => {
-      expect(component.find(`.${styles.collapser}`)).to.be.present();
+      expect(component.find(`.${styles['overview-toggler']}`)).to.be.present();
     });
 
     it('renders the collapse text', () => {
@@ -48,7 +40,7 @@ describe('OverviewToggler [Component]', () => {
 
     beforeEach(() => {
       component = mount(
-        <OverviewToggler overview={OVERVIEW_ON} overviewToggled={spy} />
+        <OverviewToggler isOverviewOn overviewToggled={spy} />
       );
     });
 
@@ -71,9 +63,7 @@ describe('OverviewToggler [Component]', () => {
 
     beforeEach(() => {
       component = mount(
-        <OverviewToggler
-          overview={OVERVIEW_ON} overviewToggled={spy}
-        />
+        <OverviewToggler overviewOn overviewToggled={spy} />
       );
     });
 

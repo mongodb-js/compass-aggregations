@@ -304,7 +304,7 @@ const doConfirmNewFromText = state => {
  * isOverviewOn === false
  * // Inverse of above. All children isExpanded=true
  * ```
- * 
+ *
  * @param {Object} state
  * @param {Object} action
  */

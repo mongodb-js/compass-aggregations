@@ -115,6 +115,7 @@ const MappedAggregations = connect(
     collationStringChanged,
     toggleInputDocumentsCollapsed,
     refreshInputDocuments,
+    // toggleOverview,
     toggleComments,
     toggleSample,
     toggleAutoPreview,
@@ -148,8 +149,7 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified,
-    toggleOverview
+    setIsModified
   }
 )(Aggregations);
 

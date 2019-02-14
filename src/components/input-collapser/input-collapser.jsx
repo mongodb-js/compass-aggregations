@@ -35,10 +35,6 @@ class InputCollapser extends PureComponent {
     toggleInputDocumentsCollapsed: PropTypes.func.isRequired
   };
 
-  handleToggleClick() {
-    this.props.toggleInputDocumentsCollapsed();
-  }
-
   /**
    * Render the input collapser component.
    *
@@ -53,7 +49,7 @@ class InputCollapser extends PureComponent {
         <button
           type="button"
           title={buttonTitle}
-          onClick={this.handleToggleClick}
+          onClick={this.props.toggleInputDocumentsCollapsed}
           className="btn btn-default btn-xs">
           <i className={iconClassName} aria-hidden />
         </button>

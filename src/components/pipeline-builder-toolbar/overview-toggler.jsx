@@ -45,7 +45,7 @@ class OverviewToggler extends PureComponent {
     const buttonTitle = this.props.isOverviewOn ? EXPAND : COLLAPSE;
 
     return (
-      <div className={classnames(styles.collapser)}>
+      <div className={classnames(styles['overview-toggler'])}>
         <button
           type="button"
           title={buttonTitle}
