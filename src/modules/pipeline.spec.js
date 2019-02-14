@@ -11,8 +11,6 @@ import reducer, {
   generatePipeline,
   generatePipelineAsString,
   loadingStageResults,
-  collapseAllStages,
-  expandAllStages,
   STAGE_ADDED,
   STAGE_ADDED_AFTER,
   STAGE_CHANGED,
@@ -22,9 +20,8 @@ import reducer, {
   STAGE_OPERATOR_SELECTED,
   STAGE_PREVIEW_UPDATED,
   LOADING_STAGE_RESULTS,
-  STAGE_TOGGLED,
-COLLAPSE_ALL_STAGES,
-EXPAND_ALL_STAGES } from 'modules/pipeline';
+  STAGE_TOGGLED
+} from 'modules/pipeline';
 
 const LIMIT_TO_PROCESS = 100000;
 const LIMIT_TO_DISPLAY = 20;
@@ -661,98 +658,6 @@ describe('pipeline module', () => {
           ]);
         });
       });
-    });
-  });
-  describe('#collapseAllStages', () => {
-    it('returns the COLLAPSE_ALL_STAGES action', () => {
-      expect(collapseAllStages()).to.deep.equal({
-        type: COLLAPSE_ALL_STAGES
-      });
-    });
-
-    const state = [
-      {
-        stage: '{}',
-        isValid: true,
-        isEnabled: true,
-        stageOperator: '$match',
-        isExpanded: true
-      },
-      {
-        stage: '{ name: -1 }',
-        isValid: true,
-        isEnabled: true,
-        stageOperator: '$sort',
-        isExpanded: true
-      }
-    ];
-
-    it('sets all stages to isExpanded=false', ()=> {
-      const result = reducer(state, collapseAllStages());
-      expect(result).to.deep.equal(
-        [
-          {
-            stage: '{}',
-            isValid: true,
-            isEnabled: true,
-            stageOperator: '$match',
-            isExpanded: false
-          },
-          {
-            stage: '{ name: -1 }',
-            isValid: true,
-            isEnabled: true,
-            stageOperator: '$sort',
-            isExpanded: false
-          }
-        ]
-      );
-    });
-  });
-  describe('#expandAllStages', () => {
-    it('returns the EXPAND_ALL_STAGES action', () => {
-      expect(expandAllStages()).to.deep.equal({
-        type: EXPAND_ALL_STAGES
-      });
-    });
-
-    it('sets all stages to isExpanded=true', () => {
-      const state = [
-        {
-          stage: '{}',
-          isValid: true,
-          isEnabled: true,
-          stageOperator: '$match',
-          isExpanded: false
-        },
-        {
-          stage: '{ name: -1 }',
-          isValid: true,
-          isEnabled: true,
-          stageOperator: '$sort',
-          isExpanded: false
-        }
-      ];
-
-      const result = reducer(state, expandAllStages());
-      expect(result).to.deep.equal(
-        [
-          {
-            stage: '{}',
-            isValid: true,
-            isEnabled: true,
-            stageOperator: '$match',
-            isExpanded: true
-          },
-          {
-            stage: '{ name: -1 }',
-            isValid: true,
-            isEnabled: true,
-            stageOperator: '$sort',
-            isExpanded: true
-          }
-        ]
-      );
     });
   });
 });

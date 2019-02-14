@@ -16,7 +16,7 @@ describe('PipelineBuilderToolbar [Component]', () => {
   let saveSpy;
   let setIsModifiedSpy;
   let collationCollapseSpy;
-  let collapseToggledSpy;
+  let toggleOverviewSpy;
 
   beforeEach(() => {
     savedPipelinesListToggleSpy = sinon.spy();
@@ -29,7 +29,7 @@ describe('PipelineBuilderToolbar [Component]', () => {
     saveSpy = sinon.spy();
     setIsModifiedSpy = sinon.spy();
     collationCollapseSpy = sinon.spy();
-    collapseToggledSpy = sinon.spy();
+    toggleOverviewSpy = sinon.spy();
 
     component = mount(
       <PipelineBuilderToolbar
@@ -44,8 +44,8 @@ describe('PipelineBuilderToolbar [Component]', () => {
         name=""
         isModified
         isCollationExpanded
-        isCollapsed={false}
-        collapsedToggled={collapseToggledSpy}
+        isOverviewOn={false}
+        toggleOverview={toggleOverviewSpy}
         setIsModified={setIsModifiedSpy}
         collationCollapseToggled={collationCollapseSpy}
         exportToLanguage={exportToLanguageSpy}
@@ -64,7 +64,7 @@ describe('PipelineBuilderToolbar [Component]', () => {
     nameChangedSpy = null;
     saveSpy = null;
     setIsModifiedSpy = null;
-    collapseToggledSpy = null;
+    toggleOverviewSpy = null;
   });
 
   it('renders the wrapper div', () => {

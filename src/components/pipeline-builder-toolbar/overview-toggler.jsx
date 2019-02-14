@@ -31,8 +31,8 @@ class OverviewToggler extends PureComponent {
   static displayName = 'OverviewToggler';
 
   static propTypes = {
-    overview: PropTypes.object.isRequired,
-    overviewToggled: PropTypes.func.isRequired
+    isOverviewOn: PropTypes.bool.isRequired,
+    toggleOverview: PropTypes.func.isRequired
   };
 
   /**
@@ -41,17 +41,15 @@ class OverviewToggler extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const isCollapsed = this.props.overview.isOn;
-
-    const iconClassName = isCollapsed ? ANGLE_RIGHT : ANGLE_DOWN;
-    const buttonTitle = isCollapsed ? EXPAND : COLLAPSE;
+    const iconClassName = this.props.isOverviewOn ? ANGLE_RIGHT : ANGLE_DOWN;
+    const buttonTitle = this.props.isOverviewOn ? EXPAND : COLLAPSE;
 
     return (
       <div className={classnames(styles.collapser)}>
         <button
           type="button"
           title={buttonTitle}
-          onClick={this.props.overviewToggled}
+          onClick={this.props.toggleOverview}
           className="btn btn-default btn-xs">
           <i className={iconClassName} aria-hidden />
         </button>

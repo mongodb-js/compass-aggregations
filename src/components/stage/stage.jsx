@@ -102,8 +102,7 @@ class Stage extends Component {
     stageToggled: PropTypes.func.isRequired,
     openLink: PropTypes.func.isRequired,
     fields: PropTypes.array.isRequired,
-    setIsModified: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    setIsModified: PropTypes.func.isRequired
   };
 
   /* eslint complexity: 0 */
@@ -122,7 +121,6 @@ class Stage extends Component {
       nextProps.fromStageOperators !== this.props.fromStageOperators ||
       nextProps.index !== this.props.index ||
       nextProps.isCommenting !== this.props.isCommenting ||
-      nextProps.isCollapsed !== this.props.isCollapsed ||
       nextProps.isAutoPreviewing !== this.props.isAutoPreviewing ||
       nextProps.serverVersion !== this.props.serverVersion ||
       nextProps.fields.length !== this.props.fields.length ||

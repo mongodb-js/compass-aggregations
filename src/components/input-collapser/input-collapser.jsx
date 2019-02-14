@@ -32,13 +32,11 @@ class InputCollapser extends PureComponent {
 
   static propTypes = {
     isExpanded: PropTypes.bool.isRequired,
-    toggleInputDocumentsCollapsed: PropTypes.func.isRequired,
-    overviewStageModified: PropTypes.func.isRequired
+    toggleInputDocumentsCollapsed: PropTypes.func.isRequired
   };
 
   handleToggleClick() {
     this.props.toggleInputDocumentsCollapsed();
-    this.props.overviewStageModified({ id: 'pipeline-input', isExpanded: this.props.isExpanded });
   }
 
   /**

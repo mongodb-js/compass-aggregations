@@ -32,8 +32,8 @@ class PipelineBuilderToolbar extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
 
-    overview: PropTypes.object.isRequired,
-    overviewToggled: PropTypes.func.isRequired,
+    isOverviewOn: PropTypes.bool.isRequired,
+    toggleOverview: PropTypes.func.isRequired,
 
     /**
      * Saved Pipelines
@@ -92,8 +92,8 @@ class PipelineBuilderToolbar extends PureComponent {
     return (
       <div className={classnames(styles['pipeline-builder-toolbar'])}>
         <OverviewToggler
-          overview={this.props.overview}
-          overviewToggled={this.props.overviewToggled}
+          isOverviewOn={this.props.isOverviewOn}
+          toggleOverview={this.props.toggleOverview}
         />
         <IconButton
           title="Toggle Saved Pipelines"

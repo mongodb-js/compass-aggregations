@@ -33,10 +33,8 @@ class PipelineToolbar extends PureComponent {
     name: PropTypes.string,
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
-    collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired,
-    expandAllStages: PropTypes.func.isRequired,
-    collapseAllStages: PropTypes.func.isRequired
+    isOverviewOn: PropTypes.bool.isRequired,
+    toggleOverview: PropTypes.func.isRequired
   };
 
   /**
@@ -66,10 +64,8 @@ class PipelineToolbar extends PureComponent {
           name={this.props.name}
           collationCollapseToggled={this.props.collationCollapseToggled}
           isCollationExpanded={this.props.isCollationExpanded}
-          collapseToggled={this.props.collapseToggled}
-          isCollapsed={this.props.isCollapsed}
-          expandAllStages={this.props.expandAllStages}
-          collapseAllStages={this.props.collapseAllStages}
+          isOverviewOn={this.props.isOverviewOn}
+          toggleOverview={this.props.toggleOverview}
         />
         <PipelinePreviewToolbar
           toggleComments={this.props.toggleComments}

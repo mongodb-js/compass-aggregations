@@ -37,11 +37,7 @@ class PipelineWorkspace extends PureComponent {
     stageMoved: PropTypes.func.isRequired,
     stageOperatorSelected: PropTypes.func.isRequired,
     stageToggled: PropTypes.func.isRequired,
-    fields: PropTypes.array.isRequired,
-    collapseToggled: PropTypes.func.isRequired,
-    expandAllStages: PropTypes.func.isRequired,
-    collapseAllStages: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    fields: PropTypes.array.isRequired
   };
 
   /**
@@ -84,7 +80,6 @@ class PipelineWorkspace extends PureComponent {
           fields={this.props.fields}
           setIsModified={this.props.setIsModified}
           key={stage.id}
-          isCollapsed={this.props.isCollapsed}
         />
       );
     });
@@ -100,10 +95,6 @@ class PipelineWorkspace extends PureComponent {
           isExpanded={inputDocuments.isExpanded}
           openLink={this.props.openLink}
           count={inputDocuments.count}
-          isCollapsed={this.props.isCollapsed}
-          collapseToggled={this.props.collapseToggled}
-          expandAllStages={this.props.expandAllStages}
-          collapseAllStages={this.props.collapseAllStages}
         />
         {stages}
         <AddStage

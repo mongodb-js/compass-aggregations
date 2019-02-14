@@ -12,15 +12,13 @@ class Input extends PureComponent {
   static propTypes = {
     toggleInputDocumentsCollapsed: PropTypes.func.isRequired,
     refreshInputDocuments: PropTypes.func.isRequired,
-    collapseToggled: PropTypes.func.isRequired,
-    expandAllStages: PropTypes.func.isRequired,
-    collapseAllStages: PropTypes.func.isRequired,
     documents: PropTypes.array.isRequired,
     isLoading: PropTypes.bool.isRequired,
     isExpanded: PropTypes.bool.isRequired,
     openLink: PropTypes.func.isRequired,
     count: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    isCollapsed: PropTypes.bool.isRequired
+    isOverviewOn: PropTypes.bool.isRequired,
+    toggleOverview: PropTypes.func.isRequired
   };
 
   /**
@@ -34,6 +32,8 @@ class Input extends PureComponent {
         documents={this.props.documents}
         openLink={this.props.openLink}
         isLoading={this.props.isLoading}
+        isOverviewOn={this.props.isOverviewOn}
+        toggleOverview={this.props.toggleOverview}
       />
     ) : null;
     return (
@@ -42,13 +42,11 @@ class Input extends PureComponent {
           toggleInputDocumentsCollapsed={
             this.props.toggleInputDocumentsCollapsed
           }
-          collapseToggled={this.props.collapseToggled}
-          expandAllStages={this.props.expandAllStages}
-          collapseAllStages={this.props.collapseAllStages}
           refreshInputDocuments={this.props.refreshInputDocuments}
           isExpanded={this.props.isExpanded}
-          isCollapsed={this.props.isCollapsed}
           count={this.props.count}
+          isOverviewOn={this.props.isOverviewOn}
+          toggleOverview={this.props.toggleOverview}
         />
         {workspace}
       </div>

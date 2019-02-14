@@ -52,13 +52,6 @@ export const STAGE_OPERATOR_SELECTED = `${PREFIX}/STAGE_OPERATOR_SELECTED`;
 export const STAGE_TOGGLED = `${PREFIX}/STAGE_TOGGLED`;
 
 /**
- * Stage toggled action name.
- */
-export const COLLAPSE_ALL_STAGES = `${PREFIX}/COLLAPSE_ALL_STAGES`;
-
-export const EXPAND_ALL_STAGES = `${PREFIX}/EXPAND_ALL_STAGES`;
-
-/**
  * Stage preview updated action name.
  */
 export const STAGE_PREVIEW_UPDATED = `${PREFIX}/STAGE_PREVIEW_UPDATED`;
@@ -306,36 +299,6 @@ const stageResultsLoading = (state, action) => {
 };
 
 /**
- * Set all stages to isExpanded: false
- *
- * @param {Object} state - The state.
- * @param {Object} action - The action.
- *
- * @returns {Object} The new state.
- */
-const collapsingAllStages = state => {
-  return copyState(state).map(stage => {
-    stage.isExpanded = false;
-    return stage;
-  });
-};
-
-/**
- * Set all stages to isExpanded: true
- *
- * @param {Object} state - The state.
- * @param {Object} action - The action.
- *
- * @returns {Object} The new state.
- */
-const expandingAllStages = state => {
-  return copyState(state).map(stage => {
-    stage.isExpanded = true;
-    return stage;
-  });
-};
-
-/**
  * To not have a huge switch statement in the reducer.
  */
 const MAPPINGS = {};
@@ -350,8 +313,6 @@ MAPPINGS[STAGE_TOGGLED] = toggleStage;
 MAPPINGS[STAGE_COLLAPSE_TOGGLED] = toggleStageCollapse;
 MAPPINGS[STAGE_PREVIEW_UPDATED] = updateStagePreview;
 MAPPINGS[LOADING_STAGE_RESULTS] = stageResultsLoading;
-MAPPINGS[COLLAPSE_ALL_STAGES] = collapsingAllStages;
-MAPPINGS[EXPAND_ALL_STAGES] = expandingAllStages;
 
 /**
  * Reducer function for handle state changes to pipeline.
@@ -494,28 +455,6 @@ export const stagePreviewUpdated = (docs, index, error, isComplete) => ({
 export const loadingStageResults = index => ({
   type: LOADING_STAGE_RESULTS,
   index: index
-});
-
-/**
- * The expand all action.
- *
- * @param {Number} index - The stage index.
- *
- * @returns {Object} The action.
- */
-export const expandAllStages = () => ({
-  type: EXPAND_ALL_STAGES
-});
-
-/**
- * The collapse all action.
- *
- * @param {Number} index - The stage index.
- *
- * @returns {Object} The action.
- */
-export const collapseAllStages = () => ({
-  type: COLLAPSE_ALL_STAGES
 });
 
 /**

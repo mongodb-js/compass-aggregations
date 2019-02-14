@@ -54,9 +54,7 @@ import appRegistry, {
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'modules/app-registry';
 
-import overview, {
-  INITIAL_STATE as OVERVIEW_INITIAL_STATE
-} from './overview';
+const OVERVIEW_ON_INITIAL_STATE = false;
 
 /**
  * The intial state of the root reducer.
@@ -81,7 +79,7 @@ export const INITIAL_STATE = {
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
   importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
-  overview: OVERVIEW_INITIAL_STATE
+  isOverviewOn: OVERVIEW_ON_INITIAL_STATE
 };
 
 /**
@@ -108,6 +106,12 @@ export const NEW_PIPELINE = 'aggregations/NEW_PIPELINE';
  * Clone pipeline action name.
  */
 export const CLONE_PIPELINE = 'aggregations/CLONE_PIPELINE';
+
+
+/**
+ * toggleOverview action name.
+ */
+export const TOGGLE_OVERVIEW = 'aggregations/TOGGLE_OVERVIEW';
 
 /**
  * The main application reducer.
@@ -136,8 +140,7 @@ const appReducer = combineReducers({
   isCollationExpanded,
   id,
   isModified,
-  importPipeline,
-  overview
+  importPipeline
 });
 
 /**
@@ -198,7 +201,7 @@ const doRestorePipeline = (state, action) => {
     collation: savedState.collation,
     collationString: savedState.collationString,
     isCollationExpanded: savedState.collationString ? true : false,
-    isCollapsed: !savedState.isCollapsed ? false : true,
+    isOverviewOn: !savedState.isOverviewOn ? false : true,
     id: savedState.id,
     comments: commenting,
     sample: sampling,
@@ -248,7 +251,8 @@ const createNewPipeline = state => ({
   fields: state.fields,
   serverVersion: state.serverVersion,
   dataService: state.dataService,
-  inputDocuments: state.inputDocuments
+  inputDocuments: state.inputDocuments,
+  isOverviewOn: state.isOverviewOn
 });
 
 /**
@@ -293,6 +297,35 @@ const doConfirmNewFromText = state => {
 };
 
 /**
+ * Toggles whether agg pipeline builder is in overview mode.
+ * @example
+ * ```javascript
+ * isOverviewOn === true
+ * // set isExpanded = false on all stages and input children.
+ * // users can then click expanders in expanders independent of overview.
+ * isOverviewOn === false
+ * // Inverse of above. All children isExpanded=true
+ * ```
+ * 
+ * @param {Object} state
+ * @param {Object} action
+ */
+const doToggleOverview = (state, action) => {
+  const newState = {
+    ...state,
+    isOverviewModeOn: !state.isOverviewModeOn
+  };
+
+  newState.pipeline.forEach((pipe) => {
+    pipe.isExpanded = !state.isOverviewModeOn;
+  });
+
+  newState.input.isExpanded = !state.isOverviewModeOn;
+
+  return appReducer(newState, action);
+};
+
+/**
  * The action to state modifier mappings.
  */
 const MAPPINGS = {
@@ -302,7 +335,8 @@ const MAPPINGS = {
   [CLEAR_PIPELINE]: doClearPipeline,
   [NEW_PIPELINE]: createNewPipeline,
   [CLONE_PIPELINE]: createClonedPipeline,
-  [CONFIRM_NEW]: doConfirmNewFromText
+  [CONFIRM_NEW]: doConfirmNewFromText,
+  [TOGGLE_OVERVIEW]: doToggleOverview
 };
 
 /**
@@ -366,6 +400,10 @@ export const newPipeline = () => ({
  */
 export const clonePipeline = () => ({
   type: CLONE_PIPELINE
+});
+
+export const toggleOverview = () => ({
+  type: TOGGLE_OVERVIEW
 });
 
 /**

@@ -71,10 +71,8 @@ class Pipeline extends PureComponent {
     openLink: PropTypes.func.isRequired,
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
-    collapseToggled: PropTypes.func.isRequired,
-    isCollapsed: PropTypes.bool.isRequired,
-    expandAllStages: PropTypes.func.isRequired,
-    collapseAllStages: PropTypes.func.isRequired
+    isOverviewOn: PropTypes.bool.isRequired,
+    toggleOverview: PropTypes.func.isRequired
   };
 
   /**
@@ -181,10 +179,8 @@ class Pipeline extends PureComponent {
           collationCollapseToggled={this.props.collationCollapseToggled}
           isCollationExpanded={this.props.isCollationExpanded}
           name={this.props.name}
-          isCollapsed={this.props.isCollapsed}
-          collapseToggled={this.props.collapseToggled}
-          expandAllStages={this.props.expandAllStages}
-          collapseAllStages={this.props.collapseAllStages}
+          isOverviewOn={this.props.isOverviewOn}
+          toggleOverview={this.props.toggleOverview}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}
