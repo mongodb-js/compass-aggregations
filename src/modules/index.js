@@ -201,7 +201,6 @@ const doRestorePipeline = (state, action) => {
     collation: savedState.collation,
     collationString: savedState.collationString,
     isCollationExpanded: savedState.collationString ? true : false,
-    isOverviewOn: !savedState.isOverviewOn ? false : true,
     id: savedState.id,
     comments: commenting,
     sample: sampling,
@@ -251,8 +250,7 @@ const createNewPipeline = state => ({
   fields: state.fields,
   serverVersion: state.serverVersion,
   dataService: state.dataService,
-  inputDocuments: state.inputDocuments,
-  isOverviewOn: state.isOverviewOn
+  inputDocuments: state.inputDocuments
 });
 
 /**
@@ -310,19 +308,18 @@ const doConfirmNewFromText = state => {
  * @param {Object} state
  * @param {Object} action
  */
-const doToggleOverview = (state, action) => {
+const doToggleOverview = (state) => {
   const newState = {
     ...state,
-    isOverviewModeOn: !state.isOverviewModeOn
+    isOverviewOn: !state.isOverviewOn
   };
 
   newState.pipeline.forEach((pipe) => {
-    pipe.isExpanded = !state.isOverviewModeOn;
+    pipe.isExpanded = !state.isOverviewOn;
   });
 
-  newState.input.isExpanded = !state.isOverviewModeOn;
-
-  return appReducer(newState, action);
+  newState.input.isExpanded = !state.isOverviewOn;
+  return newState;
 };
 
 /**

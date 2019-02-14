@@ -4,7 +4,6 @@ import { appRegistryEmit } from 'modules/app-registry';
 import { ObjectId } from 'bson';
 import toNS from 'mongodb-ns';
 import isEmpty from 'lodash.isempty';
-import { generateStageWithDefaults } from 'utils/stage';
 
 /**
  * Action name prefix.
@@ -103,7 +102,19 @@ export const OUT = '$out';
  *
  * @todo: (durran) Loading needs to clear out server errors.
  */
-export const EMPTY_STAGE = [generateStageWithDefaults()];
+export const EMPTY_STAGE = {
+  id: new ObjectId().toHexString(),
+  stageOperator: null,
+  stage: '',
+  isValid: true,
+  isEnabled: true,
+  isExpanded: true,
+  isLoading: false,
+  isComplete: false,
+  previewDocuments: [],
+  syntaxError: null,
+  error: null
+};
 
 /**
  * The initial state.
