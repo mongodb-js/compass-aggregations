@@ -309,8 +309,6 @@ const doConfirmNewFromText = state => {
  * @param {Object} action
  */
 const doToggleOverview = (state) => {
-  console.group('doToggleOverview');
-
   const newState = {
     ...state,
     isOverviewOn: !state.isOverviewOn
@@ -318,15 +316,13 @@ const doToggleOverview = (state) => {
 
   if(newState.pipeline) {
     newState.pipeline.forEach((pipe) => {
-      pipe.isExpanded = !state.isOverviewOn;
+      pipe.isExpanded = !newState.isOverviewOn;
     });
   }
 
   if (newState.input) {
-    newState.input.isExpanded = !state.isOverviewOn;
+    newState.input.isExpanded = !newState.isOverviewOn;
   }
-  console.log({state, newState});
-  console.groupEnd('doToggleOverview');
   return newState;
 };
 

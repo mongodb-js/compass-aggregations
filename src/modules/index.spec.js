@@ -147,22 +147,68 @@ describe('root [ module ]', () => {
     });
 
     context('when the action is TOGGLE_OVERVIEW', () => {
-      const prevState = {
-        isOverviewOn: false
-      };
 
-      let state;
+      describe('#isOverviewOn', () => {
+        const prevState = {
+          isOverviewOn: false
+        };
 
-      it('first toggle turns it on', () => {
-        state = reducer(prevState, toggleOverview());
-        expect(state.isOverviewOn).to.equal(true);
+        let state;
+
+        it('first toggle turns it on', () => {
+          state = reducer(prevState, toggleOverview());
+          expect(state.isOverviewOn).to.equal(true);
+        });
+
+        it('second toggle turns it back off', () => {
+          state = reducer(state, toggleOverview());
+          expect(state.isOverviewOn).to.equal(false);
+        });
       });
 
-      it('second toggle turns it back off', () => {
-        state = reducer(state, toggleOverview());
-        expect(state.isOverviewOn).to.equal(false);
+      describe('#pipeline[].isExpanded', () => {
+        const prevState = {
+          isOverviewOn: false,
+          pipeline: [
+            {
+              isExpanded: true
+            }
+          ]
+        };
+
+        let state;
+
+        it('first toggle collapses the opened stage', () => {
+          state = reducer(prevState, toggleOverview());
+          expect(state.pipeline[0].isExpanded).to.equal(false);
+        });
+
+        it('second toggle expands the stage', () => {
+          state = reducer(state, toggleOverview());
+          expect(state.pipeline[0].isExpanded).to.equal(true);
+        });
       });
 
+      describe('#input.isExpanded', () => {
+        const prevState = {
+          isOverviewOn: false,
+          input: {
+            isExpanded: true
+          }
+        };
+
+        let state;
+
+        it('first toggle collapses it', () => {
+          state = reducer(prevState, toggleOverview());
+          expect(state.input.isExpanded).to.equal(false);
+        });
+
+        it('second toggle expands the stage', () => {
+          state = reducer(state, toggleOverview());
+          expect(state.input.isExpanded).to.equal(true);
+        });
+      });
     });
   });
 });
