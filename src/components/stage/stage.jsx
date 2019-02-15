@@ -135,7 +135,7 @@ class Stage extends Component {
    * @returns {React.Component} The workspace.
    */
   renderWorkspace() {
-    if (!this.props.isExpanded) {
+    if (this.props.isExpanded) {
       return (
         <StageWorkspace
           stage={this.props.stage}

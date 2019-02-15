@@ -27,7 +27,7 @@ class Input extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    const workspace = !this.props.isExpanded ? (
+    const workspace = this.props.isExpanded ? (
       <InputWorkspace
         documents={this.props.documents}
         openLink={this.props.openLink}
