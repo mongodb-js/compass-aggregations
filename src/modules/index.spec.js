@@ -146,8 +146,7 @@ describe('root [ module ]', () => {
       });
     });
 
-    context('when the action is TOGGLE_OVERVIEW', () => {
-
+    describe('when the action is TOGGLE_OVERVIEW', () => {
       describe('#isOverviewOn', () => {
         const prevState = {
           isOverviewOn: false
@@ -189,10 +188,10 @@ describe('root [ module ]', () => {
         });
       });
 
-      describe('#input.isExpanded', () => {
+      describe('#inputDocuments.isExpanded', () => {
         const prevState = {
           isOverviewOn: false,
-          input: {
+          inputDocuments: {
             isExpanded: true
           }
         };
@@ -201,12 +200,12 @@ describe('root [ module ]', () => {
 
         it('first toggle collapses it', () => {
           state = reducer(prevState, toggleOverview());
-          expect(state.input.isExpanded).to.equal(false);
+          expect(state.inputDocuments.isExpanded).to.equal(false);
         });
 
         it('second toggle expands the stage', () => {
           state = reducer(state, toggleOverview());
-          expect(state.input.isExpanded).to.equal(true);
+          expect(state.inputDocuments.isExpanded).to.equal(true);
         });
       });
     });

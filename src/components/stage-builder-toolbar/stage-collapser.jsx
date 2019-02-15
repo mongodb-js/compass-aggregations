@@ -53,7 +53,6 @@ class StageCollapser extends PureComponent {
   render() {
     const iconClassName = this.props.isExpanded ? ANGLE_DOWN : ANGLE_RIGHT;
     const buttonTitle = this.props.isExpanded ? COLLAPSE : EXPAND;
-
     return (
       <div className={classnames(styles['stage-collapser'])}>
         <button

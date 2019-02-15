@@ -54,8 +54,7 @@ import appRegistry, {
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'modules/app-registry';
 
-const OVERVIEW_ON_INITIAL_STATE = false;
-
+const OVERVIEW_INITIAL_STATE = false;
 /**
  * The intial state of the root reducer.
  */
@@ -73,13 +72,13 @@ export const INITIAL_STATE = {
   collation: COLLATION_INITIAL_STATE,
   collationString: COLLATION_STRING_INITIAL_STATE,
   isCollationExpanded: COLLATION_COLLAPSER_INITIAL_STATE,
+  isOverviewOn: OVERVIEW_INITIAL_STATE,
   comments: COMMENTS_INITIAL_STATE,
   sample: SAMPLE_INITIAL_STATE,
   autoPreview: AUTO_PREVIEW_INITIAL_STATE,
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
-  importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
-  isOverviewOn: OVERVIEW_ON_INITIAL_STATE
+  importPipeline: IMPORT_PIPELINE_INITIAL_STATE
 };
 
 /**
@@ -314,14 +313,14 @@ const doToggleOverview = (state) => {
     isOverviewOn: !state.isOverviewOn
   };
 
-  if(newState.pipeline) {
+  if (newState.pipeline) {
     newState.pipeline.forEach((pipe) => {
       pipe.isExpanded = !newState.isOverviewOn;
     });
   }
 
-  if (newState.input) {
-    newState.input.isExpanded = !newState.isOverviewOn;
+  if (newState.inputDocuments) {
+    newState.inputDocuments.isExpanded = !newState.isOverviewOn;
   }
   return newState;
 };

@@ -17,7 +17,7 @@ import {
 
 import { exportToLanguage } from 'modules/export-to-language';
 import { openLink } from 'modules/link';
-import { deletePipeline, newPipeline, clonePipeline } from 'modules';
+import { deletePipeline, newPipeline, clonePipeline, toggleOverview } from 'modules';
 import {
   runStage,
   runOutStage,
@@ -29,8 +29,7 @@ import {
   stageDeleted,
   stageMoved,
   stageOperatorSelected,
-  stageToggled,
-  toggleOverview
+  stageToggled
 } from 'modules/pipeline';
 import {
   savedPipelinesListToggle,
@@ -99,7 +98,9 @@ const mapStateToProps = state => ({
   isImportPipelineOpen: state.importPipeline.isOpen,
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
-  importPipelineError: state.importPipeline.syntaxError
+  importPipelineError: state.importPipeline.syntaxError,
+  isOverviewOn: state.isOverviewOn,
+  toggleOverview: toggleOverview
 });
 
 /**
@@ -115,7 +116,7 @@ const MappedAggregations = connect(
     collationStringChanged,
     toggleInputDocumentsCollapsed,
     refreshInputDocuments,
-    // toggleOverview,
+    toggleOverview,
     toggleComments,
     toggleSample,
     toggleAutoPreview,
