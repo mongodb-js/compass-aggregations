@@ -1,6 +1,6 @@
 import AppRegistry from 'hadron-app-registry';
 import FieldStore, { activate } from '@mongodb-js/compass-field-store';
-import store from 'stores';
+import initStore from 'stores';
 import {
   stageChanged,
   stageCollapseToggled,
@@ -12,6 +12,8 @@ import {
 import { reset, INITIAL_STATE } from '../modules/index';
 
 describe('Aggregation Store', () => {
+  const store = initStore();
+
   beforeEach(() => {
     store.dispatch(reset());
   });

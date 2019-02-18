@@ -1,5 +1,5 @@
 import AggregationsPlugin from './plugin';
-import AggregationsStore from 'stores';
+import initStore from 'stores';
 import { Aggregations } from 'components/aggregations';
 import StageEditor from 'components/stage-editor';
 
@@ -19,7 +19,7 @@ const ROLE = {
  **/
 const activate = (appRegistry) => {
   appRegistry.registerRole('Collection.Tab', ROLE);
-  appRegistry.registerStore('Aggregations.Store', AggregationsStore);
+  appRegistry.registerStore('Aggregations.Store', initStore);
 };
 
 /**
@@ -33,4 +33,4 @@ const deactivate = (appRegistry) => {
 };
 
 export default AggregationsPlugin;
-export { activate, deactivate, Aggregations, StageEditor };
+export { activate, deactivate, Aggregations, StageEditor, initStore };
