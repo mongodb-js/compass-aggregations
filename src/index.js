@@ -19,7 +19,7 @@ const ROLE = {
  **/
 const activate = (appRegistry) => {
   appRegistry.registerRole('Collection.Tab', ROLE);
-  appRegistry.registerStore('Aggregations.Store', initStore);
+  appRegistry.registerStore('Aggregations.Store', initStore());
 };
 
 /**
