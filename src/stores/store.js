@@ -15,6 +15,54 @@ import { appRegistryActivated } from 'modules/app-registry';
 const store = createStore(reducer, applyMiddleware(thunk));
 
 /**
+ * Refresh the input documents.
+ */
+const refreshInput = () => {
+  store.dispatch(refreshInputDocuments());
+};
+
+/**
+ * Set the data provider.
+ *
+ * @param {Error} error - The error (if any) while connecting.
+ * @param {Object} provider - The data provider.
+ */
+const setDataProvider = (error, provider) => {
+  store.dispatch(dataServiceConnected(error, provider));
+};
+
+/**
+ * Set the namespace in the store.
+ *
+ * @param {String} ns - The namespace in "db.collection" format.
+ */
+const setNamespace = (ns) => {
+  const namespace = toNS(ns);
+  if (namespace.collection) {
+    store.dispatch(namespaceChanged(ns));
+    refreshInput();
+  }
+};
+
+/**
+ * Set the server version.
+ *
+ * @param {String} version - The version.
+ */
+const setServerVersion = (version) => {
+  store.dispatch(serverVersionChanged(version));
+};
+
+/**
+ * Set the fields for the autocompleter.
+ *
+ * @param {Array} fields - The fields array in the ACE autocompleter format.
+ */
+const setFields = (fields) => {
+  store.dispatch(fieldsChanged(fields));
+};
+
+/**
  * This hook is Compass specific to listen to app registry events.
  *
  * @param {AppRegistry} appRegistry - The app registry.
@@ -26,18 +74,14 @@ store.onActivated = (appRegistry) => {
    * @param {String} ns - The full namespace.
    */
   appRegistry.on('collection-changed', (ns) => {
-    const namespace = toNS(ns);
-    if (namespace.collection) {
-      store.dispatch(namespaceChanged(ns));
-      store.dispatch(refreshInputDocuments());
-    }
+    setNamespace(ns);
   });
 
   /**
    * When the collection is changed, update the store.
    */
   appRegistry.on('import-finished', () => {
-    store.dispatch(refreshInputDocuments());
+    refreshInput();
   });
 
   /**
@@ -47,7 +91,7 @@ store.onActivated = (appRegistry) => {
     const ns = appRegistry.getStore('App.NamespaceStore').ns;
     // TODO: only refresh when we are in the index tab; for now just check if
     // we are in the documents set of tabs.
-    if (ns.indexOf('.' === 0)) store.dispatch(refreshInputDocuments());
+    if (ns.indexOf('.' === 0)) refreshInput();
   });
 
   /**
@@ -57,7 +101,7 @@ store.onActivated = (appRegistry) => {
    * @param {DataService} dataService - The data service.
    */
   appRegistry.on('data-service-connected', (error, dataService) => {
-    store.dispatch(dataServiceConnected(error, dataService));
+    setDataProvider(error, dataService);
   });
 
   /**
@@ -67,7 +111,7 @@ store.onActivated = (appRegistry) => {
    * @param {Object} fields - The fields.
    */
   appRegistry.getStore('Field.Store').listen((fields) => {
-    store.dispatch(fieldsChanged(fields.aceFields));
+    setFields(fields.aceFields);
   });
 
   /**
@@ -76,7 +120,7 @@ store.onActivated = (appRegistry) => {
    * @param {String} version - The version.
    */
   appRegistry.on('server-version-changed', (version) => {
-    store.dispatch(serverVersionChanged(version));
+    setServerVersion(version);
   });
 
   /**
