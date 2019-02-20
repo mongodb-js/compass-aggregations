@@ -28,4 +28,4 @@ class Settings extends PureComponent {
   }
 }
 
-export default StageToolbar;
+export default Settings;
