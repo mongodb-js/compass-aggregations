@@ -12,9 +12,7 @@ export const INITIAL_STATE = {
   isExpanded: false,
   isCommentMode: true,
   sampleSize: 20,
-  sampleSizeIsDefault: true,
-  maxTimeoutMS: 5000,
-  maxTimeoutMSIsDefault: true
+  maxTimeoutMS: 5000
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -35,15 +33,13 @@ export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === SET_SAMPLE_SIZE) {
     return {
       ...state,
-      sampleSize: action.value,
-      sampleSizeIsDefault: action.value === INITIAL_STATE.sampleSize
+      sampleSize: action.value
     };
   }
   if (action.type === SET_MAX_TIMEOUT_MS) {
     return {
       ...state,
-      maxTimeoutMS: action.value,
-      maxTimeoutMSIsDefault: action.value === INITIAL_STATE.maxTimeoutMSIsDefault
+      maxTimeoutMS: action.value
     };
   }
   return state;
@@ -53,7 +49,7 @@ export const toggleSettingsIsExpanded = () => ({
   type: TOGGLE_IS_EXPANDED
 });
 
-export const toggleSettingsCommentMode = () => ({
+export const toggleSettingsIsCommentMode = () => ({
   type: TOGGLE_COMMENT_MODE
 });
 

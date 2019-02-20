@@ -9,7 +9,11 @@ class Settings extends PureComponent {
   static propTypes = {
     settings: PropTypes.bool.isRequired,
     saveSettings: PropTypes.func.isRequired,
-    isExpanded: PropTypes.bool.isRequired
+    isExpanded: PropTypes.bool.isRequired,
+    toggleSettingsIsExpanded: PropTypes.func.isRequired,
+    toggleSettingsCommentMode: PropTypes.func.isRequired,
+    setSettingsSampleSize: PropTypes.func.isRequired,
+    setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
   }
 
   render() {
@@ -17,7 +21,7 @@ class Settings extends PureComponent {
       <div className={classnames(styles.settings)}>
         <h1>Settings</h1>
         <ul>
-          <li><label>Sample Mode</label><input type="checkbox" /></li>
+          <li><label>Comment Mode</label><input type="checkbox" /></li>
           <li><label>MaxTimeoutMS</label><input type="number" value="5000" /></li>
           <li><label>Sample Size</label><input type="number" value="100" /></li>
         </ul>
