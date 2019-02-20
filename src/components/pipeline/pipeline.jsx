@@ -189,6 +189,7 @@ class Pipeline extends PureComponent {
           name={this.props.name}
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
+          toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}

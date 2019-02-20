@@ -24,13 +24,12 @@ class PipelinePreviewToolbar extends PureComponent {
   static displayName = 'PipelinePreviewToolbarComponent';
 
   static propTypes = {
-    toggleComments: PropTypes.func.isRequired,
     toggleSample: PropTypes.func.isRequired,
     toggleAutoPreview: PropTypes.func.isRequired,
-    isCommenting: PropTypes.bool.isRequired,
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
-    isModified: PropTypes.bool.isRequired
+    isModified: PropTypes.bool.isRequired,
+    toggleSettingsIsExpanded: PropTypes.func.isRequired
   };
 
   modifiedText() {
