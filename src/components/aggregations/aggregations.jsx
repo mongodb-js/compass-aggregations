@@ -51,6 +51,14 @@ import {
   createNew,
   confirmNew
 } from 'modules/import-pipeline';
+
+import {
+  toggleSettingsIsExpanded,
+  toggleSettingsIsCommentMode,
+  setSettingsSampleSize,
+  setSettingsMaxTimeoutMS
+} from 'modules/settings';
+
 import styles from './aggregations.less';
 
 /**
@@ -100,6 +108,7 @@ const mapStateToProps = state => ({
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
+  settings: state.settings,
   isOverviewOn: state.isOverviewOn,
   toggleOverview: toggleOverview
 });
@@ -151,7 +160,11 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified
+    setIsModified,
+    toggleSettingsIsExpanded,
+    toggleSettingsIsCommentMode,
+    setSettingsSampleSize,
+    setSettingsMaxTimeoutMS
   }
 )(Aggregations);
 

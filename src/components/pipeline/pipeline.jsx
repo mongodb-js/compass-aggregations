@@ -8,6 +8,8 @@ import PipelineToolbar from 'components/pipeline-toolbar';
 import CollationToolbar from './collation-toolbar';
 import PipelineWorkspace from 'components/pipeline-workspace';
 import SavePipeline from 'components/save-pipeline';
+import Settings from 'components/settings';
+
 import RestorePipelineModal from './modals/restore-pipeline-modal';
 import ImportPipeline from './modals/import-pipeline';
 import ConfirmImportPipeline from './modals/confirm-import-pipeline';
@@ -72,7 +74,13 @@ class Pipeline extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
     isOverviewOn: PropTypes.bool.isRequired,
-    toggleOverview: PropTypes.func.isRequired
+    toggleOverview: PropTypes.func.isRequired,
+    restorePipelineFrom: PropTypes.func.isRequired,
+    settings: PropTypes.object.isRequired,
+    toggleSettingsIsExpanded: PropTypes.func.isRequired,
+    toggleSettingsIsCommentMode: PropTypes.func.isRequired,
+    setSettingsSampleSize: PropTypes.func.isRequired,
+    setSettingsMaxTimeoutMS: PropTypes.func.isRequired
   };
 
   /**
@@ -191,6 +199,13 @@ class Pipeline extends PureComponent {
           deletePipeline={this.props.deletePipeline}
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           savedPipeline={this.props.savedPipeline}
+        />
+        <Settings 
+          {...this.props.settings}
+          toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
+          toggleSettingsIsCommentMode={this.props.toggleSettingsIsCommentMode}
+          setSettingsSampleSize={this.props.setSettingsSampleSize}
+          setSettingsMaxTimeoutMS={this.props.setSettingsMaxTimeoutMS}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}

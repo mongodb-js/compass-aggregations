@@ -1,4 +1,4 @@
-const PREFIX = 'agreggations/settings';
+const PREFIX = 'aggregations/settings';
 
 export const TOGGLE_IS_EXPANDED = `${PREFIX}/TOGGLE_IS_EXPANDED`;
 

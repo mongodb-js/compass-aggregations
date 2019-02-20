@@ -57,6 +57,9 @@ import isOverviewOn, {
   TOGGLE_OVERVIEW,
   INITIAL_STATE as OVERVIEW_INITIAL_STATE
 } from 'modules/is-overview-on';
+import settings, {
+  INITIAL_STATE as SETTINGS_INITIAL_STATE
+} from './settings';
 
 /**
  * The intial state of the root reducer.
@@ -81,7 +84,8 @@ export const INITIAL_STATE = {
   autoPreview: AUTO_PREVIEW_INITIAL_STATE,
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
-  importPipeline: IMPORT_PIPELINE_INITIAL_STATE
+  importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
+  settings: SETTINGS_INITIAL_STATE
 };
 
 /**
@@ -137,7 +141,8 @@ const appReducer = combineReducers({
   id,
   isModified,
   importPipeline,
-  isOverviewOn
+  isOverviewOn,
+  settings
 });
 
 /**

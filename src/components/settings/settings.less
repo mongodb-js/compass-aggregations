@@ -1,3 +1,44 @@
+@import (reference) "~less/compass/_theme.less";
+
 .settings {
-  
+  border-left: 1px solid @gray6;
+  box-shadow: 1px 1px 1px @gray6;
+  background: rgb(248, 248, 248);
+  position: absolute;
+  width: 400px;
+  height: 100%;
+  top: 0;
+  // right: -401px;
+  right: 0px;
+  transition: right 0.20s ease-in-out;
+  font-size: 1em;
+  z-index: 500;
+
+  &-is-visible {
+    right: 0px;
+    transition: right 0.20s ease-in-out;
+  }
+
+  &-header {
+    height: 34px;
+    display: flex;
+    padding: 10px;
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: bold;
+    color: @gray1;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid @gray6;
+    box-shadow: 1px 1px 1px @gray6;
+  }
+
+  &-body {
+    overflow-y: scroll;
+  }
+
+  &-footer {
+    cursor: pointer;
+  }
 }
+

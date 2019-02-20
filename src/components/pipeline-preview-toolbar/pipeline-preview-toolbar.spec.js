@@ -6,30 +6,25 @@ import styles from './pipeline-preview-toolbar.less';
 
 describe('PipelinePreviewToolbar [Component]', () => {
   let component;
-  let toggleCommentsSpy;
   let toggleSampleSpy;
   let toggleAutoPreviewSpy;
 
   beforeEach(() => {
-    toggleCommentsSpy = sinon.spy();
     toggleSampleSpy = sinon.spy();
     toggleAutoPreviewSpy = sinon.spy();
     component = mount(
       <PipelinePreviewToolbar
-        toggleComments={toggleCommentsSpy}
         toggleSample={toggleSampleSpy}
         toggleAutoPreview={toggleAutoPreviewSpy}
         isModified
         isSampling
         isAutoPreviewing
-        isCommenting
       />
     );
   });
 
   afterEach(() => {
     component = null;
-    toggleCommentsSpy = null;
     toggleSampleSpy = null;
     toggleAutoPreviewSpy = null;
   });
@@ -38,14 +33,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
     expect(
       component.find(`.${styles['pipeline-preview-toolbar']}`)
     ).to.be.present();
-  });
-
-  it('renders the comment mode text', () => {
-    expect(
-      component
-        .find(`.${styles['pipeline-preview-toolbar-comment-mode']}`)
-        .hostNodes()
-    ).to.have.text('Comment Mode');
   });
 
   describe('Sample Mode', () => {
@@ -77,16 +64,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
       expect(
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
-    });
-  });
-
-  context('when toggling comments', () => {
-    it('calls the action', () => {
-      component
-        .find(`.${styles['pipeline-preview-toolbar-toggle-comments-button']}`)
-        .hostNodes()
-        .simulate('click');
-      expect(toggleCommentsSpy.calledOnce).to.equal(true);
     });
   });
 
