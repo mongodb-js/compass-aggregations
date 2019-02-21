@@ -1,7 +1,6 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 const baseWebpackConfig = require('./webpack.base.config');
@@ -64,9 +63,6 @@ const config = {
 
     // Do not emit compiled assets that include errors
     new webpack.NoEmitOnErrorsPlugin(),
-
-    // Creates HTML page for us at build time
-    new HtmlWebpackPlugin(),
 
     // Defines global variables
     new webpack.DefinePlugin(GLOBALS)
