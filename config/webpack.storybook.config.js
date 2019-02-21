@@ -23,7 +23,6 @@ const config = {
   },
   output: {
     path: project.path.output,
-    publicPath: '/',
     filename: '[name].js'
   },
   node: {
