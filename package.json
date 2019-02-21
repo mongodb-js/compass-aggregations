@@ -140,6 +140,7 @@
     "bson": "^4.0.1",
     "bson-transpilers": "^0.9.0",
     "decomment": "^0.9.1",
+    "is-electron-renderer": "^2.0.1",
     "lodash.debounce": "^4.0.8",
     "lodash.isempty": "^4.4.0",
     "mongodb-extended-json": "^1.10.0",

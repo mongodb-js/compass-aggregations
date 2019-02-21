@@ -24,10 +24,7 @@ const config = {
     path: project.path.output,
     filename: '[name].js'
   },
-  node: {
-    fs: 'empty'
-  },
-  externals: [nodeExternals(), 'electron', 'antlr4'],
+  externals: [nodeExternals()],
   module: {
     rules: [
       {
@@ -55,6 +52,36 @@ const config = {
     ]
   },
   plugins: [
+    // Node externals
+    new webpack.ExternalsPlugin('commonjs', [
+      'fs'
+    ]),
+    // Electron externals
+    new webpack.ExternalsPlugin('commonjs', [
+      'app',
+      'auto-updater',
+      'browser-window',
+      'clipboard',
+      'content-tracing',
+      'crash-reporter',
+      'dialog',
+      'electron',
+      'global-shortcut',
+      'ipc',
+      'ipc-main',
+      'menu',
+      'menu-item',
+      'native-image',
+      'original-fs',
+      'power-monitor',
+      'power-save-blocker',
+      'protocol',
+      'screen',
+      'session',
+      'shell',
+      'tray',
+      'web-contents'
+    ]),
     // Enable HMR globally
     new webpack.HotModuleReplacementPlugin(),
 
