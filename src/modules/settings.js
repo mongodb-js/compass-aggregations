@@ -8,11 +8,14 @@ export const SET_SAMPLE_SIZE = `${PREFIX}/SET_SAMPLE_SIZE`;
 
 export const SET_MAX_TIMEOUT_MS = `${PREFIX}/SET_MAX_TIMEOUT_MS`;
 
+export const SET_LIMIT = `${PREFIX}/SET_LIMIT`;
+
 export const INITIAL_STATE = {
   isExpanded: false,
   isCommentMode: true,
   sampleSize: 20,
-  maxTimeoutMS: 5000
+  maxTimeoutMS: 5000,
+  limit: 100
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -42,6 +45,12 @@ export default function reducer(state = INITIAL_STATE, action) {
       maxTimeoutMS: action.value
     };
   }
+  if (action.type === SET_LIMIT) {
+    return {
+      ...state,
+      limit: action.value
+    };
+  }
   return state;
 }
 
@@ -60,5 +69,10 @@ export const setSettingsSampleSize = (value) => ({
 
 export const setSettingsMaxTimeoutMS = (value) => ({
   type: SET_MAX_TIMEOUT_MS,
+  value: value
+});
+
+export const setSettingsLimit = (value) => ({
+  type: SET_LIMIT,
   value: value
 });

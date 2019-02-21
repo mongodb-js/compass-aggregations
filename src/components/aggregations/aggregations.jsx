@@ -56,7 +56,8 @@ import {
   toggleSettingsIsExpanded,
   toggleSettingsIsCommentMode,
   setSettingsSampleSize,
-  setSettingsMaxTimeoutMS
+  setSettingsMaxTimeoutMS,
+  setSettingsLimit
 } from 'modules/settings';
 
 import styles from './aggregations.less';
@@ -164,7 +165,8 @@ const MappedAggregations = connect(
     toggleSettingsIsExpanded,
     toggleSettingsIsCommentMode,
     setSettingsSampleSize,
-    setSettingsMaxTimeoutMS
+    setSettingsMaxTimeoutMS,
+    setSettingsLimit
   }
 )(Aggregations);
 

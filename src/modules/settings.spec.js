@@ -3,10 +3,12 @@ import reducer, {
   TOGGLE_COMMENT_MODE,
   SET_SAMPLE_SIZE,
   SET_MAX_TIMEOUT_MS,
+  SET_LIMIT,
   toggleSettingsIsExpanded,
   toggleSettingsIsCommentMode,
   setSettingsSampleSize,
   setSettingsMaxTimeoutMS,
+  setSettingsLimit,
   INITIAL_STATE
 } from './settings';
 
@@ -117,6 +119,32 @@ describe('settings', () => {
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
             maxTimeoutMS: INITIAL_STATE.maxTimeoutMS
+          });
+        });
+      });
+    });
+
+    describe('#setSettingsLimit', () => {
+      it('returns the action type', () => {
+        expect(setSettingsLimit(10000)).to.deep.equal({
+          type: SET_LIMIT,
+          value: 10000
+        });
+      });
+      describe('#reducer', () => {
+        let state;
+        it('passes the value and flips isDefault', () => {
+          state = reducer(undefined, setSettingsLimit(10000));
+          expect(state).to.deep.equal({
+            ...INITIAL_STATE,
+            limit: 10000
+          });
+        });
+        it('setting the value again back to a default flips it back', () => {
+          state = reducer(state, setSettingsLimit(INITIAL_STATE.limit));
+          expect(state).to.deep.equal({
+            ...INITIAL_STATE,
+            limit: INITIAL_STATE.limit
           });
         });
       });

@@ -12,11 +12,12 @@ class Settings extends PureComponent {
     isExpanded: PropTypes.bool.isRequired,
     sampleSize: PropTypes.number.isRequired,
     maxTimeoutMS: PropTypes.number.isRequired,
-    
+
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
-    setSettingsMaxTimeoutMS: PropTypes.func.isRequired
+    setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
+    setSettingsLimit: PropTypes.func.isRequired
   }
 
   onCancelClicked() {
@@ -46,11 +47,24 @@ class Settings extends PureComponent {
             clickHandler={this.props.toggleSettingsIsExpanded} />
         </div>
         <div className={classnames(styles['settings-body'])}>
-          <ul>
-            <li><label>Comment Mode</label><input type="checkbox" /></li>
-            <li><label>MaxTimeoutMS</label><input type="number" value="5000" /></li>
-            <li><label>Sample Size</label><input type="number" value="100" /></li>
-          </ul>
+          <form>
+            <div>
+              <label>Comment Mode</label>
+              <input type="checkbox" />
+            </div>
+            <div>
+              <label>MaxTimeoutMS</label>
+              <input type="number" value="5000" />
+            </div>
+            <div>
+              <label>Sample Size</label>
+              <input type="number" value="100" />
+            </div>
+            <div>
+              <label>Limit</label>
+              <input type="number" value="100" />
+            </div>
+          </form>
         </div>
         <div className={styles['settings-footer']}>
           <TextButton
