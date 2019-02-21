@@ -80,7 +80,8 @@ class Pipeline extends PureComponent {
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
-    setSettingsMaxTimeoutMS: PropTypes.func.isRequired
+    setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
+    setSettingsLimit: PropTypes.func.isRequired
   };
 
   /**
@@ -201,12 +202,13 @@ class Pipeline extends PureComponent {
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           savedPipeline={this.props.savedPipeline}
         />
-        <Settings 
+        <Settings
           {...this.props.settings}
           toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
           toggleSettingsIsCommentMode={this.props.toggleSettingsIsCommentMode}
           setSettingsSampleSize={this.props.setSettingsSampleSize}
           setSettingsMaxTimeoutMS={this.props.setSettingsMaxTimeoutMS}
+          setSettingsLimit={this.props.setSettingsLimit}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}

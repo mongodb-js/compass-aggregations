@@ -110,8 +110,7 @@ const mapStateToProps = state => ({
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
   settings: state.settings,
-  isOverviewOn: state.isOverviewOn,
-  toggleOverview: toggleOverview
+  isOverviewOn: state.isOverviewOn
 });
 
 /**
@@ -144,6 +143,11 @@ const MappedAggregations = connect(
     stageOperatorSelected,
     stageToggled,
     collationCollapseToggled,
+    toggleSettingsIsExpanded,
+    toggleSettingsIsCommentMode,
+    setSettingsSampleSize,
+    setSettingsMaxTimeoutMS,
+    setSettingsLimit,
     exportToLanguage,
     savedPipelinesListToggle,
     saveCurrentPipeline,
@@ -161,12 +165,7 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified,
-    toggleSettingsIsExpanded,
-    toggleSettingsIsCommentMode,
-    setSettingsSampleSize,
-    setSettingsMaxTimeoutMS,
-    setSettingsLimit
+    setIsModified
   }
 )(Aggregations);
 

@@ -35,7 +35,7 @@ class PipelineToolbar extends PureComponent {
     isCollationExpanded: PropTypes.bool.isRequired,
     isOverviewOn: PropTypes.bool.isRequired,
     toggleOverview: PropTypes.func.isRequired,
-    toggleSettingsIsExpanded: PropTypes.func.toggleSettingsIsExpanded
+    toggleSettingsIsExpanded: PropTypes.func.isRequired
   };
 
   /**
