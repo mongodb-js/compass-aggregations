@@ -18,7 +18,7 @@ class Settings extends PureComponent {
     setSettingsSampleSize: PropTypes.func.isRequired,
     setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
     setSettingsLimit: PropTypes.func.isRequired
-  }
+  };
 
   onCancelClicked() {
     this.props.toggleSettingsIsExpanded();
@@ -44,7 +44,8 @@ class Settings extends PureComponent {
             title="Close Settings"
             className="btn btn-xs btn-default"
             iconClassName="fa fa-times"
-            clickHandler={this.props.toggleSettingsIsExpanded} />
+            clickHandler={this.props.toggleSettingsIsExpanded}
+          />
         </div>
         <div className={classnames(styles['settings-body'])}>
           <form>
@@ -71,12 +72,14 @@ class Settings extends PureComponent {
             id="cancel-settings"
             className="btn btn-default btn-sm"
             text="Cancel"
-            clickHandler={this.onCancelClicked.bind(this)} />
+            clickHandler={this.onCancelClicked.bind(this)}
+          />
           <TextButton
             id="apply-settings"
             className="btn btn-primary btn-sm"
             text="Apply"
-            clickHandler={this.onApplyClicked.bind(this)} />
+            clickHandler={this.onApplyClicked.bind(this)}
+          />
         </div>
       </div>
     );

@@ -21,7 +21,7 @@ export const INITIAL_STATE = {
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === TOGGLE_IS_EXPANDED) {
     return {
-      ...state, 
+      ...state,
       isExpanded: !state.isExpanded
     };
   }
@@ -62,17 +62,17 @@ export const toggleSettingsIsCommentMode = () => ({
   type: TOGGLE_COMMENT_MODE
 });
 
-export const setSettingsSampleSize = (value) => ({
+export const setSettingsSampleSize = value => ({
   type: SET_SAMPLE_SIZE,
   value: value
 });
 
-export const setSettingsMaxTimeoutMS = (value) => ({
+export const setSettingsMaxTimeoutMS = value => ({
   type: SET_MAX_TIMEOUT_MS,
   value: value
 });
 
-export const setSettingsLimit = (value) => ({
+export const setSettingsLimit = value => ({
   type: SET_LIMIT,
   value: value
 });

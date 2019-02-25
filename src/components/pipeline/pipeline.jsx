@@ -75,7 +75,6 @@ class Pipeline extends PureComponent {
     isCollationExpanded: PropTypes.bool.isRequired,
     isOverviewOn: PropTypes.bool.isRequired,
     toggleOverview: PropTypes.func.isRequired,
-    restorePipelineFrom: PropTypes.func.isRequired,
     settings: PropTypes.object.isRequired,
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
