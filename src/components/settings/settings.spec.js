@@ -7,7 +7,8 @@ import { INITIAL_STATE } from 'modules/settings';
 import styles from './settings.less';
 
 describe('Settings [Component]', () => {
-  let state, component;
+  let state;
+  let component;
   let saveSettingsSpy;
   let toggleSettingsIsExpandedSpy;
   let toggleSettingsIsCommentModeSpy;
