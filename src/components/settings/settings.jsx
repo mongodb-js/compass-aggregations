@@ -37,49 +37,71 @@ class Settings extends PureComponent {
     }
 
     return (
-      <div className={classnames(styles.settings)}>
-        <div className={classnames(styles['settings-header'])}>
-          <div id="settings-header-title">Settings</div>
-          <IconButton
-            title="Close Settings"
-            className="btn btn-xs btn-default"
-            iconClassName="fa fa-times"
-            clickHandler={this.props.toggleSettingsIsExpanded}
-          />
+      <div className={classnames(styles.container)}>
+        <div className={classnames(styles.header)}>
+          <div className={classnames(styles['header-title'])}>Settings</div>
+          <div className={classnames(styles['header-btn-group'])}>
+            <TextButton
+              id="settings-cancel"
+              className="btn btn-default btn-xs"
+              text="Cancel"
+              clickHandler={this.onCancelClicked.bind(this)}
+            />
+
+            <TextButton
+              id="settings-apply"
+              className="btn btn-primary btn-xs"
+              text="Apply"
+              clickHandler={this.onApplyClicked.bind(this)}
+            />
+          </div>
         </div>
-        <div className={classnames(styles['settings-body'])}>
-          <form>
-            <div>
+        <div className={classnames(styles.body)}>
+          <div className={classnames(styles['input-group'])}>
+            <div className={classnames(styles['input-meta'])}>
               <label>Comment Mode</label>
-              <input type="checkbox" />
+              <p>
+                When enabled, adds helper comments to each stage. Only applies
+                to new stages.
+              </p>
             </div>
-            <div>
-              <label>MaxTimeoutMS</label>
-              <input type="number" value="5000" />
+            <div className={classnames(styles['input-control'])}>
+              <input id="aggregation-comment-mode" type="checkbox" />
             </div>
-            <div>
+          </div>
+          <div className={classnames(styles['input-group'])}>
+            <div className={classnames(styles['input-meta'])}>
               <label>Sample Size</label>
-              <input type="number" value="100" />
+              <p>Specify the number of documents to use for Sample Mode.</p>
             </div>
-            <div>
+            <div className={classnames(styles['input-control'])}>
+              <input type="number" placeholder="100" />
+            </div>
+          </div>
+          <div className={classnames(styles['input-group'])}>
+            <div className={classnames(styles['input-meta'])}>
+              <label>Max Timeout</label>
+              <p>
+                Specifies a cumulative time limit in seconds for processing
+                operations on a cursor. Max timeout prevents long hang times.
+              </p>
+            </div>
+            <div className={classnames(styles['input-control'])}>
+              <input type="number" placeholder="5000" step="1000" />
+            </div>
+          </div>
+          <div className={classnames(styles['input-group'])}>
+            <div className={classnames(styles['input-meta'])}>
               <label>Limit</label>
-              <input type="number" value="100" />
+              <p>
+                Limits input documents before $group, $bucket, and $bucketAuto
+                stages. Set a limit to make the collection run faster.
+              </p>
             </div>
-          </form>
-        </div>
-        <div className={styles['settings-footer']}>
-          <TextButton
-            id="cancel-settings"
-            className="btn btn-default btn-sm"
-            text="Cancel"
-            clickHandler={this.onCancelClicked.bind(this)}
-          />
-          <TextButton
-            id="apply-settings"
-            className="btn btn-primary btn-sm"
-            text="Apply"
-            clickHandler={this.onApplyClicked.bind(this)}
-          />
+            <div className={classnames(styles['input-control'])}>
+              <input type="number" placeholder="100" />
+            </div>
+          </div>
         </div>
       </div>
     );
