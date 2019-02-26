@@ -66,7 +66,10 @@ import isOverviewOn, {
   TOGGLE_OVERVIEW,
   INITIAL_STATE as OVERVIEW_INITIAL_STATE
 } from 'modules/is-overview-on';
-import settings, { INITIAL_STATE as SETTINGS_INITIAL_STATE } from './settings';
+import settings, {
+  APPLY_SETTINGS,
+  INITIAL_STATE as SETTINGS_INITIAL_STATE 
+} from './settings';
 
 /**
  * The intial state of the root reducer.
@@ -122,8 +125,6 @@ export const NEW_PIPELINE = 'aggregations/NEW_PIPELINE';
  * Clone pipeline action name.
  */
 export const CLONE_PIPELINE = 'aggregations/CLONE_PIPELINE';
-
-export const APPLY_SETTINGS = 'aggregations/APPLY_SETTINGS';
 
 /**
  * The main application reducer.
@@ -344,6 +345,7 @@ const doApplySettings = state => {
   const newState = {
     ...state
   };
+  debugger;
   return newState;
 };
 
@@ -424,13 +426,6 @@ export const newPipeline = () => ({
 export const clonePipeline = () => ({
   type: CLONE_PIPELINE
 });
-
-export const applySettings = _settings => {
-  return {
-    type: APPLY_SETTINGS,
-    settings: _settings
-  };
-};
 
 /**
  * Get the delete action.

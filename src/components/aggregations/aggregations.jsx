@@ -46,7 +46,6 @@ import { setIsModified } from 'modules/is-modified';
 import {
   restoreSavedPipeline,
   getPipelineFromIndexedDB,
-  applySettings
 } from 'modules/index';
 import {
   restorePipelineModalToggle,
@@ -65,7 +64,8 @@ import {
   toggleSettingsIsCommentMode,
   setSettingsSampleSize,
   setSettingsMaxTimeoutMS,
-  setSettingsLimit
+  setSettingsLimit,
+  applySettings
 } from 'modules/settings';
 
 import styles from './aggregations.less';
@@ -176,6 +176,7 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
+    applySettings,
     setIsModified,
     limitChanged,
     largeLimitChanged,

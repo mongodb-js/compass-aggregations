@@ -19,6 +19,7 @@ class Settings extends PureComponent {
     setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
     setSettingsLimit: PropTypes.func.isRequired,
 
+    applySettings: PropTypes.func.isRequired,
     isCommenting: PropTypes.bool.isRequired,
     toggleComments: PropTypes.func.isRequired,
     limit: PropTypes.number.isRequired,
@@ -51,8 +52,7 @@ class Settings extends PureComponent {
   onApplyClicked(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    debugger;
-    // this.props.applySettings(this.settings);
+    this.props.applySettings(this.settings);
   }
 
   render() {

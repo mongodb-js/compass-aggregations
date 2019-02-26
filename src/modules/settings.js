@@ -53,6 +53,11 @@ export default function reducer(state = INITIAL_STATE, action) {
       limit: action.value
     };
   }
+
+  if (action.type === APPLY_SETTINGS) {
+    // Note: Handled in root reducer.
+    return state;
+  }
   return state;
 }
 

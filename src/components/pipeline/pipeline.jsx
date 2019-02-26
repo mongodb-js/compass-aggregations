@@ -83,7 +83,8 @@ class Pipeline extends PureComponent {
     setSettingsLimit: PropTypes.func.isRequired,
     limit: PropTypes.number.isRequired,
     largeLimit: PropTypes.number.isRequired,
-    maxTimeoutMS: PropTypes.number.isRequired
+    maxTimeoutMS: PropTypes.number.isRequired,
+    applySettings: PropTypes.func.isRequired
   };
 
   /**
@@ -216,6 +217,7 @@ class Pipeline extends PureComponent {
           limit={this.props.limit}
           largeLimit={this.props.largeLimit}
           maxTimeoutMS={this.props.maxTimeoutMS}
+          applySettings={this.props.applySettings}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}
