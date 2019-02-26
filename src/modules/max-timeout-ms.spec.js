@@ -1,14 +1,14 @@
 import reducer, {
-  maxTimeoutMSChanged,
+  maxTimeMSChanged,
   MAX_TIMEOUT_MS_CHANGED
 } from 'modules/max-timeout-ms';
 
 describe('max-timeout-ms module', () => {
-  describe('#maxTimeoutMSChanged', () => {
+  describe('#maxTimeMSChanged', () => {
     it('returns the MAX_TIMEOUT_MS_CHANGED action', () => {
-      expect(maxTimeoutMSChanged(100)).to.deep.equal({
+      expect(maxTimeMSChanged(100)).to.deep.equal({
         type: MAX_TIMEOUT_MS_CHANGED,
-        maxTimeoutMS: 100
+        maxTimeMS: 100
       });
     });
   });
@@ -20,9 +20,9 @@ describe('max-timeout-ms module', () => {
       });
     });
 
-    context('when the action is maxTimeoutMSChanged changed', () => {
+    context('when the action is maxTimeMSChanged changed', () => {
       it('returns the new state', () => {
-        expect(reducer(undefined, maxTimeoutMSChanged(100))).to.equal(100);
+        expect(reducer(undefined, maxTimeMSChanged(100))).to.equal(100);
       });
     });
   });

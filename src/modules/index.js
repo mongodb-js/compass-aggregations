@@ -26,7 +26,7 @@ import largeLimit, {
   INITIAL_STATE as LARGE_LIMIT_INITIAL_STATE
 } from './large-limit';
 
-import maxTimeoutMS, {
+import maxTimeMS, {
   INITIAL_STATE as MAX_TIMEOUT_MS_INITIAL_STATE
 } from './max-timeout-ms';
 
@@ -98,7 +98,7 @@ export const INITIAL_STATE = {
   settings: SETTINGS_INITIAL_STATE,
   limit: LIMIT_INITIAL_STATE,
   largeLimit: LARGE_LIMIT_INITIAL_STATE,
-  maxTimeoutMS: MAX_TIMEOUT_MS_INITIAL_STATE
+  maxTimeMS: MAX_TIMEOUT_MS_INITIAL_STATE
 };
 
 /**
@@ -158,7 +158,7 @@ const appReducer = combineReducers({
   settings,
   limit,
   largeLimit,
-  maxTimeoutMS
+  maxTimeMS
 });
 
 /**
@@ -223,7 +223,7 @@ const doRestorePipeline = (state, action) => {
     comments: commenting,
     limit: savedState.limit,
     largeLimit: savedState.largeLimit,
-    maxTimeoutMS: savedState.maxTimeoutMS,
+    maxTimeMS: savedState.maxTimeMS,
     sample: sampling,
     autoPreview: autoPreviewing,
     fields: state.fields,
@@ -253,7 +253,7 @@ const doClearPipeline = state => ({
   pipeline: [],
   limit: LIMIT_INITIAL_STATE,
   largeLimit: LARGE_LIMIT_INITIAL_STATE,
-  maxTimeoutMS: MAX_TIMEOUT_MS_INITIAL_STATE,
+  maxTimeMS: MAX_TIMEOUT_MS_INITIAL_STATE,
   savedPipeline: {
     ...state.savedPipeline,
     isListVisible: true
@@ -347,7 +347,7 @@ const doApplySettings = state => {
     limit: state.settings.sampleSize,
     largeLimit: state.settings.limit,
     comments: state.settings.isCommentMode,
-    maxTimeoutMS: state.settings.maxTimeoutMS
+    maxTimeMS: state.settings.maxTimeMS
   };
 
   // debugger;

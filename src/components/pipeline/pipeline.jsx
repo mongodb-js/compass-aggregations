@@ -79,11 +79,11 @@ class Pipeline extends PureComponent {
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
-    setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
+    setSettingsMaxTimeMS: PropTypes.func.isRequired,
     setSettingsLimit: PropTypes.func.isRequired,
     limit: PropTypes.number.isRequired,
     largeLimit: PropTypes.number.isRequired,
-    maxTimeoutMS: PropTypes.number.isRequired,
+    maxTimeMS: PropTypes.number.isRequired,
     applySettings: PropTypes.func.isRequired
   };
 
@@ -210,13 +210,13 @@ class Pipeline extends PureComponent {
           toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
           toggleSettingsIsCommentMode={this.props.toggleSettingsIsCommentMode}
           setSettingsSampleSize={this.props.setSettingsSampleSize}
-          setSettingsMaxTimeoutMS={this.props.setSettingsMaxTimeoutMS}
+          setSettingsMaxTimeMS={this.props.setSettingsMaxTimeMS}
           setSettingsLimit={this.props.setSettingsLimit}
           isCommenting={this.props.isCommenting}
           toggleComments={this.props.toggleComments}
           limit={this.props.limit}
           largeLimit={this.props.largeLimit}
-          maxTimeoutMS={this.props.maxTimeoutMS}
+          maxTimeMS={this.props.maxTimeMS}
           applySettings={this.props.applySettings}
           runStage={this.props.runStage}
         />

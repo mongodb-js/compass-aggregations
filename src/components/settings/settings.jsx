@@ -14,7 +14,7 @@ class Settings extends PureComponent {
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
-    setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
+    setSettingsMaxTimeMS: PropTypes.func.isRequired,
     setSettingsLimit: PropTypes.func.isRequired,
 
     applySettings: PropTypes.func.isRequired,
@@ -22,7 +22,7 @@ class Settings extends PureComponent {
     isCommenting: PropTypes.bool.isRequired,
     limit: PropTypes.number.isRequired,
     largeLimit: PropTypes.number.isRequired,
-    maxTimeoutMS: PropTypes.number.isRequired
+    maxTimeMS: PropTypes.number.isRequired
   };
 
   onCancelClicked(evt) {
@@ -40,7 +40,7 @@ class Settings extends PureComponent {
   }
 
   onMaxTimeoutChanged(evt) {
-    this.props.setSettingsMaxTimeoutMS(parseInt(evt.currentTarget.value, 10));
+    this.props.setSettingsMaxTimeMS(parseInt(evt.currentTarget.value, 10));
   }
 
   onLimitChanged(evt) {
@@ -131,7 +131,7 @@ class Settings extends PureComponent {
                 type="number"
                 placeholder="5000"
                 step="1000"
-                value={this.props.maxTimeoutMS}
+                value={this.props.maxTimeMS}
                 onChange={this.onMaxTimeoutChanged.bind(this)}
               />
             </div>

@@ -119,7 +119,7 @@ export const EMPTY_STAGE = {
 /**
  * The initial state.
  */
-export const INITIAL_STATE = [ EMPTY_STAGE ];
+export const INITIAL_STATE = [EMPTY_STAGE];
 
 /**
  * The default snippet.
@@ -490,7 +490,9 @@ export const generatePipeline = (state, index) => {
           FULL_SCAN_OPS.includes(stage.stageOperator) &&
           state.sample)
       ) {
-        results.push(LARGE_LIMIT);
+        results.push({
+          $limit: state.largeLimit || 100000
+        });
       }
       results.push(stage.executor || generateStage(stage));
     }
@@ -502,7 +504,9 @@ export const generatePipeline = (state, index) => {
     !REQUIRED_AS_FIRST_STAGE.includes(lastStage.stageOperator) &&
     lastStage.stageOperator !== OUT
   ) {
-    stages.push(LIMIT);
+    stages.push({
+      $limit: state.limit || 20
+    });
   }
   return stages;
 };
@@ -548,7 +552,7 @@ const executeAggregation = (dataService, ns, dispatch, state, index) => {
  * @param {Number} index - The current index.
  */
 const executeStage = (dataService, ns, dispatch, state, index) => {
-  const options = { maxTimeMS: 5000, allowDiskUse: true };
+  const options = { maxTimeMS: state.maxTimeMS || 5000, allowDiskUse: true };
   dispatch(loadingStageResults(index));
   const pipeline = generatePipeline(state, index);
   if (isEmpty(state.collation) === false) {

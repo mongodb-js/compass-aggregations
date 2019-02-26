@@ -14,7 +14,7 @@ import { toggleOverview, TOGGLE_OVERVIEW } from 'modules/is-overview-on';
 import { largeLimitChanged, LARGE_LIMIT_CHANGED } from 'modules/large-limit';
 import { limitChanged, LIMIT_CHANGED } from 'modules/limit';
 import {
-  maxTimeoutMSChanged,
+  maxTimeMSChanged,
   MAX_TIMEOUT_MS_CHANGED
 } from 'modules/max-timeout-ms';
 
@@ -68,11 +68,11 @@ describe('root [ module ]', () => {
     });
   });
 
-  describe('#maxTimeoutMS', () => {
+  describe('#maxTimeMS', () => {
     it('returns the MAX_TIMEOUT_MS_CHANGED action', () => {
-      expect(maxTimeoutMSChanged(100)).to.deep.equal({
+      expect(maxTimeMSChanged(100)).to.deep.equal({
         type: MAX_TIMEOUT_MS_CHANGED,
-        maxTimeoutMS: 100
+        maxTimeMS: 100
       });
     });
   });

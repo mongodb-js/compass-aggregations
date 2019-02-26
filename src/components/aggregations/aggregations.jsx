@@ -6,7 +6,7 @@ import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
 import { limitChanged } from 'modules/limit';
 import { largeLimitChanged } from 'modules/large-limit';
-import { maxTimeoutMSChanged } from 'modules/max-timeout-ms';
+import { maxTimeMSChanged } from 'modules/max-timeout-ms';
 
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';
@@ -63,7 +63,7 @@ import {
   toggleSettingsIsExpanded,
   toggleSettingsIsCommentMode,
   setSettingsSampleSize,
-  setSettingsMaxTimeoutMS,
+  setSettingsMaxTimeMS,
   setSettingsLimit,
   applySettings
 } from 'modules/settings';
@@ -121,7 +121,7 @@ const mapStateToProps = state => ({
   isOverviewOn: state.isOverviewOn,
   limit: state.limit,
   largeLimit: state.largeLimit,
-  maxTimeoutMS: state.maxTimeoutMS
+  maxTimeMS: state.maxTimeMS
 });
 
 /**
@@ -157,7 +157,7 @@ const MappedAggregations = connect(
     toggleSettingsIsExpanded,
     toggleSettingsIsCommentMode,
     setSettingsSampleSize,
-    setSettingsMaxTimeoutMS,
+    setSettingsMaxTimeMS,
     setSettingsLimit,
     exportToLanguage,
     savedPipelinesListToggle,
@@ -180,7 +180,7 @@ const MappedAggregations = connect(
     setIsModified,
     limitChanged,
     largeLimitChanged,
-    maxTimeoutMSChanged
+    maxTimeMSChanged
   }
 )(Aggregations);
 

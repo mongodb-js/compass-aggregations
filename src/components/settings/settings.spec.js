@@ -13,7 +13,7 @@ describe('Settings [Component]', () => {
   let toggleSettingsIsExpandedSpy;
   let toggleSettingsIsCommentModeSpy;
   let setSettingsSampleSizeSpy;
-  let setSettingsMaxTimeoutMSSpy;
+  let setSettingsMaxTimeMSSpy;
   let setSettingsLimitSpy;
   let toggleCommentsSpy;
   let runStageSpy;
@@ -23,7 +23,7 @@ describe('Settings [Component]', () => {
     toggleSettingsIsExpandedSpy = sinon.spy();
     toggleSettingsIsCommentModeSpy = sinon.spy();
     setSettingsSampleSizeSpy = sinon.spy();
-    setSettingsMaxTimeoutMSSpy = sinon.spy();
+    setSettingsMaxTimeMSSpy = sinon.spy();
     setSettingsLimitSpy = sinon.spy();
     runStageSpy = sinon.spy();
 
@@ -33,13 +33,13 @@ describe('Settings [Component]', () => {
       toggleSettingsIsExpanded: toggleSettingsIsExpandedSpy,
       toggleSettingsIsCommentMode: toggleSettingsIsCommentModeSpy,
       setSettingsSampleSize: setSettingsSampleSizeSpy,
-      setSettingsMaxTimeoutMS: setSettingsMaxTimeoutMSSpy,
+      setSettingsMaxTimeMS: setSettingsMaxTimeMSSpy,
       setSettingsLimit: setSettingsLimitSpy,
       isCommenting: true,
       toggleComments: toggleCommentsSpy,
       limit: INITIAL_STATE.sampleSize,
       largeLimit: INITIAL_STATE.limit,
-      maxTimeoutMS: INITIAL_STATE.maxTimeoutMS,
+      maxTimeMS: INITIAL_STATE.maxTimeMS,
       runStage: runStageSpy
     };
   });
@@ -50,7 +50,7 @@ describe('Settings [Component]', () => {
     toggleSettingsIsExpandedSpy = null;
     toggleSettingsIsCommentModeSpy = null;
     setSettingsSampleSizeSpy = null;
-    setSettingsMaxTimeoutMSSpy = null;
+    setSettingsMaxTimeMSSpy = null;
     setSettingsLimitSpy = null;
     toggleCommentsSpy = null;
     runStageSpy = null;
