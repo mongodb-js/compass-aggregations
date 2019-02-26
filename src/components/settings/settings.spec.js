@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 
 import Settings from './settings.jsx';
 import { INITIAL_STATE } from 'modules/settings';
@@ -9,25 +9,27 @@ import styles from './settings.less';
 describe('Settings [Component]', () => {
   let state;
   let component;
-  let saveSettingsSpy;
+  let applySettingsSpy;
   let toggleSettingsIsExpandedSpy;
   let toggleSettingsIsCommentModeSpy;
   let setSettingsSampleSizeSpy;
   let setSettingsMaxTimeoutMSSpy;
   let setSettingsLimitSpy;
   let toggleCommentsSpy;
+  let runStageSpy;
 
   beforeEach(() => {
-    saveSettingsSpy = sinon.spy();
+    applySettingsSpy = sinon.spy();
     toggleSettingsIsExpandedSpy = sinon.spy();
     toggleSettingsIsCommentModeSpy = sinon.spy();
     setSettingsSampleSizeSpy = sinon.spy();
     setSettingsMaxTimeoutMSSpy = sinon.spy();
     setSettingsLimitSpy = sinon.spy();
+    runStageSpy = sinon.spy();
 
     state = {
       ...INITIAL_STATE,
-      saveSettings: saveSettingsSpy,
+      applySettings: applySettingsSpy,
       toggleSettingsIsExpanded: toggleSettingsIsExpandedSpy,
       toggleSettingsIsCommentMode: toggleSettingsIsCommentModeSpy,
       setSettingsSampleSize: setSettingsSampleSizeSpy,
@@ -37,27 +39,57 @@ describe('Settings [Component]', () => {
       toggleComments: toggleCommentsSpy,
       limit: INITIAL_STATE.sampleSize,
       largeLimit: INITIAL_STATE.limit,
-      maxTimeoutMS: INITIAL_STATE.maxTimeoutMS
+      maxTimeoutMS: INITIAL_STATE.maxTimeoutMS,
+      runStage: runStageSpy
     };
   });
 
   afterEach(() => {
     component = null;
+    state = null;
     toggleSettingsIsExpandedSpy = null;
     toggleSettingsIsCommentModeSpy = null;
     setSettingsSampleSizeSpy = null;
     setSettingsMaxTimeoutMSSpy = null;
     setSettingsLimitSpy = null;
     toggleCommentsSpy = null;
+    runStageSpy = null;
   });
 
   it('is hidden by default', () => {
-    component = shallow(<Settings {...state} />);
+    component = mount(<Settings {...state} />);
     expect(Object.keys(component).length).to.equal(0);
   });
 
   it('is rendered when isExpanded=true', () => {
-    component = shallow(<Settings {...{ ...state, isExpanded: true }} />);
-    expect(component.find(`.${styles.settings}`)).to.be.present();
+    const props = { ...state, isExpanded: true };
+    component = mount(<Settings {...props} />);
+    expect(component.find(`.${styles.container}`)).to.be.present();
+  });
+
+  describe('When opened', () => {
+    it('should close when Cancel is clicked', () => {
+      const props = { ...state, isExpanded: true };
+      component = mount(<Settings {...props} />);
+      component
+        .find('#aggregations-settings-cancel')
+        .hostNodes()
+        .simulate('click');
+      expect(toggleSettingsIsExpandedSpy.calledOnce).to.equal(true);
+    });
+
+    it('should update the settings, re-run the pipeline, and Close', () => {
+      const props = { ...state, isExpanded: true };
+
+      component = mount(<Settings {...props} />);
+      component
+        .find('#aggregation-settings-apply')
+        .hostNodes()
+        .simulate('click');
+
+      expect(applySettingsSpy.calledOnce).to.equal(true);
+      expect(runStageSpy.calledOnce).to.equal(true);
+      expect(toggleSettingsIsExpandedSpy.calledOnce).to.equal(true);
+    });
   });
 });

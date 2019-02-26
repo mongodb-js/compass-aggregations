@@ -68,7 +68,7 @@ import isOverviewOn, {
 } from 'modules/is-overview-on';
 import settings, {
   APPLY_SETTINGS,
-  INITIAL_STATE as SETTINGS_INITIAL_STATE 
+  INITIAL_STATE as SETTINGS_INITIAL_STATE
 } from './settings';
 
 /**
@@ -343,9 +343,14 @@ const doToggleOverview = state => {
 
 const doApplySettings = state => {
   const newState = {
-    ...state
+    ...state,
+    limit: state.settings.sampleSize,
+    largeLimit: state.settings.limit,
+    comments: state.settings.isCommentMode,
+    maxTimeoutMS: state.settings.maxTimeoutMS
   };
-  debugger;
+
+  // debugger;
   return newState;
 };
 
@@ -467,3 +472,4 @@ export const getPipelineFromIndexedDB = pipelineId => {
     });
   };
 };
+

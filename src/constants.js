@@ -1,22 +1,18 @@
 /**
- * An initial stage. See modules/pipeline.js
+ * Default for maxTimeOutMS option.
  */
-export const EMPTY_STAGE = {
-  stageOperator: null,
-  stage: '',
-  isValid: true,
-  isEnabled: true,
-  isExpanded: true,
-  isLoading: false,
-  isComplete: false,
-  previewDocuments: [],
-  syntaxError: null,
-  error: null
-};
-
 export const DEFAULT_MAX_TIMEOUT_MS = 5000;
 
+/**
+ * Number of documents to sample.
+ */
 export const DEFAULT_SAMPLE_SIZE = 20;
+
+/**
+ * If a stage is one of `FULL_SCAN_OPS`,
+ * prepend with $limit if the collection is large.
+ */
+export const DEFAULT_LARGE_LIMIT = 100000;
 
 /**
  * N/A contant.
@@ -44,3 +40,8 @@ export const FULL_SCAN_OPS = ['$group', '$bucket', '$bucketAuto'];
  * The out stage operator.
  */
 export const OUT = '$out';
+
+/**
+ * The default snippet.
+ */
+export const DEFAULT_SNIPPET = '{\n  \n}';

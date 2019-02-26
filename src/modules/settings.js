@@ -12,12 +12,18 @@ export const SET_LIMIT = `${PREFIX}/SET_LIMIT`;
 
 export const APPLY_SETTINGS = `${PREFIX}/APPLY_SETTINGS`;
 
+import {
+  DEFAULT_MAX_TIMEOUT_MS,
+  DEFAULT_SAMPLE_SIZE,
+  DEFAULT_LARGE_LIMIT
+} from '../constants';
+
 export const INITIAL_STATE = {
   isExpanded: false,
   isCommentMode: true,
-  sampleSize: 20, // limit
-  maxTimeoutMS: 5000,
-  limit: 100 // largeLimit
+  sampleSize: DEFAULT_SAMPLE_SIZE, // limit
+  maxTimeoutMS: DEFAULT_MAX_TIMEOUT_MS,
+  limit: DEFAULT_LARGE_LIMIT // largeLimit
 };
 
 export default function reducer(state = INITIAL_STATE, action) {

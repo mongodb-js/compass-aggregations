@@ -218,6 +218,7 @@ class Pipeline extends PureComponent {
           largeLimit={this.props.largeLimit}
           maxTimeoutMS={this.props.maxTimeoutMS}
           applySettings={this.props.applySettings}
+          runStage={this.props.runStage}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}

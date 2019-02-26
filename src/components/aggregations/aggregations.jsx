@@ -45,7 +45,7 @@ import {
 import { setIsModified } from 'modules/is-modified';
 import {
   restoreSavedPipeline,
-  getPipelineFromIndexedDB,
+  getPipelineFromIndexedDB
 } from 'modules/index';
 import {
   restorePipelineModalToggle,

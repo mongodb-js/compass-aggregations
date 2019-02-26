@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
-import { TextButton, IconButton } from 'hadron-react-buttons';
+import { TextButton } from 'hadron-react-buttons';
 
 import styles from './settings.less';
 
@@ -10,8 +10,6 @@ class Settings extends PureComponent {
   static displayName = 'Settings';
   static propTypes = {
     isExpanded: PropTypes.bool.isRequired,
-    sampleSize: PropTypes.number.isRequired,
-    maxTimeoutMS: PropTypes.number.isRequired,
 
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
@@ -20,8 +18,8 @@ class Settings extends PureComponent {
     setSettingsLimit: PropTypes.func.isRequired,
 
     applySettings: PropTypes.func.isRequired,
+    runStage: PropTypes.func.isRequired,
     isCommenting: PropTypes.bool.isRequired,
-    toggleComments: PropTypes.func.isRequired,
     limit: PropTypes.number.isRequired,
     largeLimit: PropTypes.number.isRequired,
     maxTimeoutMS: PropTypes.number.isRequired
@@ -33,26 +31,34 @@ class Settings extends PureComponent {
     this.props.toggleSettingsIsExpanded();
   }
 
-  onCommentModeClicked(evt) {
+  onCommentModeClicked() {
     this.props.toggleSettingsIsCommentMode();
   }
 
   onSampleSizeChanged(evt) {
-    this.props.setSettingsSampleSize(parseInt(evt.currentTarget.value));
+    this.props.setSettingsSampleSize(parseInt(evt.currentTarget.value, 10));
   }
 
   onMaxTimeoutChanged(evt) {
-    this.props.setSettingsMaxTimeoutMS(parseInt(evt.currentTarget.value));
+    this.props.setSettingsMaxTimeoutMS(parseInt(evt.currentTarget.value, 10));
   }
 
   onLimitChanged(evt) {
-    this.props.setSettingsLimit(parseInt(evt.currentTarget.value))
+    this.props.setSettingsLimit(parseInt(evt.currentTarget.value, 10));
   }
 
   onApplyClicked(evt) {
     evt.preventDefault();
     evt.stopPropagation();
-    this.props.applySettings(this.settings);
+
+    // Update the settings in the state.
+    this.props.applySettings();
+
+    // Updated settings used to run all stages in the current pipeline.
+    this.props.runStage(0);
+
+    // Hide the settings panel.
+    this.props.toggleSettingsIsExpanded();
   }
 
   render() {
@@ -66,14 +72,14 @@ class Settings extends PureComponent {
           <div className={classnames(styles['header-title'])}>Settings</div>
           <div className={classnames(styles['header-btn-group'])}>
             <TextButton
-              id="settings-cancel"
+              id="aggregations-settings-cancel"
               className="btn btn-default btn-xs"
               text="Cancel"
               clickHandler={this.onCancelClicked.bind(this)}
             />
 
             <TextButton
-              id="settings-apply"
+              id="aggregation-settings-apply"
               className="btn btn-primary btn-xs"
               text="Apply"
               clickHandler={this.onApplyClicked.bind(this)}
@@ -93,7 +99,7 @@ class Settings extends PureComponent {
               <input
                 id="aggregation-comment-mode"
                 type="checkbox"
-                checked={this.props.isCommentMode}
+                checked={this.props.isCommenting}
                 onChange={this.onCommentModeClicked.bind(this)}
               />
             </div>
