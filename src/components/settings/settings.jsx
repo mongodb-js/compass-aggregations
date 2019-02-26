@@ -17,18 +17,42 @@ class Settings extends PureComponent {
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
     setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
-    setSettingsLimit: PropTypes.func.isRequired
+    setSettingsLimit: PropTypes.func.isRequired,
+
+    isCommenting: PropTypes.bool.isRequired,
+    toggleComments: PropTypes.func.isRequired,
+    limit: PropTypes.number.isRequired,
+    largeLimit: PropTypes.number.isRequired,
+    maxTimeoutMS: PropTypes.number.isRequired
   };
 
-  onCancelClicked() {
+  onCancelClicked(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     this.props.toggleSettingsIsExpanded();
   }
 
-  onApplyClicked() {
-    this.props.setSettingsSampleSize();
-    this.props.setSettingsMaxTimeoutMS();
+  onCommentModeClicked(evt) {
     this.props.toggleSettingsIsCommentMode();
-    this.props.toggleSettingsIsExpanded();
+  }
+
+  onSampleSizeChanged(evt) {
+    this.props.setSettingsSampleSize(parseInt(evt.currentTarget.value));
+  }
+
+  onMaxTimeoutChanged(evt) {
+    this.props.setSettingsMaxTimeoutMS(parseInt(evt.currentTarget.value));
+  }
+
+  onLimitChanged(evt) {
+    this.props.setSettingsLimit(parseInt(evt.currentTarget.value))
+  }
+
+  onApplyClicked(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    debugger;
+    // this.props.applySettings(this.settings);
   }
 
   render() {
@@ -66,7 +90,12 @@ class Settings extends PureComponent {
               </p>
             </div>
             <div className={classnames(styles['input-control'])}>
-              <input id="aggregation-comment-mode" type="checkbox" />
+              <input
+                id="aggregation-comment-mode"
+                type="checkbox"
+                checked={this.props.isCommentMode}
+                onChange={this.onCommentModeClicked.bind(this)}
+              />
             </div>
           </div>
           <div className={classnames(styles['input-group'])}>
@@ -75,7 +104,12 @@ class Settings extends PureComponent {
               <p>Specify the number of documents to use for Sample Mode.</p>
             </div>
             <div className={classnames(styles['input-control'])}>
-              <input type="number" placeholder="100" />
+              <input
+                type="number"
+                placeholder="100"
+                value={this.props.limit}
+                onChange={this.onSampleSizeChanged.bind(this)}
+              />
             </div>
           </div>
           <div className={classnames(styles['input-group'])}>
@@ -87,7 +121,13 @@ class Settings extends PureComponent {
               </p>
             </div>
             <div className={classnames(styles['input-control'])}>
-              <input type="number" placeholder="5000" step="1000" />
+              <input
+                type="number"
+                placeholder="5000"
+                step="1000"
+                value={this.props.maxTimeoutMS}
+                onChange={this.onMaxTimeoutChanged.bind(this)}
+              />
             </div>
           </div>
           <div className={classnames(styles['input-group'])}>
@@ -99,7 +139,12 @@ class Settings extends PureComponent {
               </p>
             </div>
             <div className={classnames(styles['input-control'])}>
-              <input type="number" placeholder="100" />
+              <input
+                type="number"
+                placeholder="100"
+                value={this.props.largeLimit}
+                onChange={this.onLimitChanged.bind(this)}
+              />
             </div>
           </div>
         </div>

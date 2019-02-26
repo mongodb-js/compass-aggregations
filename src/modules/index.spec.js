@@ -4,13 +4,18 @@ import reducer, {
   restoreSavedPipeline,
   clonePipeline,
   newPipeline,
+  applySettings,
   RESET,
   CLEAR_PIPELINE,
   RESTORE_PIPELINE,
   NEW_PIPELINE,
-  CLONE_PIPELINE
+  CLONE_PIPELINE,
+  APPLY_SETTINGS
 } from 'modules';
 import { toggleOverview, TOGGLE_OVERVIEW } from 'modules/is-overview-on';
+import { largeLimitChanged, LARGE_LIMIT_CHANGED } from 'modules/large-limit';
+import { limitChanged, LIMIT_CHANGED } from 'modules/limit';
+import { maxTimeoutMSChanged, MAX_TIMEOUT_MS_CHANGED } from 'modules/max-timeout-ms';
 
 describe('root [ module ]', () => {
   describe('#reset', () => {
@@ -62,6 +67,42 @@ describe('root [ module ]', () => {
     });
   });
 
+  describe('#maxTimeoutMS', () => {
+    it('returns the MAX_TIMEOUT_MS_CHANGED action', () => {
+      expect(maxTimeoutMSChanged(100)).to.deep.equal({
+        type: MAX_TIMEOUT_MS_CHANGED,
+        maxTimeoutMS: 100
+      });
+    });
+  });
+
+  describe('#limit', () => {
+    it('returns the LIMIT_CHANGED action', () => {
+      expect(limitChanged(100)).to.deep.equal({
+        type: LIMIT_CHANGED,
+        limit: 100
+      });
+    });
+  });
+
+  describe('#largeLimit', () => {
+    it('returns the LARGE_LIMIT_CHANGED action', () => {
+      expect(largeLimitChanged(100)).to.deep.equal({
+        type: LARGE_LIMIT_CHANGED,
+        largeLimit: 100
+      });
+    });
+  });
+
+  describe('#applySettings', () => {
+    it('returns the APPLY_SETTINGS action', () => {
+      expect(applySettings({})).to.deep.equal({
+        type: APPLY_SETTINGS,
+        settings: {}
+      });
+    });
+  });
+
   describe('#reducer', () => {
     context('when the action is NEW_PIPELINE', () => {
       const prevState = {
@@ -69,7 +110,7 @@ describe('root [ module ]', () => {
         namespace: 'test.test',
         fields: 'test-fields',
         serverVersion: '3.6.0',
-        inputDocuments: [ 'test' ]
+        inputDocuments: ['test']
       };
 
       let state;
@@ -95,7 +136,7 @@ describe('root [ module ]', () => {
       });
 
       it('keeps the input documents', () => {
-        expect(state.inputDocuments).to.deep.equal([ 'test' ]);
+        expect(state.inputDocuments).to.deep.equal(['test']);
       });
 
       it('sets id to null', () => {
@@ -144,6 +185,26 @@ describe('root [ module ]', () => {
         expect(state.name).to.equal('test (copy)');
       });
     });
+
+    // describe('when the action is APPLY_SETTINGS', () => {
+    //   const prevState = {
+    //     settings: {
+    //       largeLimit: 
+    //     }
+    //   };
+
+    //   let state;
+
+    //   it('first toggle turns it on', () => {
+    //     state = reducer(prevState, toggleOverview());
+    //     expect(state.isOverviewOn).to.equal(true);
+    //   });
+
+    //   it('second toggle turns it back off', () => {
+    //     state = reducer(state, toggleOverview());
+    //     expect(state.isOverviewOn).to.equal(false);
+    //   });
+    // });
 
     describe('when the action is TOGGLE_OVERVIEW', () => {
       describe('#overview', () => {

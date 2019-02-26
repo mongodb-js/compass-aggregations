@@ -4,6 +4,10 @@ import classnames from 'classnames';
 import Pipeline from 'components/pipeline';
 import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
+import { limitChanged } from 'modules/limit';
+import { largeLimitChanged } from 'modules/large-limit';
+import { maxTimeoutMSChanged } from 'modules/max-timeout-ms';
+
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';
 import { collationStringChanged } from 'modules/collation-string';
@@ -39,7 +43,11 @@ import {
   getSavedPipelines
 } from 'modules/saved-pipeline';
 import { setIsModified } from 'modules/is-modified';
-import { restoreSavedPipeline, getPipelineFromIndexedDB } from 'modules/index';
+import {
+  restoreSavedPipeline,
+  getPipelineFromIndexedDB,
+  applySettings
+} from 'modules/index';
 import {
   restorePipelineModalToggle,
   restorePipelineFrom
@@ -110,7 +118,10 @@ const mapStateToProps = state => ({
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
   settings: state.settings,
-  isOverviewOn: state.isOverviewOn
+  isOverviewOn: state.isOverviewOn,
+  limit: state.limit,
+  largeLimit: state.largeLimit,
+  maxTimeoutMS: state.maxTimeoutMS
 });
 
 /**
@@ -165,7 +176,10 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified
+    setIsModified,
+    limitChanged,
+    largeLimitChanged,
+    maxTimeoutMSChanged
   }
 )(Aggregations);
 

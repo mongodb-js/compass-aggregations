@@ -15,6 +15,7 @@ describe('Settings [Component]', () => {
   let setSettingsSampleSizeSpy;
   let setSettingsMaxTimeoutMSSpy;
   let setSettingsLimitSpy;
+  let toggleCommentsSpy;
 
   beforeEach(() => {
     saveSettingsSpy = sinon.spy();
@@ -31,7 +32,12 @@ describe('Settings [Component]', () => {
       toggleSettingsIsCommentMode: toggleSettingsIsCommentModeSpy,
       setSettingsSampleSize: setSettingsSampleSizeSpy,
       setSettingsMaxTimeoutMS: setSettingsMaxTimeoutMSSpy,
-      setSettingsLimit: setSettingsLimitSpy
+      setSettingsLimit: setSettingsLimitSpy,
+      isCommenting: true,
+      toggleComments: toggleCommentsSpy,
+      limit: INITIAL_STATE.sampleSize,
+      largeLimit: INITIAL_STATE.limit,
+      maxTimeoutMS: INITIAL_STATE.maxTimeoutMS
     };
   });
 
@@ -42,6 +48,7 @@ describe('Settings [Component]', () => {
     setSettingsSampleSizeSpy = null;
     setSettingsMaxTimeoutMSSpy = null;
     setSettingsLimitSpy = null;
+    toggleCommentsSpy = null;
   });
 
   it('is hidden by default', () => {

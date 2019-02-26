@@ -10,12 +10,14 @@ export const SET_MAX_TIMEOUT_MS = `${PREFIX}/SET_MAX_TIMEOUT_MS`;
 
 export const SET_LIMIT = `${PREFIX}/SET_LIMIT`;
 
+export const APPLY_SETTINGS = `${PREFIX}/APPLY_SETTINGS`;
+
 export const INITIAL_STATE = {
   isExpanded: false,
   isCommentMode: true,
-  sampleSize: 20,
+  sampleSize: 20, // limit
   maxTimeoutMS: 5000,
-  limit: 100
+  limit: 100 // largeLimit
 };
 
 export default function reducer(state = INITIAL_STATE, action) {
@@ -75,4 +77,9 @@ export const setSettingsMaxTimeoutMS = value => ({
 export const setSettingsLimit = value => ({
   type: SET_LIMIT,
   value: value
+});
+
+export const applySettings = value => ({
+  type: APPLY_SETTINGS,
+  settings: value
 });

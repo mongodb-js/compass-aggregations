@@ -183,7 +183,10 @@ describe('Aggregation Store', () => {
             collationString: INITIAL_STATE.collationString,
             isCollationExpanded: INITIAL_STATE.isCollationExpanded,
             isOverviewOn: INITIAL_STATE.isOverviewOn,
-            settings: INITIAL_STATE.settings
+            settings: INITIAL_STATE.settings,
+            limit: INITIAL_STATE.limit,
+            largeLimit: INITIAL_STATE.largeLimit,
+            maxTimeoutMS: INITIAL_STATE.maxTimeoutMS
           });
         });
       });
@@ -222,7 +225,10 @@ describe('Aggregation Store', () => {
             collationString: INITIAL_STATE.collationString,
             isCollationExpanded: INITIAL_STATE.isCollationExpanded,
             isOverviewOn: INITIAL_STATE.isOverviewOn,
-            settings: INITIAL_STATE.settings
+            settings: INITIAL_STATE.settings,
+            limit: INITIAL_STATE.limit,
+            largeLimit: INITIAL_STATE.largeLimit,
+            maxTimeoutMS: INITIAL_STATE.maxTimeoutMS
           });
         });
       });

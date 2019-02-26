@@ -80,7 +80,10 @@ class Pipeline extends PureComponent {
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
     setSettingsMaxTimeoutMS: PropTypes.func.isRequired,
-    setSettingsLimit: PropTypes.func.isRequired
+    setSettingsLimit: PropTypes.func.isRequired,
+    limit: PropTypes.number.isRequired,
+    largeLimit: PropTypes.number.isRequired,
+    maxTimeoutMS: PropTypes.number.isRequired
   };
 
   /**
@@ -208,6 +211,11 @@ class Pipeline extends PureComponent {
           setSettingsSampleSize={this.props.setSettingsSampleSize}
           setSettingsMaxTimeoutMS={this.props.setSettingsMaxTimeoutMS}
           setSettingsLimit={this.props.setSettingsLimit}
+          isCommenting={this.props.isCommenting}
+          toggleComments={this.props.toggleComments}
+          limit={this.props.limit}
+          largeLimit={this.props.largeLimit}
+          maxTimeoutMS={this.props.maxTimeoutMS}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}
