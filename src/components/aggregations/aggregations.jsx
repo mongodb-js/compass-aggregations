@@ -4,6 +4,10 @@ import classnames from 'classnames';
 import Pipeline from 'components/pipeline';
 import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
+import { limitChanged } from 'modules/limit';
+import { largeLimitChanged } from 'modules/large-limit';
+import { maxTimeMSChanged } from 'modules/max-time-ms';
+
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';
 import { collationStringChanged } from 'modules/collation-string';
@@ -39,7 +43,10 @@ import {
   getSavedPipelines
 } from 'modules/saved-pipeline';
 import { setIsModified } from 'modules/is-modified';
-import { restoreSavedPipeline, getPipelineFromIndexedDB } from 'modules/index';
+import {
+  restoreSavedPipeline,
+  getPipelineFromIndexedDB
+} from 'modules/index';
 import {
   restorePipelineModalToggle,
   restorePipelineFrom
@@ -51,6 +58,16 @@ import {
   createNew,
   confirmNew
 } from 'modules/import-pipeline';
+
+import {
+  toggleSettingsIsExpanded,
+  toggleSettingsIsCommentMode,
+  setSettingsSampleSize,
+  setSettingsMaxTimeMS,
+  setSettingsLimit,
+  applySettings
+} from 'modules/settings';
+
 import styles from './aggregations.less';
 
 /**
@@ -100,8 +117,11 @@ const mapStateToProps = state => ({
   isImportConfirmationNeeded: state.importPipeline.isConfirmationNeeded,
   importPipelineText: state.importPipeline.text,
   importPipelineError: state.importPipeline.syntaxError,
+  settings: state.settings,
   isOverviewOn: state.isOverviewOn,
-  toggleOverview: toggleOverview
+  limit: state.limit,
+  largeLimit: state.largeLimit,
+  maxTimeMS: state.maxTimeMS
 });
 
 /**
@@ -134,6 +154,11 @@ const MappedAggregations = connect(
     stageOperatorSelected,
     stageToggled,
     collationCollapseToggled,
+    toggleSettingsIsExpanded,
+    toggleSettingsIsCommentMode,
+    setSettingsSampleSize,
+    setSettingsMaxTimeMS,
+    setSettingsLimit,
     exportToLanguage,
     savedPipelinesListToggle,
     saveCurrentPipeline,
@@ -151,7 +176,11 @@ const MappedAggregations = connect(
     confirmNew,
     openLink,
     getPipelineFromIndexedDB,
-    setIsModified
+    applySettings,
+    setIsModified,
+    limitChanged,
+    largeLimitChanged,
+    maxTimeMSChanged
   }
 )(Aggregations);
 

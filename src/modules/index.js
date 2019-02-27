@@ -21,6 +21,15 @@ import pipeline, {
   INITIAL_STATE as PIPELINE_INITIAL_STATE
 } from './pipeline';
 import name, { INITIAL_STATE as NAME_INITIAL_STATE } from './name';
+import limit, { INITIAL_STATE as LIMIT_INITIAL_STATE } from './limit';
+import largeLimit, {
+  INITIAL_STATE as LARGE_LIMIT_INITIAL_STATE
+} from './large-limit';
+
+import maxTimeMS, {
+  INITIAL_STATE as MAX_TIME_MS_INITIAL_STATE
+} from './max-time-ms';
+
 import collation, {
   INITIAL_STATE as COLLATION_INITIAL_STATE
 } from './collation';
@@ -57,6 +66,10 @@ import isOverviewOn, {
   TOGGLE_OVERVIEW,
   INITIAL_STATE as OVERVIEW_INITIAL_STATE
 } from 'modules/is-overview-on';
+import settings, {
+  APPLY_SETTINGS,
+  INITIAL_STATE as SETTINGS_INITIAL_STATE
+} from './settings';
 
 /**
  * The intial state of the root reducer.
@@ -81,7 +94,11 @@ export const INITIAL_STATE = {
   autoPreview: AUTO_PREVIEW_INITIAL_STATE,
   id: ID_INITIAL_STATE,
   isModified: IS_MODIFIED_INITIAL_STATE,
-  importPipeline: IMPORT_PIPELINE_INITIAL_STATE
+  importPipeline: IMPORT_PIPELINE_INITIAL_STATE,
+  settings: SETTINGS_INITIAL_STATE,
+  limit: LIMIT_INITIAL_STATE,
+  largeLimit: LARGE_LIMIT_INITIAL_STATE,
+  maxTimeMS: MAX_TIME_MS_INITIAL_STATE
 };
 
 /**
@@ -137,7 +154,11 @@ const appReducer = combineReducers({
   id,
   isModified,
   importPipeline,
-  isOverviewOn
+  isOverviewOn,
+  settings,
+  limit,
+  largeLimit,
+  maxTimeMS
 });
 
 /**
@@ -200,6 +221,9 @@ const doRestorePipeline = (state, action) => {
     isCollationExpanded: savedState.collationString ? true : false,
     id: savedState.id,
     comments: commenting,
+    limit: savedState.limit,
+    largeLimit: savedState.largeLimit,
+    maxTimeMS: savedState.maxTimeMS,
     sample: sampling,
     autoPreview: autoPreviewing,
     fields: state.fields,
@@ -227,6 +251,9 @@ const doRestorePipeline = (state, action) => {
 const doClearPipeline = state => ({
   ...state,
   pipeline: [],
+  limit: LIMIT_INITIAL_STATE,
+  largeLimit: LARGE_LIMIT_INITIAL_STATE,
+  maxTimeMS: MAX_TIME_MS_INITIAL_STATE,
   savedPipeline: {
     ...state.savedPipeline,
     isListVisible: true
@@ -293,26 +320,17 @@ const doConfirmNewFromText = state => {
 
 /**
  * Toggles whether agg pipeline builder is in overview mode.
- * @example
- * ```javascript
- * isOverviewOn === true
- * // set isExpanded = false on all stages and input children.
- * // users can then click expanders in expanders independent of overview.
- * isOverviewOn === false
- * // Inverse of above. All children isExpanded=true
- * ```
- *
  * @param {Object} state
  * @param {Object} action
  */
-const doToggleOverview = (state) => {
+const doToggleOverview = state => {
   const newState = {
     ...state,
     isOverviewOn: !state.isOverviewOn
   };
 
   if (newState.pipeline) {
-    newState.pipeline.forEach((pipe) => {
+    newState.pipeline.forEach(pipe => {
       pipe.isExpanded = !newState.isOverviewOn;
     });
   }
@@ -320,6 +338,21 @@ const doToggleOverview = (state) => {
   if (newState.inputDocuments) {
     newState.inputDocuments.isExpanded = !newState.isOverviewOn;
   }
+  return newState;
+};
+
+const doApplySettings = state => {
+  const newState = {
+    ...state,
+    limit: state.settings.sampleSize,
+    largeLimit: state.settings.limit,
+    comments: state.settings.isCommentMode,
+    maxTimeMS: state.settings.maxTimeMS
+  };
+
+  newState.settings.isDirty = false;
+
+  // debugger;
   return newState;
 };
 
@@ -334,7 +367,8 @@ const MAPPINGS = {
   [NEW_PIPELINE]: createNewPipeline,
   [CLONE_PIPELINE]: createClonedPipeline,
   [CONFIRM_NEW]: doConfirmNewFromText,
-  [TOGGLE_OVERVIEW]: doToggleOverview
+  [TOGGLE_OVERVIEW]: doToggleOverview,
+  [APPLY_SETTINGS]: doApplySettings
 };
 
 /**

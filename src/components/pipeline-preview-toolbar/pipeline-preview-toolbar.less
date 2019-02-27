@@ -9,6 +9,14 @@
   box-shadow: 2px 0px @gray7;
   height: 33px;
 
+  &-settings {
+    flex-grow: 5;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    padding-right: 15px;
+  }
+  
   &-indicator {
     flex-grow: 5;
     justify-content: flex-end;
@@ -33,14 +41,14 @@
     }
   }
 
-  &-comment-mode, &-sample-mode, &-auto-preview-mode {
+  &-sample-mode, &-auto-preview-mode {
     margin-left: 5px;
     font-size: 12px;
     text-transform: uppercase;
     color: @gray3;
   }
 
-  &-toggle-comments, &-toggle-sample, &-toggle-auto-preview {
+  &-toggle-sample, &-toggle-auto-preview {
     margin-left: 15px;
     display: flex;
     align-items: center;
