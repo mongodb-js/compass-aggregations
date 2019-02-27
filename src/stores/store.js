@@ -10,61 +10,67 @@ import { serverVersionChanged } from 'modules/server-version';
 import { appRegistryActivated } from 'modules/app-registry';
 
 /**
- * Function to initialise a store for use in this plugin.
+ * Refresh the input documents.
+ *
+ * @param {Store} s - The store.
  */
-const initStore = () => {
+export const refreshInput = (s) => {
+  s.dispatch(refreshInputDocuments());
+};
+
+/**
+ * Set the data provider.
+ *
+ * @param {Store} s - The store.
+ * @param {Error} error - The error (if any) while connecting.
+ * @param {Object} provider - The data provider.
+ */
+export const setDataProvider = (s, error, provider) => {
+  s.dispatch(dataServiceConnected(error, provider));
+};
+
+/**
+ * Set the namespace in the store.
+ *
+ * @param {Store} s - The store.
+ * @param {String} ns - The namespace in "db.collection" format.
+ */
+export const setNamespace = (s, ns) => {
+  const namespace = toNS(ns);
+  if (namespace.collection) {
+    s.dispatch(namespaceChanged(ns));
+    refreshInput(s);
+  }
+};
+
+/**
+ * Set the server version.
+ *
+ * @param {Store} s - The store.
+ * @param {String} version - The version.
+ */
+export const setServerVersion = (s, version) => {
+  s.dispatch(serverVersionChanged(version));
+};
+
+/**
+ * Set the fields for the autocompleter.
+ *
+ * @param {Store} s - The store.
+ * @param {Array} fields - The fields array in the ACE autocompleter format.
+ */
+export const setFields = (s, fields) => {
+  s.dispatch(fieldsChanged(fields));
+};
+
+/**
+ * Function to configure a store for use in this plugin.
+ */
+const configureStore = () => {
   /**
    * The store has a combined pipeline reducer plus the thunk middleware.
    */
   const store = createStore(reducer, applyMiddleware(thunk));
-
-  /**
-   * Refresh the input documents.
-   */
-  store.refreshInput = () => {
-    store.dispatch(refreshInputDocuments());
-  };
-
-  /**
-   * Set the data provider.
-   *
-   * @param {Error} error - The error (if any) while connecting.
-   * @param {Object} provider - The data provider.
-   */
-  store.setDataProvider = (error, provider) => {
-    store.dispatch(dataServiceConnected(error, provider));
-  };
-
-  /**
-   * Set the namespace in the store.
-   *
-   * @param {String} ns - The namespace in "db.collection" format.
-   */
-  store.setNamespace = (ns) => {
-    const namespace = toNS(ns);
-    if (namespace.collection) {
-      store.dispatch(namespaceChanged(ns));
-      store.refreshInput();
-    }
-  };
-
-  /**
-   * Set the server version.
-   *
-   * @param {String} version - The version.
-   */
-  store.setServerVersion = (version) => {
-    store.dispatch(serverVersionChanged(version));
-  };
-
-  /**
-   * Set the fields for the autocompleter.
-   *
-   * @param {Array} fields - The fields array in the ACE autocompleter format.
-   */
-  store.setFields = (fields) => {
-    store.dispatch(fieldsChanged(fields));
-  };
 
   /**
    * This hook is Compass specific to listen to app registry events.
@@ -78,14 +84,14 @@ const initStore = () => {
      * @param {String} ns - The full namespace.
      */
     appRegistry.on('collection-changed', (ns) => {
-      store.setNamespace(ns);
+      setNamespace(store, ns);
     });
 
     /**
      * When the collection is changed, update the store.
      */
     appRegistry.on('import-finished', () => {
-      store.refreshInput();
+      refreshInput(store);
     });
 
     /**
@@ -95,7 +101,7 @@ const initStore = () => {
       const ns = appRegistry.getStore('App.NamespaceStore').ns;
       // TODO: only refresh when we are in the index tab; for now just check if
       // we are in the documents set of tabs.
-      if (ns.indexOf('.' === 0)) store.refreshInput();
+      if (ns.indexOf('.' === 0)) refreshInput(store);
     });
 
     /**
@@ -105,7 +111,7 @@ const initStore = () => {
      * @param {DataService} dataService - The data service.
      */
     appRegistry.on('data-service-connected', (error, dataService) => {
-      store.setDataProvider(error, dataService);
+      setDataProvider(store, error, dataService);
     });
 
     /**
@@ -115,7 +121,7 @@ const initStore = () => {
      * @param {Object} fields - The fields.
      */
     appRegistry.getStore('Field.Store').listen((fields) => {
-      store.setFields(fields.aceFields);
+      setFields(store, fields.aceFields);
     });
 
     /**
@@ -124,7 +130,7 @@ const initStore = () => {
      * @param {String} version - The version.
      */
     appRegistry.on('server-version-changed', (version) => {
-      store.setServerVersion(version);
+      setServerVersion(store, version);
     });
 
     /**
@@ -136,4 +142,4 @@ const initStore = () => {
   return store;
 };
 
-export default initStore;
+export default configureStore;

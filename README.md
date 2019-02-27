@@ -12,15 +12,22 @@ conveniently set any values it uses.
 ### Browser
 
 ```js
-import Plugin, { initStore } from '@mongodb-js/compass-aggregations';
+import Plugin, {
+  configureStore,
+  refreshInput,
+  setDataProvider,
+  setNamespace,
+  setServerVersion,
+  setFields
+} from '@mongodb-js/compass-aggregations';
 
-const store = initStore();
+const store = configureStore();
 
-store.refreshInput(); // Refreshes input documents.
-store.setDataProvider(error, provider); // Sets the (optional) connect error and data provider.
-store.setNamespace(ns); // Set the namespace in "db.collection" format.
-store.setServerVersion(version); // Set the lowest MongoDB server version in the cluster.
-store.setFields(fields); // Set the field names in the schema for autocompletion. See note below.
+refreshInput(store); // Refreshes input documents.
+setDataProvider(store, error, provider); // Sets the (optional) connect error and data provider.
+setNamespace(store, ns); // Set the namespace in "db.collection" format.
+setServerVersion(store, version); // Set the lowest MongoDB server version in the cluster.
+setFields(store, fields); // Set the field names in the schema for autocompletion. See note below.
 
 <Plugin store={store} />
 ```
@@ -29,9 +36,9 @@ store.setFields(fields); // Set the field names in the schema for autocompletion
 
 ```js
 const Component = appRegistry.getRole('Collection.Tab')[0].component;
-const initStore = appRegistry.getStore('Aggregations.Store');
+const configureStore = appRegistry.getStore('Aggregations.Store');
 
-<Component store={initStore} />
+<Component store={configureStore} />
 ```
 
 ### Fields
