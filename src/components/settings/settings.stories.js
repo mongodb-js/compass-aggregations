@@ -18,7 +18,7 @@ storiesOf('Settings', module)
     const store = configureStore(INITIAL_STATE);
     return (
       <Provider store={store}>
-        <Settings isExpanded />
+        <Settings isCommenting isExpanded settings={INITIAL_STATE} />
       </Provider>
     );
   });
