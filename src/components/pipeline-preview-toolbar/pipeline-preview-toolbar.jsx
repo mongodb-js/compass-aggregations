@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import Switch from 'react-ios-switch';
 import { Tooltip } from 'hadron-react-components';
+import { IconButton } from 'hadron-react-buttons';
 
 import styles from './pipeline-preview-toolbar.less';
 
@@ -23,13 +24,12 @@ class PipelinePreviewToolbar extends PureComponent {
   static displayName = 'PipelinePreviewToolbarComponent';
 
   static propTypes = {
-    toggleComments: PropTypes.func.isRequired,
     toggleSample: PropTypes.func.isRequired,
     toggleAutoPreview: PropTypes.func.isRequired,
-    isCommenting: PropTypes.bool.isRequired,
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
-    isModified: PropTypes.bool.isRequired
+    isModified: PropTypes.bool.isRequired,
+    toggleSettingsIsExpanded: PropTypes.func.isRequired
   };
 
   modifiedText() {
@@ -58,26 +58,6 @@ class PipelinePreviewToolbar extends PureComponent {
     });
     return (
       <div className={classnames(styles['pipeline-preview-toolbar'])}>
-        <div
-          className={classnames(
-            styles['pipeline-preview-toolbar-toggle-comments']
-          )}>
-          <Switch
-            checked={this.props.isCommenting}
-            onChange={this.props.toggleComments}
-            className={classnames(
-              styles['pipeline-preview-toolbar-toggle-comments-button']
-            )}
-            onColor="rgb(19, 170, 82)"
-            style={{ backgroundColor: 'rgb(255,255,255)' }}
-          />
-        </div>
-        <div
-          className={classnames(
-            styles['pipeline-preview-toolbar-comment-mode']
-          )}>
-          Comment Mode
-        </div>
         <div
           className={classnames(
             styles['pipeline-preview-toolbar-toggle-sample']
@@ -131,6 +111,13 @@ class PipelinePreviewToolbar extends PureComponent {
         <div className={isModifiedClassName}>
           {this.modifiedText()}
           <i className="fa fa-circle" aria-hidden />
+        </div>
+        <div className={classnames(styles['pipeline-preview-toolbar-settings'])}>
+          <IconButton
+            title="Settings"
+            className="btn btn-xs btn-default"
+            iconClassName="fa fa-gear"
+            clickHandler={this.props.toggleSettingsIsExpanded} />
         </div>
       </div>
     );

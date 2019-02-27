@@ -8,6 +8,8 @@ import PipelineToolbar from 'components/pipeline-toolbar';
 import CollationToolbar from './collation-toolbar';
 import PipelineWorkspace from 'components/pipeline-workspace';
 import SavePipeline from 'components/save-pipeline';
+import Settings from 'components/settings';
+
 import RestorePipelineModal from './modals/restore-pipeline-modal';
 import ImportPipeline from './modals/import-pipeline';
 import ConfirmImportPipeline from './modals/confirm-import-pipeline';
@@ -72,7 +74,17 @@ class Pipeline extends PureComponent {
     collationCollapseToggled: PropTypes.func.isRequired,
     isCollationExpanded: PropTypes.bool.isRequired,
     isOverviewOn: PropTypes.bool.isRequired,
-    toggleOverview: PropTypes.func.isRequired
+    toggleOverview: PropTypes.func.isRequired,
+    settings: PropTypes.object.isRequired,
+    toggleSettingsIsExpanded: PropTypes.func.isRequired,
+    toggleSettingsIsCommentMode: PropTypes.func.isRequired,
+    setSettingsSampleSize: PropTypes.func.isRequired,
+    setSettingsMaxTimeMS: PropTypes.func.isRequired,
+    setSettingsLimit: PropTypes.func.isRequired,
+    limit: PropTypes.number.isRequired,
+    largeLimit: PropTypes.number.isRequired,
+    maxTimeMS: PropTypes.number.isRequired,
+    applySettings: PropTypes.func.isRequired
   };
 
   /**
@@ -181,6 +193,7 @@ class Pipeline extends PureComponent {
           name={this.props.name}
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
+          toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}
@@ -191,6 +204,22 @@ class Pipeline extends PureComponent {
           deletePipeline={this.props.deletePipeline}
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           savedPipeline={this.props.savedPipeline}
+        />
+        <Settings
+          isExpanded={this.props.settings.isExpanded}
+          toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
+          toggleSettingsIsCommentMode={this.props.toggleSettingsIsCommentMode}
+          setSettingsSampleSize={this.props.setSettingsSampleSize}
+          setSettingsMaxTimeMS={this.props.setSettingsMaxTimeMS}
+          setSettingsLimit={this.props.setSettingsLimit}
+          isCommenting={this.props.isCommenting}
+          toggleComments={this.props.toggleComments}
+          limit={this.props.limit}
+          largeLimit={this.props.largeLimit}
+          maxTimeMS={this.props.maxTimeMS}
+          applySettings={this.props.applySettings}
+          runStage={this.props.runStage}
+          settings={this.props.settings}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}
