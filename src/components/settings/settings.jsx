@@ -14,21 +14,19 @@ import styles from './settings.less';
 class Settings extends PureComponent {
   static displayName = 'Settings';
   static propTypes = {
+    isCommenting: PropTypes.bool.isRequired,
     isExpanded: PropTypes.bool.isRequired,
+    limit: PropTypes.number.isRequired,
+    largeLimit: PropTypes.number.isRequired,
+    maxTimeMS: PropTypes.number.isRequired,
     settings: PropTypes.object.isRequired,
-
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
     setSettingsSampleSize: PropTypes.func.isRequired,
     setSettingsMaxTimeMS: PropTypes.func.isRequired,
     setSettingsLimit: PropTypes.func.isRequired,
-
     applySettings: PropTypes.func.isRequired,
-    runStage: PropTypes.func.isRequired,
-    isCommenting: PropTypes.bool.isRequired,
-    limit: PropTypes.number.isRequired,
-    largeLimit: PropTypes.number.isRequired,
-    maxTimeMS: PropTypes.number.isRequired
+    runStage: PropTypes.func.isRequired
   };
 
   onCancelClicked(evt) {
