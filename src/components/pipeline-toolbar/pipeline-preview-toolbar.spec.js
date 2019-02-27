@@ -45,7 +45,18 @@ describe('PipelinePreviewToolbar [Component]', () => {
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
+
+    describe('when toggling sampling', () => {
+      it('calls the action', () => {
+        component
+          .find(`.${styles['toggle-sample']} .${styles.switch}`)
+          .hostNodes()
+          .simulate('click');
+        expect(toggleSampleSpy.calledOnce).to.equal(true);
+      });
+    });
   });
+
   describe('Auto-Preview', () => {
     it('renders the auto preview mode text', () => {
       expect(
@@ -58,25 +69,21 @@ describe('PipelinePreviewToolbar [Component]', () => {
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
-  });
 
-  context('when toggling sampling', () => {
-    it('calls the action', () => {
-      component
-        .find(`${styles['toggle-sample']} > ${styles.switch}`)
-        .hostNodes()
-        .simulate('click');
-      expect(toggleSampleSpy.calledOnce).to.equal(true);
+    describe('when toggling auto previewing', () => {
+      it('calls the action', () => {
+        component
+          .find(`.${styles['toggle-auto-preview']} .${styles.switch}`)
+          .hostNodes()
+          .simulate('click');
+        expect(toggleAutoPreviewSpy.calledOnce).to.equal(true);
+      });
     });
   });
 
-  context('when toggling auto previewing', () => {
-    it('calls the action', () => {
-      component
-        .find(`${styles['toggle-auto-preview']} > ${styles.switch}`)
-        .hostNodes()
-        .simulate('click');
-      expect(toggleAutoPreviewSpy.calledOnce).to.equal(true);
+  describe('Settings', () => {
+    it('renders the wrapper div', () => {
+      expect(component.find(`.${styles.settings}`)).to.be.present();
     });
   });
 });
