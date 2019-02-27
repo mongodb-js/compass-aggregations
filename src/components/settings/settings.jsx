@@ -3,6 +3,11 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 
 import { TextButton } from 'hadron-react-buttons';
+import {
+  DEFAULT_MAX_TIME_MS,
+  DEFAULT_SAMPLE_SIZE,
+  DEFAULT_LARGE_LIMIT
+} from '../../constants';
 
 import styles from './settings.less';
 
@@ -10,6 +15,7 @@ class Settings extends PureComponent {
   static displayName = 'Settings';
   static propTypes = {
     isExpanded: PropTypes.bool.isRequired,
+    settings: PropTypes.object.isRequired,
 
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     toggleSettingsIsCommentMode: PropTypes.func.isRequired,
@@ -60,7 +66,93 @@ class Settings extends PureComponent {
     // Hide the settings panel.
     this.props.toggleSettingsIsExpanded();
   }
+  renderFields() {
+    let commentModeChecked = this.props.isCommenting;
+    let sampleSize = this.props.limit;
+    let maxTimeMS = this.props.maxTimeMS;
+    let limit = this.props.largeLimit;
 
+    if (this.props.settings.isDirty) {
+      commentModeChecked = this.props.settings.isCommentMode;
+      sampleSize = this.props.settings.sampleSize;
+      maxTimeMS = this.props.settings.maxTimeMS;
+      limit = this.props.settings.limit;
+    }
+
+    return (
+      <div className={classnames(styles.body)}>
+        <div className={classnames(styles['input-group'])}>
+          <div className={classnames(styles['input-meta'])}>
+            <label>Comment Mode</label>
+            <p>
+              When enabled, adds helper comments to each stage. Only applies to
+              new stages.
+            </p>
+          </div>
+          <div className={classnames(styles['input-control'])}>
+            <input
+              id="aggregation-comment-mode"
+              type="checkbox"
+              checked={commentModeChecked}
+              onChange={this.onCommentModeClicked.bind(this)}
+            />
+          </div>
+        </div>
+        <div className={classnames(styles['input-group'])}>
+          <div className={classnames(styles['input-meta'])}>
+            <label>Sample Size</label>
+            <p>Specify the number of documents to use for Sample Mode.</p>
+          </div>
+          <div className={classnames(styles['input-control'])}>
+            <input
+              type="number"
+              min="0"
+              placeholder={DEFAULT_SAMPLE_SIZE}
+              value={sampleSize}
+              onChange={this.onSampleSizeChanged.bind(this)}
+            />
+          </div>
+        </div>
+        <div className={classnames(styles['input-group'])}>
+          <div className={classnames(styles['input-meta'])}>
+            <label>Max Time</label>
+            <p>
+              Specifies a cumulative time limit in seconds for processing
+              operations on a cursor. Max timeout prevents long hang times.
+            </p>
+          </div>
+          <div className={classnames(styles['input-control'])}>
+            <input
+              type="number"
+              placeholder={DEFAULT_MAX_TIME_MS}
+              min="0"
+              step="1000"
+              value={maxTimeMS}
+              onChange={this.onMaxTimeoutChanged.bind(this)}
+            />
+          </div>
+        </div>
+        <div className={classnames(styles['input-group'])}>
+          <div className={classnames(styles['input-meta'])}>
+            <label>Limit</label>
+            <p>
+              Limits input documents before $group, $bucket, and $bucketAuto
+              stages. Set a limit to make the collection run faster.
+            </p>
+          </div>
+          <div className={classnames(styles['input-control'])}>
+            <input
+              type="number"
+              min="0"
+              placeholder={DEFAULT_LARGE_LIMIT}
+              value={limit}
+              onChange={this.onLimitChanged.bind(this)}
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
   render() {
     if (!this.props.isExpanded) {
       return null;
@@ -86,74 +178,7 @@ class Settings extends PureComponent {
             />
           </div>
         </div>
-        <div className={classnames(styles.body)}>
-          <div className={classnames(styles['input-group'])}>
-            <div className={classnames(styles['input-meta'])}>
-              <label>Comment Mode</label>
-              <p>
-                When enabled, adds helper comments to each stage. Only applies
-                to new stages.
-              </p>
-            </div>
-            <div className={classnames(styles['input-control'])}>
-              <input
-                id="aggregation-comment-mode"
-                type="checkbox"
-                checked={this.props.isCommenting}
-                onChange={this.onCommentModeClicked.bind(this)}
-              />
-            </div>
-          </div>
-          <div className={classnames(styles['input-group'])}>
-            <div className={classnames(styles['input-meta'])}>
-              <label>Sample Size</label>
-              <p>Specify the number of documents to use for Sample Mode.</p>
-            </div>
-            <div className={classnames(styles['input-control'])}>
-              <input
-                type="number"
-                placeholder="100"
-                value={this.props.limit}
-                onChange={this.onSampleSizeChanged.bind(this)}
-              />
-            </div>
-          </div>
-          <div className={classnames(styles['input-group'])}>
-            <div className={classnames(styles['input-meta'])}>
-              <label>Max Timeout</label>
-              <p>
-                Specifies a cumulative time limit in seconds for processing
-                operations on a cursor. Max timeout prevents long hang times.
-              </p>
-            </div>
-            <div className={classnames(styles['input-control'])}>
-              <input
-                type="number"
-                placeholder="5000"
-                step="1000"
-                value={this.props.maxTimeMS}
-                onChange={this.onMaxTimeoutChanged.bind(this)}
-              />
-            </div>
-          </div>
-          <div className={classnames(styles['input-group'])}>
-            <div className={classnames(styles['input-meta'])}>
-              <label>Limit</label>
-              <p>
-                Limits input documents before $group, $bucket, and $bucketAuto
-                stages. Set a limit to make the collection run faster.
-              </p>
-            </div>
-            <div className={classnames(styles['input-control'])}>
-              <input
-                type="number"
-                placeholder="100"
-                value={this.props.largeLimit}
-                onChange={this.onLimitChanged.bind(this)}
-              />
-            </div>
-          </div>
-        </div>
+        {this.renderFields()}
       </div>
     );
   }

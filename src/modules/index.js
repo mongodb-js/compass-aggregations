@@ -27,8 +27,8 @@ import largeLimit, {
 } from './large-limit';
 
 import maxTimeMS, {
-  INITIAL_STATE as MAX_TIMEOUT_MS_INITIAL_STATE
-} from './max-timeout-ms';
+  INITIAL_STATE as MAX_TIME_MS_INITIAL_STATE
+} from './max-time-ms';
 
 import collation, {
   INITIAL_STATE as COLLATION_INITIAL_STATE
@@ -98,7 +98,7 @@ export const INITIAL_STATE = {
   settings: SETTINGS_INITIAL_STATE,
   limit: LIMIT_INITIAL_STATE,
   largeLimit: LARGE_LIMIT_INITIAL_STATE,
-  maxTimeMS: MAX_TIMEOUT_MS_INITIAL_STATE
+  maxTimeMS: MAX_TIME_MS_INITIAL_STATE
 };
 
 /**
@@ -253,7 +253,7 @@ const doClearPipeline = state => ({
   pipeline: [],
   limit: LIMIT_INITIAL_STATE,
   largeLimit: LARGE_LIMIT_INITIAL_STATE,
-  maxTimeMS: MAX_TIMEOUT_MS_INITIAL_STATE,
+  maxTimeMS: MAX_TIME_MS_INITIAL_STATE,
   savedPipeline: {
     ...state.savedPipeline,
     isListVisible: true
@@ -349,6 +349,8 @@ const doApplySettings = state => {
     comments: state.settings.isCommentMode,
     maxTimeMS: state.settings.maxTimeMS
   };
+
+  newState.settings.isDirty = false;
 
   // debugger;
   return newState;
@@ -472,4 +474,3 @@ export const getPipelineFromIndexedDB = pipelineId => {
     });
   };
 };
-

@@ -1,7 +1,11 @@
+import {
+  DEFAULT_LARGE_LIMIT
+} from '../constants';
+
 export const LARGE_LIMIT_CHANGED =
   'aggregations/large-limit/LARGE_LIMIT_CHANGED';
 
-export const INITIAL_STATE = 1000;
+export const INITIAL_STATE = DEFAULT_LARGE_LIMIT;
 
 export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === LARGE_LIMIT_CHANGED) {

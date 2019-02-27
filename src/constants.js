@@ -1,7 +1,7 @@
 /**
- * Default for maxTimeOutMS option.
+ * Default for maxTimeMS option.
  */
-export const DEFAULT_MAX_TIMEOUT_MS = 5000;
+export const DEFAULT_MAX_TIME_MS = 5000;
 
 /**
  * Number of documents to sample.

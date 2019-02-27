@@ -40,7 +40,8 @@ describe('Settings [Component]', () => {
       limit: INITIAL_STATE.sampleSize,
       largeLimit: INITIAL_STATE.limit,
       maxTimeMS: INITIAL_STATE.maxTimeMS,
-      runStage: runStageSpy
+      runStage: runStageSpy,
+      settings: INITIAL_STATE
     };
   });
 

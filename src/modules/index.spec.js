@@ -15,8 +15,8 @@ import { largeLimitChanged, LARGE_LIMIT_CHANGED } from 'modules/large-limit';
 import { limitChanged, LIMIT_CHANGED } from 'modules/limit';
 import {
   maxTimeMSChanged,
-  MAX_TIMEOUT_MS_CHANGED
-} from 'modules/max-timeout-ms';
+  MAX_TIME_MS_CHANGED
+} from 'modules/max-time-ms';
 
 describe('root [ module ]', () => {
   describe('#reset', () => {
@@ -69,9 +69,9 @@ describe('root [ module ]', () => {
   });
 
   describe('#maxTimeMS', () => {
-    it('returns the MAX_TIMEOUT_MS_CHANGED action', () => {
+    it('returns the MAX_TIME_MS_CHANGED action', () => {
       expect(maxTimeMSChanged(100)).to.deep.equal({
-        type: MAX_TIMEOUT_MS_CHANGED,
+        type: MAX_TIME_MS_CHANGED,
         maxTimeMS: 100
       });
     });

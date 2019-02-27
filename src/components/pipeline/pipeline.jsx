@@ -206,7 +206,7 @@ class Pipeline extends PureComponent {
           savedPipeline={this.props.savedPipeline}
         />
         <Settings
-          {...this.props.settings}
+          isExpanded={this.props.settings.isExpanded}
           toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
           toggleSettingsIsCommentMode={this.props.toggleSettingsIsCommentMode}
           setSettingsSampleSize={this.props.setSettingsSampleSize}
@@ -219,6 +219,7 @@ class Pipeline extends PureComponent {
           maxTimeMS={this.props.maxTimeMS}
           applySettings={this.props.applySettings}
           runStage={this.props.runStage}
+          settings={this.props.settings}
         />
         {this.renderRestoreModal()}
         {importPipelineModal}

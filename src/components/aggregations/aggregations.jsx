@@ -6,7 +6,7 @@ import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
 import { limitChanged } from 'modules/limit';
 import { largeLimitChanged } from 'modules/large-limit';
-import { maxTimeMSChanged } from 'modules/max-timeout-ms';
+import { maxTimeMSChanged } from 'modules/max-time-ms';
 
 import { collationCollapseToggled } from 'modules/collation-collapser';
 import { collationChanged } from 'modules/collation';

@@ -16,7 +16,7 @@ describe('large-limit module', () => {
   describe('#reducer', () => {
     context('when the action is not limit changed', () => {
       it('returns the default state', () => {
-        expect(reducer(undefined, { type: 'test' })).to.equal(1000);
+        expect(reducer(undefined, { type: 'test' })).to.equal(100000);
       });
     });
 

@@ -1,13 +1,13 @@
 import reducer, {
   maxTimeMSChanged,
-  MAX_TIMEOUT_MS_CHANGED
-} from 'modules/max-timeout-ms';
+  MAX_TIME_MS_CHANGED
+} from 'modules/max-time-ms';
 
-describe('max-timeout-ms module', () => {
+describe('max-time-ms module', () => {
   describe('#maxTimeMSChanged', () => {
-    it('returns the MAX_TIMEOUT_MS_CHANGED action', () => {
+    it('returns the MAX_TIME_MS_CHANGED action', () => {
       expect(maxTimeMSChanged(100)).to.deep.equal({
-        type: MAX_TIMEOUT_MS_CHANGED,
+        type: MAX_TIME_MS_CHANGED,
         maxTimeMS: 100
       });
     });

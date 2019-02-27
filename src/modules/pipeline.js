@@ -5,6 +5,12 @@ import { ObjectId } from 'bson';
 import toNS from 'mongodb-ns';
 import isEmpty from 'lodash.isempty';
 
+import {
+  DEFAULT_MAX_TIME_MS,
+  DEFAULT_SAMPLE_SIZE,
+  DEFAULT_LARGE_LIMIT
+} from '../constants';
+
 /**
  * Action name prefix.
  */
@@ -63,12 +69,12 @@ export const LOADING_STAGE_RESULTS = `${PREFIX}/LOADING_STAGE_RESULTS`;
 /**
  * Limit constant.
  */
-export const LIMIT = Object.freeze({ $limit: 20 });
+export const LIMIT = Object.freeze({ $limit: DEFAULT_SAMPLE_SIZE });
 
 /**
  * Large limit constant.
  */
-export const LARGE_LIMIT = Object.freeze({ $limit: 100000 });
+export const LARGE_LIMIT = Object.freeze({ $limit: DEFAULT_LARGE_LIMIT });
 
 /**
  * N/A contant.
@@ -480,18 +486,20 @@ export const loadingStageResults = index => ({
  */
 export const generatePipeline = (state, index) => {
   const count = state.inputDocuments.count;
+  const largeLimit = state.largeLimit || DEFAULT_LARGE_LIMIT;
+
   const stages = state.pipeline.reduce((results, stage, i) => {
     if (i <= index && stage.isEnabled) {
       // If stage is a $groupBy it will scan the entire list, so
       // prepend with $limit if the collection is large.
       if (
         count === NA ||
-        (count > 100000 &&
+        (count > largeLimit &&
           FULL_SCAN_OPS.includes(stage.stageOperator) &&
           state.sample)
       ) {
         results.push({
-          $limit: state.largeLimit || 100000
+          $limit: largeLimit
         });
       }
       results.push(stage.executor || generateStage(stage));
@@ -505,7 +513,7 @@ export const generatePipeline = (state, index) => {
     lastStage.stageOperator !== OUT
   ) {
     stages.push({
-      $limit: state.limit || 20
+      $limit: state.limit || DEFAULT_SAMPLE_SIZE
     });
   }
   return stages;
@@ -552,7 +560,7 @@ const executeAggregation = (dataService, ns, dispatch, state, index) => {
  * @param {Number} index - The current index.
  */
 const executeStage = (dataService, ns, dispatch, state, index) => {
-  const options = { maxTimeMS: state.maxTimeMS || 5000, allowDiskUse: true };
+  const options = { maxTimeMS: state.maxTimeMS || DEFAULT_MAX_TIME_MS, allowDiskUse: true };
   dispatch(loadingStageResults(index));
   const pipeline = generatePipeline(state, index);
   if (isEmpty(state.collation) === false) {

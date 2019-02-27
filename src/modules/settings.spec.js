@@ -2,7 +2,7 @@ import reducer, {
   TOGGLE_IS_EXPANDED,
   TOGGLE_COMMENT_MODE,
   SET_SAMPLE_SIZE,
-  SET_MAX_TIMEOUT_MS,
+  SET_MAX_TIME_MS,
   SET_LIMIT,
   toggleSettingsIsExpanded,
   toggleSettingsIsCommentMode,
@@ -23,17 +23,19 @@ describe('settings', () => {
       describe('#reducer', () => {
         let state;
         it('isExpanded is set to true', () => {
-          state = reducer(undefined, toggleSettingsIsExpanded());
+          state = reducer(INITIAL_STATE, toggleSettingsIsExpanded());
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
-            isExpanded: true
+            isExpanded: true,
+            isDirty: false
           });
         });
 
         it('isExpanded is set to false', () => {
           state = {
             ...INITIAL_STATE,
-            isExpanded: true
+            isExpanded: true,
+            isDirty: true
           };
           expect(reducer(state, toggleSettingsIsExpanded())).to.deep.equal({
             ...INITIAL_STATE,
@@ -55,18 +57,21 @@ describe('settings', () => {
           state = reducer(undefined, toggleSettingsIsCommentMode());
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
-            isCommentMode: false
+            isCommentMode: false,
+            isDirty: true
           });
         });
 
         it('next toggles to back on is set to false', () => {
           state = {
             ...INITIAL_STATE,
-            isCommentMode: false
+            isCommentMode: false,
+            isDirty: true
           };
           expect(reducer(state, toggleSettingsIsCommentMode())).to.deep.equal({
             ...INITIAL_STATE,
-            isCommentMode: true
+            isCommentMode: true,
+            isDirty: true
           });
         });
       });
@@ -85,13 +90,18 @@ describe('settings', () => {
           state = reducer(undefined, setSettingsSampleSize(1000));
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
+            isDirty: true,
             sampleSize: 1000
           });
         });
         it('setting the value again back to a default flips it back', () => {
-          state = reducer(state, setSettingsSampleSize(INITIAL_STATE.sampleSize));
+          state = reducer(
+            state,
+            setSettingsSampleSize(INITIAL_STATE.sampleSize)
+          );
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
+            isDirty: true,
             sampleSize: INITIAL_STATE.sampleSize
           });
         });
@@ -101,7 +111,7 @@ describe('settings', () => {
     describe('#setSettingsMaxTimeMS', () => {
       it('returns the action type', () => {
         expect(setSettingsMaxTimeMS(10000)).to.deep.equal({
-          type: SET_MAX_TIMEOUT_MS,
+          type: SET_MAX_TIME_MS,
           value: 10000
         });
       });
@@ -111,6 +121,7 @@ describe('settings', () => {
           state = reducer(undefined, setSettingsMaxTimeMS(10000));
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
+            isDirty: true,
             maxTimeMS: 10000
           });
         });
@@ -118,7 +129,8 @@ describe('settings', () => {
           state = reducer(state, setSettingsMaxTimeMS(INITIAL_STATE.maxTimeMS));
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
-            maxTimeMS: INITIAL_STATE.maxTimeMS
+            maxTimeMS: INITIAL_STATE.maxTimeMS,
+            isDirty: true
           });
         });
       });
@@ -137,14 +149,16 @@ describe('settings', () => {
           state = reducer(undefined, setSettingsLimit(10000));
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
-            limit: 10000
+            limit: 10000,
+            isDirty: true
           });
         });
         it('setting the value again back to a default flips it back', () => {
           state = reducer(state, setSettingsLimit(INITIAL_STATE.limit));
           expect(state).to.deep.equal({
             ...INITIAL_STATE,
-            limit: INITIAL_STATE.limit
+            limit: INITIAL_STATE.limit,
+            isDirty: true
           });
         });
       });
