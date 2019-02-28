@@ -14,6 +14,57 @@ const GLOBALS = {
   __DEV__: JSON.stringify(JSON.parse('true'))
 };
 
+const PLUGINS = [
+  // Node externals
+  new webpack.ExternalsPlugin('commonjs', [
+    'fs'
+  ]),
+  // Electron externals
+  new webpack.ExternalsPlugin('commonjs', [
+    'app',
+    'auto-updater',
+    'browser-window',
+    'clipboard',
+    'content-tracing',
+    'crash-reporter',
+    'dialog',
+    'electron',
+    'global-shortcut',
+    'ipc',
+    'ipc-main',
+    'menu',
+    'menu-item',
+    'native-image',
+    'original-fs',
+    'power-monitor',
+    'power-save-blocker',
+    'protocol',
+    'screen',
+    'session',
+    'shell',
+    'tray',
+    'web-contents'
+  ])
+];
+
+if (process.env.NODE_ENV !== 'production') {
+  PLUGINS.push.apply(PLUGINS, [
+    // Enable HMR globally
+    new webpack.HotModuleReplacementPlugin(),
+
+    // Prints more readable module names in the browser console on HMR updates
+    new webpack.NamedModulesPlugin()
+  ]);
+}
+
+PLUGINS.push.apply(PLUGINS, [
+  // Do not emit compiled assets that include errors
+  new webpack.NoEmitOnErrorsPlugin(),
+
+  // Defines global variables
+  new webpack.DefinePlugin(GLOBALS)
+]);
+
 const config = {
   target: 'web',
   devtool: 'eval-source-map',
@@ -51,49 +102,7 @@ const config = {
       }
     ]
   },
-  plugins: [
-    // Node externals
-    new webpack.ExternalsPlugin('commonjs', [
-      'fs'
-    ]),
-    // Electron externals
-    new webpack.ExternalsPlugin('commonjs', [
-      'app',
-      'auto-updater',
-      'browser-window',
-      'clipboard',
-      'content-tracing',
-      'crash-reporter',
-      'dialog',
-      'electron',
-      'global-shortcut',
-      'ipc',
-      'ipc-main',
-      'menu',
-      'menu-item',
-      'native-image',
-      'original-fs',
-      'power-monitor',
-      'power-save-blocker',
-      'protocol',
-      'screen',
-      'session',
-      'shell',
-      'tray',
-      'web-contents'
-    ]),
-    // Enable HMR globally
-    new webpack.HotModuleReplacementPlugin(),
-
-    // Prints more readable module names in the browser console on HMR updates
-    new webpack.NamedModulesPlugin(),
-
-    // Do not emit compiled assets that include errors
-    new webpack.NoEmitOnErrorsPlugin(),
-
-    // Defines global variables
-    new webpack.DefinePlugin(GLOBALS)
-  ]
+  plugins: PLUGINS
 };
 
 module.exports = merge.smart(baseWebpackConfig, config);
