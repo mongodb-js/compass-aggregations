@@ -1,9 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PipelineToolbar from 'components/pipeline-toolbar';
-import PipelineBuilderToolbar from 'components/pipeline-builder-toolbar';
-import PipelinePreviewToolbar from 'components/pipeline-preview-toolbar';
+import PipelineToolbar from './pipeline-toolbar';
+import PipelineBuilderToolbar from './pipeline-builder-toolbar';
+import PipelinePreviewToolbar from './pipeline-preview-toolbar';
 
 import styles from './pipeline-toolbar.less';
 

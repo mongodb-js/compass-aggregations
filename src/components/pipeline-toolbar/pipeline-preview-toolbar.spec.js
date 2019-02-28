@@ -1,7 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 
-import PipelinePreviewToolbar from 'components/pipeline-preview-toolbar';
+import PipelinePreviewToolbar from './pipeline-preview-toolbar';
 import styles from './pipeline-preview-toolbar.less';
 
 describe('PipelinePreviewToolbar [Component]', () => {
@@ -30,62 +30,60 @@ describe('PipelinePreviewToolbar [Component]', () => {
   });
 
   it('renders the wrapper div', () => {
-    expect(
-      component.find(`.${styles['pipeline-preview-toolbar']}`)
-    ).to.be.present();
+    expect(component.find(`.${styles['container-right']}`)).to.be.present();
   });
 
   describe('Sample Mode', () => {
     it('renders the sample mode text', () => {
       expect(
-        component
-          .find(`.${styles['pipeline-preview-toolbar-sample-mode']}`)
-          .hostNodes()
+        component.find(`.${styles['toggle-sample-label']}`).hostNodes()
       ).to.have.text('Sample Mode');
     });
     it('renders the tooltip', () => {
-      const toggleClassName = styles['pipeline-preview-toolbar-toggle-sample'];
+      const toggleClassName = styles['toggle-sample'];
       expect(
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
+
+    describe('when toggling sampling', () => {
+      it('calls the action', () => {
+        component
+          .find(`.${styles['toggle-sample']} .${styles.switch}`)
+          .hostNodes()
+          .simulate('click');
+        expect(toggleSampleSpy.calledOnce).to.equal(true);
+      });
+    });
   });
+
   describe('Auto-Preview', () => {
     it('renders the auto preview mode text', () => {
       expect(
-        component
-          .find(`.${styles['pipeline-preview-toolbar-auto-preview-mode']}`)
-          .hostNodes()
+        component.find(`.${styles['toggle-auto-preview-label']}`).hostNodes()
       ).to.have.text('Auto Preview');
     });
     it('renders the tooltip', () => {
-      const toggleClassName =
-        styles['pipeline-preview-toolbar-toggle-auto-preview'];
+      const toggleClassName = styles['toggle-auto-preview'];
       expect(
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
-  });
 
-  context('when toggling sampling', () => {
-    it('calls the action', () => {
-      component
-        .find(`.${styles['pipeline-preview-toolbar-toggle-sample-button']}`)
-        .hostNodes()
-        .simulate('click');
-      expect(toggleSampleSpy.calledOnce).to.equal(true);
+    describe('when toggling auto previewing', () => {
+      it('calls the action', () => {
+        component
+          .find(`.${styles['toggle-auto-preview']} .${styles.switch}`)
+          .hostNodes()
+          .simulate('click');
+        expect(toggleAutoPreviewSpy.calledOnce).to.equal(true);
+      });
     });
   });
 
-  context('when toggling auto previewing', () => {
-    it('calls the action', () => {
-      component
-        .find(
-          `.${styles['pipeline-preview-toolbar-toggle-auto-preview-button']}`
-        )
-        .hostNodes()
-        .simulate('click');
-      expect(toggleAutoPreviewSpy.calledOnce).to.equal(true);
+  describe('Settings', () => {
+    it('renders the wrapper div', () => {
+      expect(component.find(`.${styles.settings}`)).to.be.present();
     });
   });
 });
