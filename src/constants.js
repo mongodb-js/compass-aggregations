@@ -45,3 +45,15 @@ export const OUT = '$out';
  * The default snippet.
  */
 export const DEFAULT_SNIPPET = '{\n  \n}';
+
+export const TOOLTIP_PREVIEW_MODE =
+  'Show a preview of resulting documents after <br />' +
+  'each stage in the pipeline.';
+
+export const TOOLTIP_SAMPLING_MODE =
+  'Use a random sample of documents instead of<br />' +
+  'the entire collection so you can develop your<br />' +
+  'pipeline quickly. Sample size can be specified<br />' +
+  'in the settings panel.';
+
+export const TOOLTIP_EXPORT_TO_LANGUAGE = 'Export pipeline code to language';

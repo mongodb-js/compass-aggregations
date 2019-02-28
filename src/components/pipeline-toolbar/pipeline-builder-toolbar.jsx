@@ -2,9 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton, IconButton } from 'hadron-react-buttons';
+import { Tooltip } from 'hadron-react-components';
 import { Dropdown, MenuItem } from 'react-bootstrap';
 import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
+
+import { TOOLTIP_EXPORT_TO_LANGUAGE } from '../../constants';
 
 import styles from './pipeline-builder-toolbar.less';
 
@@ -128,9 +131,6 @@ class PipelineBuilderToolbar extends PureComponent {
             <i className="mms-icon-ellipsis" aria-hidden />
           </Dropdown.Toggle>
           <Dropdown.Menu>
-            <MenuItem onClick={this.props.exportToLanguage}>
-              Export To Language
-            </MenuItem>
             <MenuItem onClick={this.props.clonePipeline}>
               Clone Pipeline
             </MenuItem>
@@ -140,6 +140,19 @@ class PipelineBuilderToolbar extends PureComponent {
             </MenuItem>
           </Dropdown.Menu>
         </Dropdown>
+        <div
+          data-tip={TOOLTIP_EXPORT_TO_LANGUAGE}
+          data-for="export-to-language"
+          data-place="top"
+          data-html="true">
+          <IconButton
+            className="btn btn-xs btn-default"
+            iconClassName={classnames(styles['export-icon'])}
+            clickHandler={this.props.exportToLanguage}
+            title="Export To Language"
+          />
+          <Tooltip id="export-to-language" />
+        </div>
       </div>
     );
   }

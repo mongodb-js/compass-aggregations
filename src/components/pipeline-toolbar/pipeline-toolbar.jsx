@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import PipelineBuilderToolbar from 'components/pipeline-builder-toolbar';
-import PipelinePreviewToolbar from 'components/pipeline-preview-toolbar';
+import PipelineBuilderToolbar from './pipeline-builder-toolbar';
+import PipelinePreviewToolbar from './pipeline-preview-toolbar';
 
 import styles from './pipeline-toolbar.less';
 
