@@ -375,6 +375,7 @@ const ARRAY_STATS_EXAMPLE = {
   namespace: 'aggregations.solarSystem',
   pipeline: [
     {
+      ...STAGE_DEFAULTS,
       id: 0,
       stageOperator: '$project',
       stage: `{
@@ -384,7 +385,6 @@ const ARRAY_STATS_EXAMPLE = {
   min_cpi: {$min: "$trends.icecream_cpi" },
   cpi_deviation: {$stdDevPop: "$trends.icecream_cpi" }
 }`,
-      previewDocuments: []
     }
   ]
 };
@@ -396,6 +396,7 @@ const GROUPED_STATS_EXAMPLE = {
   namespace: 'aggregations.movies',
   pipeline: [
     {
+      ...STAGE_DEFAULTS,
       id: 0,
       stageOperator: '$match',
       stage: `{
@@ -404,6 +405,7 @@ const GROUPED_STATS_EXAMPLE = {
       previewDocuments: []
     },
     {
+      ...STAGE_DEFAULTS,
       id: 1,
       stageOperator: '$group',
       stage: `{
@@ -425,6 +427,7 @@ const COMPLEX_EXAMPLE = {
   namespace: 'aggregations.air_alliances',
   pipeline: [
     {
+      ...STAGE_DEFAULTS,
       id: 0,
       stageOperator: '$lookup',
       stage: `{
@@ -474,6 +477,7 @@ const COMPLEX_EXAMPLE = {
       previewDocuments: []
     },
     {
+      ...STAGE_DEFAULTS,
       id: 1,
       stageOperator: '$match',
       stage: `{
@@ -484,6 +488,7 @@ const COMPLEX_EXAMPLE = {
       previewDocuments: []
     },
     {
+      ...STAGE_DEFAULTS,
       id: 2,
       stageOperator: '$project',
       stage: `{
