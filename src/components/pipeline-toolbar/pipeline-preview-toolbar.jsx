@@ -90,6 +90,24 @@ class PipelinePreviewToolbar extends PureComponent {
     );
   }
 
+  renderFullscreenButton() {
+    const { isFullscreenOn } = this.props;
+
+    const iconClassName = isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand';
+    const title = isFullscreenOn ? 'Exit Fullscreen' : 'Enter Fullscreen';
+    debugger;
+    return (
+      <div className={styles.fullscreen}>
+        <IconButton
+          className="btn btn-xs btn-default"
+          iconClassName={iconClassName}
+          clickHandler={this.props.toggleFullscreen}
+          title={title}
+        />
+      </div>
+    );
+  }
+
   /**
    * Renders the pipeline preview toolbar.
    *
@@ -110,17 +128,7 @@ class PipelinePreviewToolbar extends PureComponent {
             clickHandler={this.props.toggleSettingsIsExpanded}
           />
         </div>
-
-        <div className={styles.fullscreen}>
-          <IconButton
-            className="btn btn-xs btn-default"
-            iconClassName={
-              this.props.isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand'
-            }
-            clickHandler={this.props.toggleFullscreen}
-            title="Toggle Fullscreen"
-          />
-        </div>
+        {this.renderFullscreenButton()}
       </div>
     );
   }

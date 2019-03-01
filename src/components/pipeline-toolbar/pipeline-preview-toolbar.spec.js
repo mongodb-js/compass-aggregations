@@ -8,17 +8,25 @@ describe('PipelinePreviewToolbar [Component]', () => {
   let component;
   let toggleSampleSpy;
   let toggleAutoPreviewSpy;
+  let toggleSettingsIsExpandedSpy;
+  let toggleFullscreenSpy;
 
   beforeEach(() => {
     toggleSampleSpy = sinon.spy();
     toggleAutoPreviewSpy = sinon.spy();
+    toggleSettingsIsExpandedSpy = sinon.spy();
+    toggleFullscreenSpy = sinon.spy();
+
     component = mount(
       <PipelinePreviewToolbar
         toggleSample={toggleSampleSpy}
         toggleAutoPreview={toggleAutoPreviewSpy}
+        toggleSettingsIsExpanded={toggleSettingsIsExpandedSpy}
         isModified
         isSampling
         isAutoPreviewing
+        isFullscreenOn={false}
+        toggleFullscreen={toggleFullscreenSpy}
       />
     );
   });
@@ -27,6 +35,8 @@ describe('PipelinePreviewToolbar [Component]', () => {
     component = null;
     toggleSampleSpy = null;
     toggleAutoPreviewSpy = null;
+    toggleSettingsIsExpandedSpy = null;
+    toggleFullscreenSpy = null;
   });
 
   it('renders the wrapper div', () => {
@@ -84,6 +94,37 @@ describe('PipelinePreviewToolbar [Component]', () => {
   describe('Settings', () => {
     it('renders the wrapper div', () => {
       expect(component.find(`.${styles.settings}`)).to.be.present();
+    });
+              
+    describe('When the gear icon is clicked', () => {
+      it('opens the settings sidebar', () => {
+        component
+          .find('.fa-gear')
+          .hostNodes()
+          .simulate('click');
+        expect(toggleSettingsIsExpandedSpy.calledOnce).to.equal(true);
+      });
+    });
+  });
+
+  describe('Fullscreen', () => {
+    it('renders the wrapper div', () => {
+      expect(component.find(`.${styles.fullscreen}`)).to.be.present();
+    });
+
+    it('has the right icon', () => {
+      expect(component.find(`.${styles.fullscreen} .fa-expand`)).to.be.present();
+    });
+              
+    describe('When the fullscreen icon is clicked', () => {
+      it('goes into fullscreen', () => {
+        component
+          .find('.fa-expand')
+          .hostNodes()
+          .simulate('click');
+
+        expect(toggleFullscreenSpy.calledOnce).to.equal(true);
+      });
     });
   });
 });

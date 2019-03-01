@@ -24,6 +24,8 @@ describe('PipelineToolbar [Component]', () => {
   let toggleAutoPreviewSpy;
   let collationCollapseToggledSpy;
   let toggleOverviewSpy;
+  let toggleFullscreenSpy;
+  let toggleSettingsIsExpandedSpy;
 
   beforeEach(() => {
     savedPipelinesListToggleSpy = sinon.spy();
@@ -41,6 +43,8 @@ describe('PipelineToolbar [Component]', () => {
     toggleAutoPreviewSpy = sinon.spy();
     collationCollapseToggledSpy = sinon.spy();
     toggleOverviewSpy = sinon.spy();
+    toggleFullscreenSpy = sinon.spy();
+    toggleSettingsIsExpandedSpy = sinon.spy();
 
     component = shallow(
       <PipelineToolbar
@@ -65,7 +69,12 @@ describe('PipelineToolbar [Component]', () => {
         isAutoPreviewing
         isOverviewOn={false}
         name=""
-        exportToLanguage={exportToLanguageSpy} />
+        exportToLanguage={exportToLanguageSpy} 
+        isCollationExpanded={false} 
+        isFullscreenOn={false}
+        toggleFullscreen={toggleFullscreenSpy}
+        toggleSettingsIsExpanded={toggleSettingsIsExpandedSpy}
+      />
     );
   });
 
