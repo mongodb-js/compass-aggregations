@@ -20,7 +20,7 @@ setOptions({
 // Dynamically load all stories found in the components directory that
 // match the .stories.js or .story.js extension
 const req = require.context(
-  '../src',
+  '../examples',
   true,
   /^((?!node_modules).)*\.(story|stories)\.js$/
 );

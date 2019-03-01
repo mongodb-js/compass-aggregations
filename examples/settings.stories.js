@@ -9,7 +9,7 @@ import { INITIAL_STATE as INITIAL_LIMIT_STATE } from 'modules/limit';
 import { INITIAL_STATE as INITIAL_MAX_TIME_MS_STATE } from 'modules/max-time-ms';
 import { INITIAL_STATE as INITIAL_LARGE_LIMIT_STATE } from 'modules/large-limit';
 
-import Settings from './settings';
+import Settings from 'components/settings';
 import { configureStore } from 'utils/configureStore';
 
 import { action } from '@storybook/addon-actions';
