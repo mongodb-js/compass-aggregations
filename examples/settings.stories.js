@@ -32,7 +32,7 @@ const ACTION_PROPS = {
   runStage: action('runStage')
 };
 
-storiesOf('Settings', module)
+storiesOf('<Settings>', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('Expanded', () => {
     const store = configureStore(INITIAL_STATE);

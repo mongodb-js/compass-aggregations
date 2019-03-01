@@ -11,7 +11,7 @@ const INITIAL_STATE = {
 
 };
 
-storiesOf('PipelineToolbar', module)
+storiesOf('<PipelineToolbar>', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('Default', () => {
     const store = configureStore(INITIAL_STATE);

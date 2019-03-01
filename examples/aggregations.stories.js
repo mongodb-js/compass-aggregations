@@ -8,6 +8,8 @@ import Aggregations from 'components/aggregations';
 import { configureStore } from 'utils/configureStore';
 
 import BASIC_EXAMPLE from './example-basic.js';
+import COMPLEX_EXAMPLE from './example-complex.js';
+
 
 import {
   INITIAL_INPUT_DOCUMENTS,
@@ -66,98 +68,7 @@ const GROUPED_STATS_EXAMPLE = {
   ]
 };
 
-// do I have schema problems?
-// the following tells me if I have mistyped names or bad references for a lookup
-const COMPLEX_EXAMPLE = {
-  ...EXAMPLE,
-  namespace: 'aggregations.air_alliances',
-  pipeline: [
-    {
-      ...STAGE_DEFAULTS,
-      id: 0,
-      stageOperator: '$lookup',
-      stage: `{
-  from: "air_airlines",
-  let: { maybe_name: "$airlines" },
-  pipeline: [
-    {
-      $match: {
-        $expr: {
-          $gt: [
-            {
-              $size: {
-                $setIntersection: [
-                  "$$maybe_name",
-                  ["$name", "$alias", "$iata", "$icao"]
-                ]
-              }
-            },
-            0
-          ]
-        }
-      }
-    },
-    {
-      $project: {
-        _id: 0,
-        name_is: "$name",
-        ref_name: {
-          $arrayElemAt: [
-            {
-              $filter: {
-                input: "$$maybe_name",
-                cond: {
-                  $in: ["$$this", ["$name", "$alias", "$iata", "$icao"]]
-                }
-              }
-            },
-            0
-          ]
-        }
-      }
-    }
-  ],
-  as: "found"
-}
-}`,
-      previewDocuments: []
-    },
-    {
-      ...STAGE_DEFAULTS,
-      id: 1,
-      stageOperator: '$match',
-      stage: `{
-  $expr: {
-    $ne: [{ $size: "$airlines" }, { $size: "$found" }]
-  }
-}`,
-      previewDocuments: []
-    },
-    {
-      ...STAGE_DEFAULTS,
-      id: 2,
-      stageOperator: '$project',
-      stage: `{
-  _id: 0,
-  name: 1,
-  not_found: {
-    $setDifference: ["$airlines", "$found.ref_name"]
-  },
-  needs_updating: {
-    $filter: {
-      input: "$found",
-      cond: {
-        $ne: ["$$this.name_is", "$$this.ref_name"]
-      }
-    }
-  }
-}`,
-      previewDocuments: []
-    }
-  ]
-};
-
-storiesOf('Agg Plugin', module)
+storiesOf('<Aggregations>', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('Example: Basic', () => {
     const store = configureStore({
