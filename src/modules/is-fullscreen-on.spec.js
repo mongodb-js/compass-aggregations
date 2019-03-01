@@ -25,14 +25,14 @@ describe('fullscreen module', () => {
     it('should turn it on', () => {
       state = reducer(undefined, {
         type: TOGGLE_FULLSCREEN
-      })
+      });
       expect(state).to.be.true;
     });
 
     it('should turn it off', () => {
       state = reducer(state, {
         type: TOGGLE_FULLSCREEN
-      })
+      });
       expect(state).to.be.false;
     });
   });
