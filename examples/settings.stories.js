@@ -12,7 +12,7 @@ import { INITIAL_STATE as INITIAL_LARGE_LIMIT_STATE } from 'modules/large-limit'
 import Settings from 'components/settings';
 import { configureStore } from 'utils/configureStore';
 
-import { action } from '@storybook/addon-actions';
+import ACTION_PROPS from './action-creators';
 
 const INITIAL_STATE = {
   ..._BASE_STATE,
@@ -20,16 +20,6 @@ const INITIAL_STATE = {
   limit: INITIAL_LIMIT_STATE,
   largeLimit: INITIAL_LARGE_LIMIT_STATE,
   maxTimeMS: INITIAL_MAX_TIME_MS_STATE
-};
-
-const ACTION_PROPS = {
-  toggleSettingsIsExpanded: action('toggleSettingsIsExpanded'),
-  toggleSettingsIsCommentMode: action('toggleSettingsIsCommentMode'),
-  setSettingsSampleSize: action('setSettingsSampleSize'),
-  setSettingsMaxTimeMS: action('setSettingsMaxTimeMS'),
-  setSettingsLimit: action('setSettingsLimit'),
-  applySettings: action('applySettings'),
-  runStage: action('runStage')
 };
 
 storiesOf('<Settings>', module)

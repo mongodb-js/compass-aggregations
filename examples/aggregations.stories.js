@@ -3,13 +3,16 @@ import { storiesOf } from '@storybook/react';
 import { ComponentPreview } from 'storybook/decorators';
 
 import { Provider } from 'react-redux';
-import { INITIAL_STATE as BASE_STATE } from 'modules';
+import { INITIAL_STATE } from 'modules';
 import Aggregations from 'components/aggregations';
 import { configureStore } from 'utils/configureStore';
 
 import BASIC_EXAMPLE from './example-basic.js';
 import COMPLEX_EXAMPLE from './example-complex.js';
 
+const BASE_STATE = {
+  ...INITIAL_STATE
+};
 
 import {
   INITIAL_INPUT_DOCUMENTS,
@@ -116,6 +119,31 @@ storiesOf('<Aggregations>', module)
   })
   .add('Default', () => {
     const store = configureStore(BASE_STATE);
+    return (
+      <Provider store={store}>
+        <Aggregations />
+      </Provider>
+    );
+  })
+  .add('Fullscreen > On', () => {
+    const store = configureStore({
+      ...BASE_STATE,
+      isFullscreenOn: true
+    });
+    return (
+      <Provider store={store}>
+        <Aggregations />
+      </Provider>
+    );
+  })
+  .add('Settings > Open', () => {
+    const state = {
+      ...BASE_STATE
+    };
+
+    state.settings.isExpanded = true;
+
+    const store = configureStore(state);
     return (
       <Provider store={store}>
         <Aggregations />

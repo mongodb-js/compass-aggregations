@@ -20,7 +20,9 @@ class PipelinePreviewToolbar extends PureComponent {
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
     isModified: PropTypes.bool.isRequired,
-    toggleSettingsIsExpanded: PropTypes.func.isRequired
+    toggleSettingsIsExpanded: PropTypes.func.isRequired,
+    isFullscreenOn: PropTypes.bool.isRequired,
+    toggleFullscreen: PropTypes.func.isRequired
   };
 
   modifiedText() {
@@ -106,6 +108,17 @@ class PipelinePreviewToolbar extends PureComponent {
             className="btn btn-xs btn-default"
             iconClassName="fa fa-gear"
             clickHandler={this.props.toggleSettingsIsExpanded}
+          />
+        </div>
+
+        <div className={styles.fullscreen}>
+          <IconButton
+            className="btn btn-xs btn-default"
+            iconClassName={
+              this.props.isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand'
+            }
+            clickHandler={this.props.toggleFullscreen}
+            title="Toggle Fullscreen"
           />
         </div>
       </div>
