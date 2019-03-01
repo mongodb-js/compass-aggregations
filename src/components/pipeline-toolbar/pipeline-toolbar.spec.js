@@ -69,8 +69,8 @@ describe('PipelineToolbar [Component]', () => {
         isAutoPreviewing
         isOverviewOn={false}
         name=""
-        exportToLanguage={exportToLanguageSpy} 
-        isCollationExpanded={false} 
+        exportToLanguage={exportToLanguageSpy}
+        isCollationExpanded={false}
         isFullscreenOn={false}
         toggleFullscreen={toggleFullscreenSpy}
         toggleSettingsIsExpanded={toggleSettingsIsExpandedSpy}

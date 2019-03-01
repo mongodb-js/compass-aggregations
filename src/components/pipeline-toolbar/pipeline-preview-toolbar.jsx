@@ -95,7 +95,6 @@ class PipelinePreviewToolbar extends PureComponent {
 
     const iconClassName = isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand';
     const title = isFullscreenOn ? 'Exit Fullscreen' : 'Enter Fullscreen';
-    
     /**
      * NOTE: Not using `<IconButton />` here because it assumes no need to re-render,
      * but in this case, we do.

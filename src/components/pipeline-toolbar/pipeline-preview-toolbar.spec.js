@@ -42,7 +42,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
   it('renders the wrapper div', () => {
     expect(component.find(`.${styles['container-right']}`)).to.be.present();
   });
-
   describe('Sample Mode', () => {
     it('renders the sample mode text', () => {
       expect(
@@ -55,7 +54,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
-
     describe('when toggling sampling', () => {
       it('calls the action', () => {
         component
@@ -66,7 +64,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
       });
     });
   });
-
   describe('Auto-Preview', () => {
     it('renders the auto preview mode text', () => {
       expect(
@@ -79,7 +76,6 @@ describe('PipelinePreviewToolbar [Component]', () => {
         component.find(`.${toggleClassName} .hadron-tooltip`)
       ).to.be.present();
     });
-
     describe('when toggling auto previewing', () => {
       it('calls the action', () => {
         component
@@ -90,12 +86,10 @@ describe('PipelinePreviewToolbar [Component]', () => {
       });
     });
   });
-
   describe('Settings', () => {
     it('renders the wrapper div', () => {
       expect(component.find(`.${styles.settings}`)).to.be.present();
     });
-              
     describe('When the gear icon is clicked', () => {
       it('opens the settings sidebar', () => {
         component
@@ -106,23 +100,19 @@ describe('PipelinePreviewToolbar [Component]', () => {
       });
     });
   });
-
   describe('Fullscreen', () => {
     it('renders the wrapper div', () => {
       expect(component.find(`.${styles.fullscreen}`)).to.be.present();
     });
-
     it('has the right icon', () => {
       expect(component.find(`.${styles.fullscreen} .fa-expand`)).to.be.present();
     });
-              
     describe('When the fullscreen icon is clicked', () => {
       it('goes into fullscreen', () => {
         component
           .find('.fa-expand')
           .hostNodes()
           .simulate('click');
-
         expect(toggleFullscreenSpy.calledOnce).to.equal(true);
       });
     });
