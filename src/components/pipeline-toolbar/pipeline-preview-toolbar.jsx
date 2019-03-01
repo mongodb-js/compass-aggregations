@@ -20,7 +20,9 @@ class PipelinePreviewToolbar extends PureComponent {
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
     isModified: PropTypes.bool.isRequired,
-    toggleSettingsIsExpanded: PropTypes.func.isRequired
+    toggleSettingsIsExpanded: PropTypes.func.isRequired,
+    isFullscreenOn: PropTypes.bool.isRequired,
+    toggleFullscreen: PropTypes.func.isRequired
   };
 
   modifiedText() {
@@ -88,6 +90,28 @@ class PipelinePreviewToolbar extends PureComponent {
     );
   }
 
+  renderFullscreenButton() {
+    const { isFullscreenOn } = this.props;
+
+    const iconClassName = isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand';
+    const title = isFullscreenOn ? 'Exit Fullscreen' : 'Enter Fullscreen';
+    /**
+     * NOTE: Not using `<IconButton />` here because it assumes no need to re-render,
+     * but in this case, we do.
+     */
+    return (
+      <div className={styles.fullscreen}>
+        <button
+          type="button"
+          title={title}
+          className="btn btn-xs btn-default"
+          onClick={this.props.toggleFullscreen}>
+          <i className={iconClassName} aria-hidden />
+        </button>
+      </div>
+    );
+  }
+
   /**
    * Renders the pipeline preview toolbar.
    *
@@ -108,6 +132,7 @@ class PipelinePreviewToolbar extends PureComponent {
             clickHandler={this.props.toggleSettingsIsExpanded}
           />
         </div>
+        {this.renderFullscreenButton()}
       </div>
     );
   }

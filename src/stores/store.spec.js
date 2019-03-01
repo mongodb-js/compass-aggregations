@@ -186,7 +186,8 @@ describe('Aggregation Store', () => {
             settings: INITIAL_STATE.settings,
             limit: INITIAL_STATE.limit,
             largeLimit: INITIAL_STATE.largeLimit,
-            maxTimeMS: INITIAL_STATE.maxTimeMS
+            maxTimeMS: INITIAL_STATE.maxTimeMS,
+            isFullscreenOn: INITIAL_STATE.isFullscreenOn
           });
         });
       });
@@ -228,7 +229,8 @@ describe('Aggregation Store', () => {
             settings: INITIAL_STATE.settings,
             limit: INITIAL_STATE.limit,
             largeLimit: INITIAL_STATE.largeLimit,
-            maxTimeMS: INITIAL_STATE.maxTimeMS
+            maxTimeMS: INITIAL_STATE.maxTimeMS,
+            isFullscreenOn: INITIAL_STATE.isFullscreenOn
           });
         });
       });
