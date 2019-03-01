@@ -1,4 +1,7 @@
-import reducer, { toggleFullscreen, TOGGLE_FULLSCREEN } from 'modules/is-fullscreen-on';
+import reducer, {
+  toggleFullscreen,
+  TOGGLE_FULLSCREEN
+} from 'modules/is-fullscreen-on';
 
 describe('fullscreen module', () => {
   describe('#toggleFullscreen', () => {
@@ -12,13 +15,17 @@ describe('fullscreen module', () => {
   describe('#reducer', () => {
     context('when the action is not toggle fullscreen', () => {
       it('returns the default state', () => {
-        expect(reducer(undefined, { type: 'test' })).to.equal(false);
+        expect(reducer(undefined, {
+          type: 'test'
+        })).to.equal(false);
       });
     });
-    let state; 
+    let state;
 
     it('should turn it on', () => {
-      state = reducer(undefined, {type: TOGGLE_FULLSCREEN})
+      state = reducer(undefined, {
+        type: TOGGLE_FULLSCREEN
+      })
       expect(state).to.be.true;
     });
 
