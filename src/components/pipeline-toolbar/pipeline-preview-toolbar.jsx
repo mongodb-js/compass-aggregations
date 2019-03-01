@@ -95,15 +95,20 @@ class PipelinePreviewToolbar extends PureComponent {
 
     const iconClassName = isFullscreenOn ? 'fa fa-compress' : 'fa fa-expand';
     const title = isFullscreenOn ? 'Exit Fullscreen' : 'Enter Fullscreen';
-    debugger;
+    
+    /**
+     * NOTE: Not using `<IconButton />` here because it assumes no need to re-render,
+     * but in this case, we do.
+     */
     return (
       <div className={styles.fullscreen}>
-        <IconButton
-          className="btn btn-xs btn-default"
-          iconClassName={iconClassName}
-          clickHandler={this.props.toggleFullscreen}
+        <button
+          type="button"
           title={title}
-        />
+          className="btn btn-xs btn-default"
+          onClick={this.props.toggleFullscreen}>
+          <i className={iconClassName} aria-hidden />
+        </button>
       </div>
     );
   }
