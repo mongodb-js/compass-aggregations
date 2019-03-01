@@ -84,7 +84,9 @@ class Pipeline extends PureComponent {
     limit: PropTypes.number.isRequired,
     largeLimit: PropTypes.number.isRequired,
     maxTimeMS: PropTypes.number.isRequired,
-    applySettings: PropTypes.func.isRequired
+    applySettings: PropTypes.func.isRequired,
+    isFullscreenOn: PropTypes.bool.isRequired,
+    toggleFullscreen: PropTypes.func.isRequired
   };
 
   /**
@@ -169,7 +171,11 @@ class Pipeline extends PureComponent {
     );
 
     return (
-      <div className={classnames(styles.pipeline)}>
+      <div
+        className={classnames(
+          styles.pipeline,
+          this.props.isFullscreenOn ? styles['pipeline-fullscreen'] : false
+        )}>
         <PipelineToolbar
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           getSavedPipelines={this.props.getSavedPipelines}
@@ -194,6 +200,8 @@ class Pipeline extends PureComponent {
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
           toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
+          isFullscreenOn={this.props.isFullscreenOn}
+          toggleFullscreen={this.props.toggleFullscreen}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}

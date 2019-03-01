@@ -22,6 +22,7 @@ import {
 import { exportToLanguage } from 'modules/export-to-language';
 import { openLink } from 'modules/link';
 import { toggleOverview } from 'modules/is-overview-on';
+import { toggleFullscreen } from 'modules/is-fullscreen-on';
 import { deletePipeline, newPipeline, clonePipeline } from 'modules';
 import {
   runStage,
@@ -43,10 +44,7 @@ import {
   getSavedPipelines
 } from 'modules/saved-pipeline';
 import { setIsModified } from 'modules/is-modified';
-import {
-  restoreSavedPipeline,
-  getPipelineFromIndexedDB
-} from 'modules/index';
+import { restoreSavedPipeline, getPipelineFromIndexedDB } from 'modules/index';
 import {
   restorePipelineModalToggle,
   restorePipelineFrom
@@ -121,7 +119,8 @@ const mapStateToProps = state => ({
   isOverviewOn: state.isOverviewOn,
   limit: state.limit,
   largeLimit: state.largeLimit,
-  maxTimeMS: state.maxTimeMS
+  maxTimeMS: state.maxTimeMS,
+  isFullscreenOn: state.isFullscreenOn
 });
 
 /**
@@ -180,7 +179,8 @@ const MappedAggregations = connect(
     setIsModified,
     limitChanged,
     largeLimitChanged,
-    maxTimeMSChanged
+    maxTimeMSChanged,
+    toggleFullscreen
   }
 )(Aggregations);
 
