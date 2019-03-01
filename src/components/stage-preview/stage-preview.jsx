@@ -27,7 +27,7 @@ class StagePreview extends Component {
     index: PropTypes.number.isRequired,
     stageOperator: PropTypes.string,
     stage: PropTypes.string
-  }
+  };
 
   /**
    * Goto the out results.
@@ -35,14 +35,14 @@ class StagePreview extends Component {
   onGotoOutResults = () => {
     const collection = decomment(this.props.stage).replace(/['"]+/g, '');
     this.props.gotoOutResults(collection);
-  }
+  };
 
   /**
    * On the save click, execute the $out.
    */
   onSaveDocuments = () => {
     this.props.runOutStage(this.props.index);
-  }
+  };
 
   /**
    * If the stage operator is $out we have special behaviour.
@@ -67,15 +67,16 @@ class StagePreview extends Component {
     return (
       <div className={classnames(styles['stage-preview-out'])}>
         <div className={classnames(styles['stage-preview-out-text'])}>
-          The $out operator will cause the pipeline to persist the results
-          to the specified collection. If the collection exists it will be
+          The $out operator will cause the pipeline to persist the results to
+          the specified collection. If the collection exists it will be
           replaced. Please confirm to execute.
         </div>
         <div className={classnames(styles['stage-preview-out-button'])}>
           <TextButton
             text="Save Documents"
             className="btn btn-xs btn-primary"
-            clickHandler={this.onSaveDocuments} />
+            clickHandler={this.onSaveDocuments}
+          />
         </div>
       </div>
     );
@@ -93,7 +94,14 @@ class StagePreview extends Component {
       }
       if (this.props.documents.length > 0) {
         const documents = this.props.documents.map((doc, i) => {
-          return (<Document doc={new HadronDocument(doc)} editable={false} key={i} tz="UTC" />);
+          return (
+            <Document
+              doc={new HadronDocument(doc)}
+              editable={false}
+              key={i}
+              tz="UTC"
+            />
+          );
         });
         return (
           <div className={classnames(styles['stage-preview-documents'])}>
@@ -117,9 +125,9 @@ class StagePreview extends Component {
   renderLoading() {
     if (this.props.isLoading) {
       if (this.props.stageOperator === OUT) {
-        return (<LoadingOverlay text="Persisting Documents..." />);
+        return <LoadingOverlay text="Persisting Documents..." />;
       }
-      return (<LoadingOverlay text="Loading Preview Documents..." />);
+      return <LoadingOverlay text="Loading Preview Documents..." />;
     }
   }
 

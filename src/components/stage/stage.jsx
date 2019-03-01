@@ -193,6 +193,7 @@ class Stage extends Component {
             isCommenting={this.props.isCommenting}
             setIsModified={this.props.setIsModified}
             stageCollapseToggled={this.props.stageCollapseToggled}
+            openLink={this.props.openLink}
           />
           {this.renderWorkspace()}
         </div>

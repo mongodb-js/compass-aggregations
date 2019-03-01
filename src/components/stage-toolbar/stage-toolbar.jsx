@@ -30,7 +30,7 @@ class StageToolbar extends PureComponent {
     openLink: PropTypes.func.isRequired,
     stageCollapseToggled: PropTypes.func.isRequired,
     previewCount: PropTypes.number.isRequired
-  }
+  };
 
   /**
    * Renders the stage toolbar.
@@ -38,7 +38,9 @@ class StageToolbar extends PureComponent {
    * @returns {React.Component} The component.
    */
   render() {
-    const errored = this.props.error ? 'stage-toolbar-errored' : 'stage-toolbar';
+    const errored = this.props.error
+      ? 'stage-toolbar-errored'
+      : 'stage-toolbar';
     return (
       <div className={classnames(styles[errored])}>
         <StageBuilderToolbar
@@ -56,13 +58,15 @@ class StageToolbar extends PureComponent {
           stageDeleted={this.props.stageDeleted}
           setIsModified={this.props.setIsModified}
           serverVersion={this.props.serverVersion}
-          />
+        />
         <StagePreviewToolbar
           isEnabled={this.props.isEnabled}
           isValid={this.props.isValid}
           stageOperator={this.props.stageOperator}
           stageValue={this.props.stage}
-          count={this.props.previewCount} />
+          count={this.props.previewCount}
+          openLink={this.props.openLink}
+        />
       </div>
     );
   }

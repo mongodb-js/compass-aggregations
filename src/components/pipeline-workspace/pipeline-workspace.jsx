@@ -82,6 +82,7 @@ class PipelineWorkspace extends PureComponent {
           setIsModified={this.props.setIsModified}
           key={stage.id}
           isOverviewOn={this.props.isOverviewOn}
+          openLink={this.props.openLink}
         />
       );
     });
