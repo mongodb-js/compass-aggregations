@@ -4,7 +4,7 @@ import { ComponentPreview } from 'storybook/decorators';
 
 import { Provider } from 'react-redux';
 
-import PipelineToolbar from './pipeline-toolbar';
+import PipelineToolbar from 'components/pipeline-toolbar';
 import { configureStore } from 'utils/configureStore';
 
 const INITIAL_STATE = {
