@@ -95,7 +95,12 @@ class PipelineBuilderToolbar extends PureComponent {
         />
         <IconButton
           title="Toggle Saved Pipelines"
-          className={classnames('btn', 'btn-xs', 'btn-default', styles['pipeline-builder-toolbar-open-saved-pipelines-button'])}
+          className={classnames(
+            'btn',
+            'btn-xs',
+            'btn-default',
+            styles['pipeline-builder-toolbar-open-saved-pipelines-button']
+          )}
           iconClassName="fa fa-folder-open-o"
           clickHandler={clickHandler}
         />
@@ -136,6 +141,7 @@ class PipelineBuilderToolbar extends PureComponent {
           </Dropdown.Menu>
         </Dropdown>
         <div
+          className={styles['pipeline-builder-toolbar-export-to-language']}
           data-tip={TOOLTIP_EXPORT_TO_LANGUAGE}
           data-for="export-to-language"
           data-place="top"
