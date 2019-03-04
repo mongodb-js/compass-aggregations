@@ -19,18 +19,10 @@ class PipelinePreviewToolbar extends PureComponent {
     toggleAutoPreview: PropTypes.func.isRequired,
     isSampling: PropTypes.bool.isRequired,
     isAutoPreviewing: PropTypes.bool.isRequired,
-    isModified: PropTypes.bool.isRequired,
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     isFullscreenOn: PropTypes.bool.isRequired,
     toggleFullscreen: PropTypes.func.isRequired
   };
-
-  modifiedText() {
-    if (!this.props.isModified) {
-      return null;
-    }
-    return <span>Unsaved changes</span>;
-  }
 
   renderAutoPreviewToggle() {
     return (
@@ -76,20 +68,6 @@ class PipelinePreviewToolbar extends PureComponent {
     );
   }
 
-  renderIsModifiedIndicator() {
-    const isModifiedClassName = classnames({
-      [styles['is-modified']]: true,
-      [styles['is-modified-on']]: this.props.isModified
-    });
-
-    return (
-      <div className={isModifiedClassName}>
-        {this.modifiedText()}
-        <i className="fa fa-circle" aria-hidden />
-      </div>
-    );
-  }
-
   renderFullscreenButton() {
     const { isFullscreenOn } = this.props;
 
@@ -122,7 +100,6 @@ class PipelinePreviewToolbar extends PureComponent {
       <div className={classnames(styles['container-right'])}>
         {this.renderSampleToggle()}
         {this.renderAutoPreviewToggle()}
-        {this.renderIsModifiedIndicator()}
 
         <div className={styles.settings}>
           <IconButton

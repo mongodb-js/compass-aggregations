@@ -21,6 +21,9 @@
 
       &-toggle {
         height: 22px;
+        padding: 0 7px 0px 5px;
+        font-size: 11px;
+        border-radius: 0px 3px 3px 0px;
       }
 
       &-menu {
@@ -32,8 +35,14 @@
   &-add-wrapper {
     flex-grow: 4;
     margin: 0px 3px 0px 3px;
-    max-width: 100px;
     margin-right: 3px;
+    background-color: rgba(70, 76, 79, 0.1);
+    border-radius: 3px;
+    display: flex;
+    border-radius: 3px;
+    font-size: 12px;
+    padding: 3px;
+
   }
 
   &-name {
@@ -43,7 +52,6 @@
     padding: 0px 5px 0px 5px;
     border: 1px @gray5 solid;
     border-radius: 4px;
-    width: 100%;
     white-space: nowrap;
   }
 
@@ -53,11 +61,16 @@
 
   &-save-pipeline-button {
     white-space: nowrap;
+    border-radius: 3px 0px 0px 3px;
   }
 
   &-export-to-language {
     display: flex;
   }
+}
+
+.is-modified {
+  font-style: italic;
 }
 
 .export-icon {

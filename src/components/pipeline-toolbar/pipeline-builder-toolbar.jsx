@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { TextButton, IconButton } from 'hadron-react-buttons';
 import { Tooltip } from 'hadron-react-components';
-import { Dropdown, MenuItem } from 'react-bootstrap';
+import { Dropdown, MenuItem, ButtonGroup, Button } from 'react-bootstrap';
 import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
 
@@ -23,9 +23,6 @@ class PipelineBuilderToolbar extends PureComponent {
     newPipeline: PropTypes.func.isRequired,
     newPipelineFromText: PropTypes.func.isRequired,
 
-    /**
-     * TODO (@imlucas) Replace all these { var, toggler() } props when we get hooks.
-     */
     nameChanged: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired,
 
@@ -37,6 +34,8 @@ class PipelineBuilderToolbar extends PureComponent {
 
     isOverviewOn: PropTypes.bool.isRequired,
     toggleOverview: PropTypes.func.isRequired,
+
+    isModified: PropTypes.bool.isRequired,
 
     /**
      * Saved Pipelines
@@ -66,6 +65,26 @@ class PipelineBuilderToolbar extends PureComponent {
     this.props.savedPipelinesListToggle(0);
   };
 
+  modifiedText() {
+    if (!this.props.isModified) {
+      return null;
+    }
+    return <span>Modified</span>;
+  }
+
+  renderIsModifiedIndicator() {
+    const isModifiedClassName = classnames({
+      [styles['is-modified']]: true,
+      [styles['is-modified-on']]: this.props.isModified
+    });
+
+    return (
+      <div className={isModifiedClassName}>
+        <span>Modified</span>
+      </div>
+    );
+  }
+
   /**
    * Renders the pipeline builder toolbar.
    *
@@ -80,7 +99,7 @@ class PipelineBuilderToolbar extends PureComponent {
       btn: true,
       'btn-xs': true,
       'btn-default': !this.props.isModified || this.props.name.trim() === '',
-      'btn-info': this.props.isModified && this.props.name.trim() !== '',
+      'btn-primary': this.props.isModified && this.props.name.trim() !== '',
       [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
     });
     const inputClassName = classnames({
@@ -112,24 +131,35 @@ class PipelineBuilderToolbar extends PureComponent {
           className={classnames(
             styles['pipeline-builder-toolbar-add-wrapper']
           )}>
-          <input
+          <span>{this.props.name || 'Untitled'}</span>
+          -
+          {this.renderIsModifiedIndicator()}
+          {/* <input
             placeholder="Enter a pipeline name..."
             onChange={this.onNameChange}
             className={inputClassName}
             type="text"
             value={this.props.name}
-          />
+          /> */}
         </div>
-        <TextButton
-          text="Save Pipeline"
-          disabled={this.props.name.trim() === '' || !this.props.isModified}
-          className={savePipelineClassName}
-          clickHandler={this.props.saveCurrentPipeline}
-        />
-        <Dropdown pullRight id="agg-pipeline-actions">
-          <Dropdown.Toggle noCaret>
-            <i className="mms-icon-ellipsis" aria-hidden />
-          </Dropdown.Toggle>
+
+        <Dropdown pullRight as={ButtonGroup}>
+          <Button
+            className={savePipelineClassName}
+            variant="success"
+            onClick={this.props.saveCurrentPipeline}
+            // disabled={this.props.name.trim() === '' || !this.props.isModified}
+            >
+            Save
+          </Button>
+
+          <Dropdown.Toggle
+            className="btn-primary btn-xs"
+            split
+            variant="success"
+            id="dropdown-split-basic"
+          />
+
           <Dropdown.Menu>
             <MenuItem onClick={this.props.clonePipeline}>
               Clone Pipeline
