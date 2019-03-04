@@ -4,9 +4,9 @@
   align-items: center;
   display: flex;
   flex-shrink: 0;
-  flex-grow: 1;
   height: 34px;
   padding: 0px 10px 0px 15px;
+  flex-grow: 1;
   z-index: 100;
 
   :global {
@@ -33,6 +33,7 @@
     flex-grow: 4;
     margin: 0px 3px 0px 3px;
     max-width: 100px;
+    margin-right: 3px;
   }
 
   &-name {
@@ -43,7 +44,13 @@
     border: 1px @gray5 solid;
     border-radius: 4px;
     width: 100%;
+    white-space: nowrap;
   }
+
+  &-open-saved-pipelines-button {
+    margin-right: 3px;
+  }
+
   &-save-pipeline-button {
     white-space: nowrap;
   }
