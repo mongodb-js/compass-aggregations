@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import app from 'hadron-app';
 import AppRegistry from 'hadron-app-registry';
 import { AppContainer } from 'react-hot-loader';
-import AggregationsPlugin, { activate, initStore } from 'plugin';
+import AggregationsPlugin, { activate, configureStore } from 'plugin';
 import FieldStore, { activate as fieldsActivate } from '@mongodb-js/compass-field-store';
 
 // Import global less file. Note: these styles WILL NOT be used in compass, as compass provides its own set
@@ -33,7 +33,7 @@ document.body.appendChild(root);
 const render = Component => {
   ReactDOM.render(
     <AppContainer>
-      <Component store={initStore()} />
+      <Component store={configureStore()} />
     </AppContainer>,
     document.getElementById('root')
   );
