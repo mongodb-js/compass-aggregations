@@ -77,10 +77,12 @@ class PipelineBuilderToolbar extends PureComponent {
       [styles['is-modified']]: true,
       [styles['is-modified-on']]: this.props.isModified
     });
-
+    if (!this.props.isModified) {
+      return null;
+    }
     return (
       <div className={isModifiedClassName}>
-        <span>Modified</span>
+        - <span>Modified</span>
       </div>
     );
   }
@@ -99,7 +101,8 @@ class PipelineBuilderToolbar extends PureComponent {
       btn: true,
       'btn-xs': true,
       'btn-default': !this.props.isModified || this.props.name.trim() === '',
-      'btn-primary': this.props.isModified && this.props.name.trim() !== '',
+      // 'btn-primary': this.props.isModified && this.props.name.trim() !== '',
+      'btn-primary': true,
       [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
     });
     const inputClassName = classnames({
@@ -123,6 +126,31 @@ class PipelineBuilderToolbar extends PureComponent {
           iconClassName="fa fa-folder-open-o"
           clickHandler={clickHandler}
         />
+        <div>
+          <Dropdown pullRight as={ButtonGroup} id="new-pipeline-actions">
+            <Button
+              className="btn btn-xs btn-default"
+              variant="success"
+              onClick={this.props.saveCurrentPipeline}>
+              <i className="fa fa-plus-circle" />
+            </Button>
+
+            <Dropdown.Toggle
+              className="btn-default btn-xs btn"
+              split="true"
+              variant="primary"
+              id="save-pipeline-split"
+            />
+            <Dropdown.Menu>
+              <MenuItem onClick={this.props.newPipelineFromText}>
+                New Pipeline From Text
+              </MenuItem>
+              <MenuItem onClick={this.props.clonePipeline}>
+                Clone Pipeline
+              </MenuItem>
+            </Dropdown.Menu> 
+          </Dropdown>
+        </div>
         <CollationCollapser
           isCollationExpanded={this.props.isCollationExpanded}
           collationCollapseToggled={this.props.collationCollapseToggled}
@@ -131,45 +159,34 @@ class PipelineBuilderToolbar extends PureComponent {
           className={classnames(
             styles['pipeline-builder-toolbar-add-wrapper']
           )}>
-          <span>{this.props.name || 'Untitled'}</span>
-          -
+          <div className={styles['pipeline-builder-toolbar-name']}>
+            {this.props.name || 'Untitled'}
+          </div>
           {this.renderIsModifiedIndicator()}
-          {/* <input
-            placeholder="Enter a pipeline name..."
-            onChange={this.onNameChange}
-            className={inputClassName}
-            type="text"
-            value={this.props.name}
-          /> */}
         </div>
+        <div>
+          <Dropdown pullRight as={ButtonGroup} id="save-pipeline-actions">
+            <Button
+              className={savePipelineClassName}
+              variant="primary"
+              onClick={this.props.saveCurrentPipeline}>
+              Save
+            </Button>
 
-        <Dropdown pullRight as={ButtonGroup}>
-          <Button
-            className={savePipelineClassName}
-            variant="success"
-            onClick={this.props.saveCurrentPipeline}
-            // disabled={this.props.name.trim() === '' || !this.props.isModified}
-            >
-            Save
-          </Button>
+            <Dropdown.Toggle
+              className="btn-primary btn-xs btn"
+              split="true"
+              variant="success"
+              id="dropdown-split-basic"
+            />
 
-          <Dropdown.Toggle
-            className="btn-primary btn-xs"
-            split
-            variant="success"
-            id="dropdown-split-basic"
-          />
-
-          <Dropdown.Menu>
-            <MenuItem onClick={this.props.clonePipeline}>
-              Clone Pipeline
-            </MenuItem>
-            <MenuItem onClick={this.props.newPipeline}>New Pipeline</MenuItem>
-            <MenuItem onClick={this.props.newPipelineFromText}>
-              New Pipeline From Text
-            </MenuItem>
-          </Dropdown.Menu>
-        </Dropdown>
+            <Dropdown.Menu>
+              <MenuItem onClick={this.props.clonePipeline}>
+                Save pipeline as
+              </MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
         <div
           className={styles['pipeline-builder-toolbar-export-to-language']}
           data-tip={TOOLTIP_EXPORT_TO_LANGUAGE}

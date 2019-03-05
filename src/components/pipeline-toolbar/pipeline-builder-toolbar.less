@@ -33,7 +33,6 @@
   }
 
   &-add-wrapper {
-    flex-grow: 4;
     margin: 0px 3px 0px 3px;
     margin-right: 3px;
     background-color: rgba(70, 76, 79, 0.1);
@@ -41,22 +40,23 @@
     display: flex;
     border-radius: 3px;
     font-size: 12px;
-    padding: 3px;
+    padding: 2px 6px 2px 6px;
 
   }
 
   &-name {
-    height: 22px;
     font-size: 12px;
     font-weight: bold;
-    padding: 0px 5px 0px 5px;
-    border: 1px @gray5 solid;
-    border-radius: 4px;
     white-space: nowrap;
   }
 
   &-open-saved-pipelines-button {
     margin-right: 3px;
+  }
+
+  &-new-button {
+    white-space: nowrap;
+    border-radius: 3px 0px 0px 3px;
   }
 
   &-save-pipeline-button {
@@ -70,6 +70,7 @@
 }
 
 .is-modified {
+  padding-top: 1px;
   font-style: italic;
 }
 
