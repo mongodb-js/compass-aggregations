@@ -115,7 +115,7 @@ class Settings extends PureComponent {
           <div className={classnames(styles['input-meta'])}>
             <label>Max Time</label>
             <p>
-              Specifies a cumulative time limit in seconds for processing
+              Specifies a cumulative time limit in milliseconds for processing
               operations on a cursor. Max timeout prevents long hang times.
             </p>
           </div>
