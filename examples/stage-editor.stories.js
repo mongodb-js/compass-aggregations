@@ -27,9 +27,11 @@ const PROPS = {
     serverVersion: '4.0.0',
     fields: [],
     id: new ObjectId().toHexString(),
-    stageOperator: '$match',
+    stageOperator: '$project',
     stage: `{
-  type: "Terrestrial planet"
+  _id: 0,
+  type: "$type",
+  avg: {$avg: "$value"}
 }`
 };
 
