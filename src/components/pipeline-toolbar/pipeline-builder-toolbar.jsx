@@ -127,20 +127,19 @@ class PipelineBuilderToolbar extends PureComponent {
           clickHandler={clickHandler}
         />
         <div>
-          <Dropdown pullRight as={ButtonGroup} id="new-pipeline-actions">
+          <Dropdown id="new-pipeline-actions" className="btn-group">
             <Button
-              className="btn btn-xs btn-default"
-              variant="success"
-              onClick={this.props.saveCurrentPipeline}>
+              variant="default"
+              className={classnames(
+                'btn-xs',
+                styles['pipeline-builder-toolbar-new-button']
+              )}
+              onClick={this.props.newPipeline}>
               <i className="fa fa-plus-circle" />
             </Button>
 
-            <Dropdown.Toggle
-              className="btn-default btn-xs btn"
-              split="true"
-              variant="primary"
-              id="save-pipeline-split"
-            />
+            <Dropdown.Toggle className="btn-default btn-xs btn" />
+            
             <Dropdown.Menu>
               <MenuItem onClick={this.props.newPipelineFromText}>
                 New Pipeline From Text
@@ -148,7 +147,7 @@ class PipelineBuilderToolbar extends PureComponent {
               <MenuItem onClick={this.props.clonePipeline}>
                 Clone Pipeline
               </MenuItem>
-            </Dropdown.Menu> 
+            </Dropdown.Menu>
           </Dropdown>
         </div>
         <CollationCollapser
@@ -165,7 +164,7 @@ class PipelineBuilderToolbar extends PureComponent {
           {this.renderIsModifiedIndicator()}
         </div>
         <div>
-          <Dropdown pullRight as={ButtonGroup} id="save-pipeline-actions">
+          <Dropdown id="save-pipeline-actions">
             <Button
               className={savePipelineClassName}
               variant="primary"
@@ -173,12 +172,7 @@ class PipelineBuilderToolbar extends PureComponent {
               Save
             </Button>
 
-            <Dropdown.Toggle
-              className="btn-primary btn-xs btn"
-              split="true"
-              variant="success"
-              id="dropdown-split-basic"
-            />
+            <Dropdown.Toggle className="btn-xs btn btn-primary" />
 
             <Dropdown.Menu>
               <MenuItem onClick={this.props.clonePipeline}>
