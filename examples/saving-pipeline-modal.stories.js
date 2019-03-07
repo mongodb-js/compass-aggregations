@@ -14,7 +14,8 @@ const PROPS = {
   name: 'Joys Pipeline',
   savingPipelineCancel: action('savingPipelineCancel'),
   savingPipelineApply: action('savingPipelineApply'),
-  savingPipelineNameChanged: action('savingPipelineNameChanged')
+  savingPipelineNameChanged: action('savingPipelineNameChanged'),
+  saveCurrentPipeline: action('saveCurrentPipeline')
 };
 
 import SavingPipelineModal from 'components/saving-pipeline-modal';
