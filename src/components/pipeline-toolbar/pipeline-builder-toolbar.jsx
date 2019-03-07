@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { TextButton, IconButton } from 'hadron-react-buttons';
+import { IconButton } from 'hadron-react-buttons';
 import { Tooltip } from 'hadron-react-components';
-import { Dropdown, MenuItem, ButtonGroup, Button } from 'react-bootstrap';
+import { Dropdown, MenuItem, Button } from 'react-bootstrap';
 import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
 
@@ -34,8 +34,6 @@ class PipelineBuilderToolbar extends PureComponent {
 
     isOverviewOn: PropTypes.bool.isRequired,
     toggleOverview: PropTypes.func.isRequired,
-
-    isModified: PropTypes.bool.isRequired,
 
     /**
      * Saved Pipelines
@@ -105,9 +103,6 @@ class PipelineBuilderToolbar extends PureComponent {
       'btn-primary': true,
       [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
     });
-    const inputClassName = classnames({
-      [styles['pipeline-builder-toolbar-name']]: true
-    });
 
     return (
       <div className={classnames(styles['pipeline-builder-toolbar'])}>
@@ -139,7 +134,7 @@ class PipelineBuilderToolbar extends PureComponent {
             </Button>
 
             <Dropdown.Toggle className="btn-default btn-xs btn" />
-            
+
             <Dropdown.Menu>
               <MenuItem onClick={this.props.newPipelineFromText}>
                 New Pipeline From Text
