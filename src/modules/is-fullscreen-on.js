@@ -13,7 +13,8 @@ export const INITIAL_STATE = false;
  * called - otherwise the root reducer will handle the TOGGLE_FULLSCREEN
  * actions.
  *
- * @param {Boolean} state - The fullscreen state.
+ * @param {Boolean} state The fullscreen state.
+ * @param {Object} action The action.
  *
  * @returns {Boolean} The state.
  */
