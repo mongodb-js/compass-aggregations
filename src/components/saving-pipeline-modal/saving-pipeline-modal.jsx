@@ -14,7 +14,7 @@ class SavingPipelineModal extends PureComponent {
 
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    isSaving: PropTypes.bool.isRequired,
+    isSaving: PropTypes.bool, // TODO Future may have a spinner or something.
     name: PropTypes.string.isRequired,
     savingPipelineCancel: PropTypes.func.isRequired,
     savingPipelineApply: PropTypes.func.isRequired,
