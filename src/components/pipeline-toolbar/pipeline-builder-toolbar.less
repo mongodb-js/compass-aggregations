@@ -59,12 +59,20 @@
     white-space: nowrap;
     border-radius: 3px 0px 0px 3px;
     border-right: 0;
+
+    &:hover {
+      border-right: 0;
+    }
   }
 
   &-save-pipeline-button {
     white-space: nowrap;
     border-radius: 3px 0px 0px 3px;
     border-right: 0;
+
+    &:hover+button {
+      border-left: 0;
+    }
   }
 
   &-export-to-language {
