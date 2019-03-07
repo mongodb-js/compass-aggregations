@@ -66,6 +66,12 @@ import {
   applySettings
 } from 'modules/settings';
 
+import {
+  savingPipelineNameChanged,
+  savingPipelineApplyName,
+  savingPipelineCancel
+} from 'modules/saving-pipeline';
+
 import styles from './aggregations.less';
 
 /**
@@ -120,7 +126,8 @@ const mapStateToProps = state => ({
   limit: state.limit,
   largeLimit: state.largeLimit,
   maxTimeMS: state.maxTimeMS,
-  isFullscreenOn: state.isFullscreenOn
+  isFullscreenOn: state.isFullscreenOn,
+  savingPipeline: state.savingPipeline
 });
 
 /**
@@ -180,7 +187,10 @@ const MappedAggregations = connect(
     limitChanged,
     largeLimitChanged,
     maxTimeMSChanged,
-    toggleFullscreen
+    toggleFullscreen,
+    savingPipelineNameChanged,
+    savingPipelineApplyName,
+    savingPipelineCancel
   }
 )(Aggregations);
 
