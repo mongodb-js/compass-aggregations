@@ -69,7 +69,8 @@ import {
 import {
   savingPipelineNameChanged,
   savingPipelineApplyName,
-  savingPipelineCancel
+  savingPipelineCancel,
+  savingPipelineOpen
 } from 'modules/saving-pipeline';
 
 import styles from './aggregations.less';
@@ -190,7 +191,8 @@ const MappedAggregations = connect(
     toggleFullscreen,
     savingPipelineNameChanged,
     savingPipelineApplyName,
-    savingPipelineCancel
+    savingPipelineCancel,
+    savingPipelineOpen
   }
 )(Aggregations);
 

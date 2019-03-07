@@ -45,7 +45,8 @@ class PipelineBuilderToolbar extends PureComponent {
     savedPipeline: PropTypes.object.isRequired, // TODO List of saved-pipelines.
     savedPipelinesListToggle: PropTypes.func.isRequired,
     getSavedPipelines: PropTypes.func.isRequired,
-    saveCurrentPipeline: PropTypes.func.isRequired
+    saveCurrentPipeline: PropTypes.func.isRequired, // TODO this goes away
+    savingPipelineOpen: PropTypes.func.isRequired
   };
 
   /**
@@ -178,7 +179,7 @@ class PipelineBuilderToolbar extends PureComponent {
             <Button
               className={savePipelineClassName}
               variant="primary"
-              onClick={this.props.saveCurrentPipeline}>
+              onClick={this.props.savingPipelineOpen}>
               Save
             </Button>
 
@@ -186,7 +187,7 @@ class PipelineBuilderToolbar extends PureComponent {
 
             <Dropdown.Menu>
               <MenuItem onClick={this.props.clonePipeline}>
-                Save pipeline as
+                Save pipeline as&hellip;
               </MenuItem>
             </Dropdown.Menu>
           </Dropdown>

@@ -13,7 +13,7 @@ import Settings from 'components/settings';
 import RestorePipelineModal from './modals/restore-pipeline-modal';
 import ImportPipeline from './modals/import-pipeline';
 import ConfirmImportPipeline from './modals/confirm-import-pipeline';
-
+import SavingPipelineModal from 'components/saving-pipeline-modal';
 import styles from './pipeline.less';
 
 /**
@@ -86,7 +86,12 @@ class Pipeline extends PureComponent {
     maxTimeMS: PropTypes.number.isRequired,
     applySettings: PropTypes.func.isRequired,
     isFullscreenOn: PropTypes.bool.isRequired,
-    toggleFullscreen: PropTypes.func.isRequired
+    toggleFullscreen: PropTypes.func.isRequired,
+    savingPipelineNameChanged: PropTypes.func.isRequired,
+    savingPipelineApply: PropTypes.func.isRequired,
+    savingPipelineCancel: PropTypes.func.isRequired,
+    savingPipelineOpen: PropTypes.func.isRequired,
+    savingPipeline: PropTypes.object.isRequired
   };
 
   /**
@@ -170,6 +175,17 @@ class Pipeline extends PureComponent {
       />
     );
 
+    const savingPipelineModal = (
+      <SavingPipelineModal
+        name={this.props.savingPipeline.name}
+        isOpen={this.props.savingPipeline.isOpen}
+        savingPipelineNameChanged={this.props.savingPipelineNameChanged}
+        savingPipelineApply={this.props.savingPipelineApply}
+        savingPipelineCancel={this.props.savingPipelineCancel}
+        savingPipelineOpen={this.props.savingPipelineOpen}
+      />
+    );
+
     return (
       <div
         className={classnames(
@@ -232,6 +248,7 @@ class Pipeline extends PureComponent {
         {this.renderRestoreModal()}
         {importPipelineModal}
         {confirmImportPipelineModal}
+        {savingPipelineModal}
       </div>
     );
   }
