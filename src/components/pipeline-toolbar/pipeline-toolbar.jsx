@@ -40,6 +40,12 @@ class PipelineToolbar extends PureComponent {
     toggleFullscreen: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    savedPipeline: {
+      isNameValid: true
+    }
+  };
+
   /**
    * Renders the toolbar.
    *
