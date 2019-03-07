@@ -38,7 +38,6 @@ class PipelineToolbar extends PureComponent {
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     isFullscreenOn: PropTypes.bool.isRequired,
     toggleFullscreen: PropTypes.func.isRequired,
-    savingPipeline: PropTypes.object.isRequired,
     savingPipelineOpen: PropTypes.func.isRequired
   };
 
@@ -77,7 +76,6 @@ class PipelineToolbar extends PureComponent {
           isCollationExpanded={this.props.isCollationExpanded}
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
-          savingPipeline={this.props.savingPipeline}
           savingPipelineOpen={this.props.savingPipelineOpen}
         />
         <PipelinePreviewToolbar

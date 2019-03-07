@@ -59,6 +59,10 @@ class PipelineBuilderToolbar extends PureComponent {
     this.props.setIsModified(true);
   };
 
+  onSaveClicked = () => {
+    this.props.savingPipelineOpen();
+  };
+
   handleSavedPipelinesOpen = () => {
     this.props.getSavedPipelines();
     this.props.savedPipelinesListToggle(1);
@@ -155,9 +159,6 @@ class PipelineBuilderToolbar extends PureComponent {
               <MenuItem onClick={this.props.newPipelineFromText}>
                 New Pipeline From Text
               </MenuItem>
-              <MenuItem onClick={this.props.clonePipeline}>
-                Clone Pipeline
-              </MenuItem>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -179,7 +180,7 @@ class PipelineBuilderToolbar extends PureComponent {
             <Button
               className={savePipelineClassName}
               variant="primary"
-              onClick={this.props.savingPipelineOpen}>
+              onClick={this.onSaveClicked.bind(this)}>
               Save
             </Button>
 

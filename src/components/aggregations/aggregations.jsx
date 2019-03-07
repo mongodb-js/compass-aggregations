@@ -68,7 +68,7 @@ import {
 
 import {
   savingPipelineNameChanged,
-  savingPipelineApplyName,
+  savingPipelineApply,
   savingPipelineCancel,
   savingPipelineOpen
 } from 'modules/saving-pipeline';
@@ -190,7 +190,7 @@ const MappedAggregations = connect(
     maxTimeMSChanged,
     toggleFullscreen,
     savingPipelineNameChanged,
-    savingPipelineApplyName,
+    savingPipelineApply,
     savingPipelineCancel,
     savingPipelineOpen
   }

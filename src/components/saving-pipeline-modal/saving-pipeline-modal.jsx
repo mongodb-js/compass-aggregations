@@ -18,23 +18,39 @@ class SavingPipelineModal extends PureComponent {
     name: PropTypes.string.isRequired,
     savingPipelineCancel: PropTypes.func.isRequired,
     savingPipelineApply: PropTypes.func.isRequired,
-    savingPipelineNameChanged: PropTypes.func.isRequired
-  };
-
-  static defaultProps = {
-    isOpen: false,
-    isSaving: false,
-    name: ''
+    savingPipelineNameChanged: PropTypes.func.isRequired,
+    saveCurrentPipeline: PropTypes.func.isRequired
   };
 
   /**
    * Handle the value of the input being changed.
    *
    * @param {Event} evt
-   * @returns {ConstrainVideoFacingModeParameters}
+   * @returns {void}
    */
   onNameChanged(evt) {
     this.props.savingPipelineNameChanged(evt.currentTarget.value);
+  }
+
+  /**
+   * Handle the form submission for `Hit Enter` to save.
+   *
+   * @param {Event} evt
+   * @returns {void}
+   */
+  onSubmit(evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    this.save();
+  }
+
+  /**
+   * Calls back to action handlers for changing the name and saving it.
+   * @returns {void}
+   */
+  save() {
+    this.props.savingPipelineApply();
+    this.props.saveCurrentPipeline();
   }
 
   /**
@@ -52,12 +68,14 @@ class SavingPipelineModal extends PureComponent {
           <h4>Save Pipeline</h4>
         </Modal.Header>
         <Modal.Body>
-          <input
-            type="text"
-            value={this.props.name}
-            onChange={this.onNameChanged.bind(this)}
-            className="form-control input-lg"
-          />
+          <form onSubmit={this.onSubmit.bind(this)}>
+            <input
+              type="text"
+              value={this.props.name}
+              onChange={this.onNameChanged.bind(this)}
+              className="form-control input-lg"
+            />
+          </form>
         </Modal.Body>
         <Modal.Footer>
           <TextButton
@@ -71,7 +89,7 @@ class SavingPipelineModal extends PureComponent {
             className="btn btn-primary btn-sm"
             text="Create New"
             disabled={this.props.name === ''}
-            clickHandler={this.props.savingPipelineApply}
+            clickHandler={this.save.bind(this)}
           />
         </Modal.Footer>
       </Modal>

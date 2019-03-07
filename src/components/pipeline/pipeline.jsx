@@ -179,6 +179,7 @@ class Pipeline extends PureComponent {
       <SavingPipelineModal
         name={this.props.savingPipeline.name}
         isOpen={this.props.savingPipeline.isOpen}
+        saveCurrentPipeline={this.props.saveCurrentPipeline}
         savingPipelineNameChanged={this.props.savingPipelineNameChanged}
         savingPipelineApply={this.props.savingPipelineApply}
         savingPipelineCancel={this.props.savingPipelineCancel}
@@ -218,6 +219,7 @@ class Pipeline extends PureComponent {
           toggleSettingsIsExpanded={this.props.toggleSettingsIsExpanded}
           isFullscreenOn={this.props.isFullscreenOn}
           toggleFullscreen={this.props.toggleFullscreen}
+          savingPipelineOpen={this.props.savingPipelineOpen}
         />
         {this.renderCollationToolbar()}
         {this.renderSeparator()}
