@@ -57,3 +57,7 @@ export const TOOLTIP_SAMPLING_MODE =
   'in the settings panel.';
 
 export const TOOLTIP_EXPORT_TO_LANGUAGE = 'Export pipeline code to language';
+
+export const TOOLTIP_CREATE_NEW_PIPELINE = 'Create new pipeline';
+
+export const TOOLTIP_OPEN_SAVED_PIPELINES = 'Open saved Pipelines';

@@ -7,7 +7,11 @@ import { Dropdown, MenuItem, Button } from 'react-bootstrap';
 import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
 
-import { TOOLTIP_EXPORT_TO_LANGUAGE } from '../../constants';
+import {
+  TOOLTIP_EXPORT_TO_LANGUAGE,
+  TOOLTIP_CREATE_NEW_PIPELINE,
+  TOOLTIP_OPEN_SAVED_PIPELINES
+} from '../../constants';
 
 import styles from './pipeline-builder-toolbar.less';
 
@@ -98,8 +102,6 @@ class PipelineBuilderToolbar extends PureComponent {
     const savePipelineClassName = classnames({
       btn: true,
       'btn-xs': true,
-      'btn-default': !this.props.isModified || this.props.name.trim() === '',
-      // 'btn-primary': this.props.isModified && this.props.name.trim() !== '',
       'btn-primary': true,
       [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
     });
@@ -110,29 +112,42 @@ class PipelineBuilderToolbar extends PureComponent {
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
         />
-        <IconButton
-          title="Toggle Saved Pipelines"
-          className={classnames(
-            'btn',
-            'btn-xs',
-            'btn-default',
-            styles['pipeline-builder-toolbar-open-saved-pipelines-button']
-          )}
-          iconClassName="fa fa-folder-open-o"
-          clickHandler={clickHandler}
-        />
+        <span
+          data-tip={TOOLTIP_OPEN_SAVED_PIPELINES}
+          data-for="open-saved-pipelines"
+          data-place="top"
+          data-html="true">
+          <IconButton
+            title="Toggle Saved Pipelines"
+            className={classnames(
+              'btn',
+              'btn-xs',
+              'btn-default',
+              styles['pipeline-builder-toolbar-open-saved-pipelines-button']
+            )}
+            iconClassName="fa fa-folder-open-o"
+            clickHandler={clickHandler}
+          />
+          <Tooltip id="open-saved-pipelines" />
+        </span>
         <div>
           <Dropdown id="new-pipeline-actions" className="btn-group">
-            <Button
-              variant="default"
-              className={classnames(
-                'btn-xs',
-                styles['pipeline-builder-toolbar-new-button']
-              )}
-              onClick={this.props.newPipeline}>
-              <i className="fa fa-plus-circle" />
-            </Button>
-
+            <span
+              data-tip={TOOLTIP_CREATE_NEW_PIPELINE}
+              data-for="create-new-pipeline"
+              data-place="top"
+              data-html="true">
+              <Button
+                variant="default"
+                className={classnames(
+                  'btn-xs',
+                  styles['pipeline-builder-toolbar-new-button']
+                )}
+                onClick={this.props.newPipeline}>
+                <i className="fa fa-plus-circle" />
+              </Button>
+            </span>
+            <Tooltip id="create-new-pipeline" />
             <Dropdown.Toggle className="btn-default btn-xs btn" />
 
             <Dropdown.Menu>
