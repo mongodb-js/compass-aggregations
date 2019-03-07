@@ -326,7 +326,7 @@ const doConfirmNewFromText = state => {
 /**
  * Toggles whether agg pipeline builder is in overview mode.
  * @param {Object} state
- * @param {Object} action
+ * @returns {Object} The new state.
  */
 const doToggleOverview = state => {
   const newState = {
