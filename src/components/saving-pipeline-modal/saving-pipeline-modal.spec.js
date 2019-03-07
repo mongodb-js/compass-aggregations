@@ -8,15 +8,11 @@ import styles from './saving-pipeline-modal.less';
 describe('SavingPipelineModal [Component]', () => {
   context('when the component is rendered', () => {
     let component;
-    const savingPipeline = {
-      isOpen: true,
-      name: '',
-      isSaving: false
-    };
 
     const savingPipelineNameChangedSpy = sinon.spy();
     const savingPipelineApplySpy = sinon.spy();
     const savingPipelineCancelSpy = sinon.spy();
+    const saveCurrentPipelineSpy = sinon.spy();
 
     beforeEach(() => {
       component = mount(
@@ -24,17 +20,15 @@ describe('SavingPipelineModal [Component]', () => {
           savingPipelineCancel={savingPipelineCancelSpy}
           savingPipelineApply={savingPipelineApplySpy}
           savingPipelineNameChanged={savingPipelineNameChangedSpy}
-          {...savingPipeline}
+          saveCurrentPipeline={saveCurrentPipelineSpy}
+          isOpen
+          name=""
         />
       );
     });
 
     afterEach(() => {
       component = null;
-    });
-
-    it('renders the wrapper div', () => {
-      expect(component.find(styles['saving-pipeline-modal'])).to.be.present();
     });
   });
 });
