@@ -73,6 +73,9 @@ import settings, {
 import isFullscreenOn, {
   INITIAL_STATE as FULLSCREEN_INITIAL_STATE
 } from 'modules/is-fullscreen-on';
+import savingPipeline, {
+  INITIAL_STATE as SAVING_PIPELINE_INITIAL_STATE
+} from 'modules/saving-pipeline';
 
 /**
  * The intial state of the root reducer.
@@ -102,7 +105,8 @@ export const INITIAL_STATE = {
   limit: LIMIT_INITIAL_STATE,
   largeLimit: LARGE_LIMIT_INITIAL_STATE,
   maxTimeMS: MAX_TIME_MS_INITIAL_STATE,
-  isFullscreenOn: FULLSCREEN_INITIAL_STATE
+  isFullscreenOn: FULLSCREEN_INITIAL_STATE,
+  savingPipeline: SAVING_PIPELINE_INITIAL_STATE
 };
 
 /**
@@ -163,7 +167,8 @@ const appReducer = combineReducers({
   limit,
   largeLimit,
   maxTimeMS,
-  isFullscreenOn
+  isFullscreenOn,
+  savingPipeline
 });
 
 /**
@@ -356,8 +361,6 @@ const doApplySettings = state => {
   };
 
   newState.settings.isDirty = false;
-
-  // debugger;
   return newState;
 };
 
