@@ -17,18 +17,18 @@ const BASE_STATE = {
 };
 
 const PROPS = {
-    ...STAGE_DEFAULTS,
-    runStage: action('runStage'),
-    stageChanged: action('stageChanged'),
-    setIsModified: action('setIsModified'),
-    fromStageOperators: true,
-    isAutoPreviewing: true,
-    index: 0,
-    serverVersion: '4.0.0',
-    fields: [],
-    id: new ObjectId().toHexString(),
-    stageOperator: '$project',
-    stage: `{
+  ...STAGE_DEFAULTS,
+  runStage: action('runStage'),
+  stageChanged: action('stageChanged'),
+  setIsModified: action('setIsModified'),
+  fromStageOperators: true,
+  isAutoPreviewing: true,
+  index: 0,
+  serverVersion: '4.0.0',
+  fields: [],
+  id: new ObjectId().toHexString(),
+  stageOperator: '$project',
+  stage: `{
   _id: 0,
   type: "$type",
   avg: {$avg: "$value"}
