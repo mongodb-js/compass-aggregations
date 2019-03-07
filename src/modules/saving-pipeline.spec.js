@@ -1,10 +1,10 @@
 import reducer, {
   savingPipelineNameChanged,
-  savingPipelineApplyName,
+  savingPipelineApply,
   savingPipelineCancel,
   savingPipelineOpen,
   SAVING_PIPELINE_NAME_CHANGED,
-  SAVING_PIPELINE_APPLY_NAME,
+  SAVING_PIPELINE_APPLY,
   SAVING_PIPELINE_CANCEL,
   SAVING_PIPELINE_OPEN,
   INITIAL_STATE
@@ -28,10 +28,10 @@ describe('saving-pipeline module', () => {
       });
     });
   });
-  describe('#savingPipelineApplyName', () => {
-    it('returns the SAVING_PIPELINE_APPLY_NAME action', () => {
-      expect(savingPipelineApplyName()).to.deep.equal({
-        type: SAVING_PIPELINE_APPLY_NAME
+  describe('#savingPipelineApply', () => {
+    it('returns the SAVING_PIPELINE_APPLY action', () => {
+      expect(savingPipelineApply()).to.deep.equal({
+        type: SAVING_PIPELINE_APPLY
       });
     });
     describe('#reducer', () => {

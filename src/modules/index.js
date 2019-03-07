@@ -1,8 +1,16 @@
-import { combineReducers } from 'redux';
-import { ObjectId } from 'bson';
+import {
+  combineReducers
+} from 'redux';
+import {
+  ObjectId
+} from 'bson';
 
-import dataService, { INITIAL_STATE as DS_INITIAL_STATE } from './data-service';
-import fields, { INITIAL_STATE as FIELDS_INITIAL_STATE } from './fields';
+import dataService, {
+  INITIAL_STATE as DS_INITIAL_STATE
+} from './data-service';
+import fields, {
+  INITIAL_STATE as FIELDS_INITIAL_STATE
+} from './fields';
 import inputDocuments, {
   INITIAL_STATE as INPUT_INITIAL_STATE
 } from './input-documents';
@@ -20,8 +28,12 @@ import pipeline, {
   runStage,
   INITIAL_STATE as PIPELINE_INITIAL_STATE
 } from './pipeline';
-import name, { INITIAL_STATE as NAME_INITIAL_STATE } from './name';
-import limit, { INITIAL_STATE as LIMIT_INITIAL_STATE } from './limit';
+import name, {
+  INITIAL_STATE as NAME_INITIAL_STATE
+} from './name';
+import limit, {
+  INITIAL_STATE as LIMIT_INITIAL_STATE
+} from './limit';
 import largeLimit, {
   INITIAL_STATE as LARGE_LIMIT_INITIAL_STATE
 } from './large-limit';
@@ -39,12 +51,18 @@ import collationString, {
 import isCollationExpanded, {
   INITIAL_STATE as COLLATION_COLLAPSER_INITIAL_STATE
 } from './collation-collapser';
-import comments, { INITIAL_STATE as COMMENTS_INITIAL_STATE } from './comments';
-import sample, { INITIAL_STATE as SAMPLE_INITIAL_STATE } from './sample';
+import comments, {
+  INITIAL_STATE as COMMENTS_INITIAL_STATE
+} from './comments';
+import sample, {
+  INITIAL_STATE as SAMPLE_INITIAL_STATE
+} from './sample';
 import autoPreview, {
   INITIAL_STATE as AUTO_PREVIEW_INITIAL_STATE
 } from './auto-preview';
-import id, { INITIAL_STATE as ID_INITIAL_STATE } from './id';
+import id, {
+  INITIAL_STATE as ID_INITIAL_STATE
+} from './id';
 import savedPipeline, {
   updatePipelineList,
   INITIAL_STATE as SP_INITIAL_STATE
@@ -57,7 +75,9 @@ import importPipeline, {
   CONFIRM_NEW,
   createPipeline
 } from './import-pipeline';
-import { getObjectStore } from 'utils/indexed-db';
+import {
+  getObjectStore
+} from 'utils/indexed-db';
 import appRegistry, {
   appRegistryEmit,
   INITIAL_STATE as APP_REGISTRY_STATE
@@ -74,7 +94,8 @@ import isFullscreenOn, {
   INITIAL_STATE as FULLSCREEN_INITIAL_STATE
 } from 'modules/is-fullscreen-on';
 import savingPipeline, {
-  INITIAL_STATE as SAVING_PIPELINE_INITIAL_STATE
+  INITIAL_STATE as SAVING_PIPELINE_INITIAL_STATE,
+  SAVING_PIPELINE_APPLY
 } from 'modules/saving-pipeline';
 
 /**
@@ -208,17 +229,17 @@ const doReset = () => ({
 const doRestorePipeline = (state, action) => {
   const savedState = action.restoreState;
   const commenting =
-    savedState.comments === null || savedState.comments === undefined
-      ? true
-      : savedState.comments;
+    savedState.comments === null || savedState.comments === undefined ?
+    true :
+    savedState.comments;
   const sampling =
-    savedState.sample === null || savedState.sample === undefined
-      ? true
-      : savedState.sample;
+    savedState.sample === null || savedState.sample === undefined ?
+    true :
+    savedState.sample;
   const autoPreviewing =
-    savedState.autoPreview === null || savedState.autoPreview === undefined
-      ? true
-      : savedState.autoPreview;
+    savedState.autoPreview === null || savedState.autoPreview === undefined ?
+    true :
+    savedState.autoPreview;
 
   return {
     ...INITIAL_STATE,
@@ -364,6 +385,16 @@ const doApplySettings = state => {
   return newState;
 };
 
+const doApplySavingPipeline = state => {
+  const newState = {
+    ...state,
+    name: state.savingPipeline.name
+  };
+
+  newState.savingPipeline.isOpen = false;
+  return newState;
+};
+
 /**
  * The action to state modifier mappings.
  */
@@ -376,7 +407,8 @@ const MAPPINGS = {
   [CLONE_PIPELINE]: createClonedPipeline,
   [CONFIRM_NEW]: doConfirmNewFromText,
   [TOGGLE_OVERVIEW]: doToggleOverview,
-  [APPLY_SETTINGS]: doApplySettings
+  [APPLY_SETTINGS]: doApplySettings,
+  [SAVING_PIPELINE_APPLY]: doApplySavingPipeline
 };
 
 /**
@@ -456,7 +488,9 @@ export const deletePipeline = pipelineId => {
         dispatch(updatePipelineList());
         dispatch(clearPipeline());
         dispatch(
-          appRegistryEmit('agg-pipeline-deleted', { name: getState().name })
+          appRegistryEmit('agg-pipeline-deleted', {
+            name: getState().name
+          })
         );
       };
     });

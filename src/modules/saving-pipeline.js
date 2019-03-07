@@ -1,6 +1,6 @@
 export const SAVING_PIPELINE_NAME_CHANGED = 'aggregations/saving-pipeline/NAME_CHANGED';
 
-export const SAVING_PIPELINE_APPLY_NAME = 'aggregations/saving-pipeline/APPLY_NAME';
+export const SAVING_PIPELINE_APPLY = 'aggregations/saving-pipeline/APPLY';
 
 export const SAVING_PIPELINE_CANCEL = 'aggregations/saving-pipeline/CANCEL';
 
@@ -10,7 +10,7 @@ export const SAVING_PIPELINE_OPEN = 'aggregations/saving-pipeline/OPEN';
  * The initial state.
  */
 export const INITIAL_STATE = {
-  isOpen: true,
+  isOpen: false,
   name: '',
   isSaving: false
 };
@@ -31,12 +31,12 @@ export default function reducer(state = INITIAL_STATE, action) {
     };
   }
 
-    if (action.type === SAVING_PIPELINE_OPEN) {
-      return {
-        ...state,
-        isOpen: true
-      };
-    }
+  if (action.type === SAVING_PIPELINE_OPEN) {
+    return {
+      ...state,
+      isOpen: true
+    };
+  }
 
   if (action.type === SAVING_PIPELINE_CANCEL) {
     return {
@@ -67,8 +67,8 @@ export const savingPipelineNameChanged = (name) => ({
  * @param {String} name - The name value.
  * @returns {Object} The apply name action.
  */
-export const savingPipelineApplyName = () => ({
-  type: SAVING_PIPELINE_APPLY_NAME
+export const savingPipelineApply = () => ({
+  type: SAVING_PIPELINE_APPLY
 });
 
 /**
@@ -83,6 +83,8 @@ export const savingPipelineCancel = () => ({
  * Action creator for cancel events.
  * @returns {Object} The name changed action.
  */
-export const savingPipelineOpen = () => ({
-  type: SAVING_PIPELINE_OPEN
-});
+export const savingPipelineOpen = () => {
+  return {
+    type: SAVING_PIPELINE_OPEN
+  };
+};
