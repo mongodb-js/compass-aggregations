@@ -9,66 +9,13 @@ import { configureStore } from 'utils/configureStore';
 
 import BASIC_EXAMPLE from './example-basic.js';
 import COMPLEX_EXAMPLE from './example-complex.js';
+import ARRAY_STATS_EXAMPLE from './example-array-stats.js';
+import GROUPED_STATS_EXAMPLE from './example-grouped-stats.js';
 
 const BASE_STATE = {
   ...INITIAL_STATE
 };
 
-import {
-  INITIAL_INPUT_DOCUMENTS,
-  EXAMPLE,
-  STAGE_DEFAULTS
-} from './example-constants.js';
-
-// gathering stats when items are in an array using $project accumulators
-const ARRAY_STATS_EXAMPLE = {
-  ...EXAMPLE,
-  namespace: 'aggregations.icecream_data',
-  pipeline: [
-    {
-      ...STAGE_DEFAULTS,
-      id: 0,
-      stageOperator: '$project',
-      stage: `{
-  _id: 0,
-  average_cpi: {$avg: "$trends.icecream_cpi" },
-  max_cpi: {$max: "$trends.icecream_cpi" },
-  min_cpi: {$min: "$trends.icecream_cpi" },
-  cpi_deviation: {$stdDevPop: "$trends.icecream_cpi" }
-}`,
-    }
-  ]
-};
-
-// gathering metacritic info for movies that have Tom Hanks or Daniel Day-Lewis
-// as cast members
-const GROUPED_STATS_EXAMPLE = {
-  ...EXAMPLE,
-  namespace: 'aggregations.movies',
-  pipeline: [
-    {
-      ...STAGE_DEFAULTS,
-      id: 0,
-      stageOperator: '$match',
-      stage: `{
-  cast: { $in: ['Tom Hanks', 'Daniel Day-Lewis'] }
-}`,
-      previewDocuments: []
-    },
-    {
-      ...STAGE_DEFAULTS,
-      id: 1,
-      stageOperator: '$group',
-      stage: `{
-  _id: 0,
-  average_rating: { $avg: '$metacritic' },
-  films_counted: { $sum: 1 },
-  min_rating: { $min: '$metacritic' },
-  max_rating: { $max: '$metacritic' }
-}`,
-      previewDocuments: []
-    }
-  ]
 BASE_STATE.dataService.dataService = {
   aggregate: () => {}
 };
@@ -127,7 +74,7 @@ storiesOf('<Aggregations>', module)
       </Provider>
     );
   })
-  .add('Fullscreen > On', () => {
+  .add('isFullscreenOn', () => {
     const store = configureStore({
       ...BASE_STATE,
       isFullscreenOn: true
@@ -138,7 +85,7 @@ storiesOf('<Aggregations>', module)
       </Provider>
     );
   })
-  .add('Settings > Open', () => {
+  .add('settings > isExpanded', () => {
     const state = {
       ...BASE_STATE
     };
