@@ -18,7 +18,7 @@ const PROPS = {
 import { action } from '@storybook/addon-actions';
 
 
-storiesOf('<PipelineToolbar>', module)
+storiesOf('Styling > PipelineToolbar', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('Default', () => {
 

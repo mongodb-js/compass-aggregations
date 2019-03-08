@@ -63,7 +63,9 @@ describe('saving-pipeline module', () => {
   describe('#savingPipelineOpen', () => {
     it('returns the SAVING_PIPELINE_OPEN action', () => {
       expect(savingPipelineOpen()).to.deep.equal({
-        type: SAVING_PIPELINE_OPEN
+        type: SAVING_PIPELINE_OPEN,
+        isSaveAs: false,
+        name: ''
       });
     });
     describe('#reducer', () => {
