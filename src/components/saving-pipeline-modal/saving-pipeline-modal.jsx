@@ -14,7 +14,7 @@ class SavingPipelineModal extends PureComponent {
 
   static propTypes = {
     isOpen: PropTypes.bool.isRequired,
-    isSaving: PropTypes.bool, // TODO Future may have a spinner or something.
+    isSaveAs: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     savingPipelineCancel: PropTypes.func.isRequired,
     savingPipelineApply: PropTypes.func.isRequired,
@@ -59,13 +59,14 @@ class SavingPipelineModal extends PureComponent {
    * @returns {React.Component} The component.
    */
   render() {
+    const title = this.props.isSaveAs ? 'Save Pipeline As...' : 'Save Pipeline';
     return (
       <Modal
         className={styles['saving-pipeline-modal']}
         show={this.props.isOpen}
         onHide={this.props.savingPipelineCancel}>
         <Modal.Header closeButton>
-          <h4>Save Pipeline</h4>
+          <h4>{title}</h4>
         </Modal.Header>
         <Modal.Body>
           <form onSubmit={this.onSubmit.bind(this)}>
@@ -87,7 +88,7 @@ class SavingPipelineModal extends PureComponent {
           <TextButton
             id="apply-saving-pipeline"
             className="btn btn-primary btn-sm"
-            text="Create New"
+            text="Save"
             disabled={this.props.name === ''}
             clickHandler={this.save.bind(this)}
           />
