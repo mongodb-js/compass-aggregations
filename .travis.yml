@@ -23,12 +23,9 @@ script:
   - npm run check
   - npm run cover 
   - npm run test:karma
+after_success:
+  - npm run storybook:ghpages
 deploy:
-  # Build Storybook for GitHub Pages
-  - provider: script
-    script: npm run storybook:ghpages
-    on:
-      branch: 3.0.0
   # Push to GitHub Pages
   - provider: pages
     skip-cleanup: true
@@ -40,7 +37,7 @@ deploy:
   # TODO (@imlucas) Do we even need to do this?
   # All we're doing is making sure webpack can 
   # build (for the 4th time)
-  - provider: script
-    script: npm run compile
-    on:
-      branch: master
+  # - provider: script
+  #   script: npm run compile
+  #   on:
+  #     branch: master
