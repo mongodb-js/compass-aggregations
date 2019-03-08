@@ -30,7 +30,7 @@ const PROPS = {
 
 import StageEditor from 'components/stage-editor';
 
-storiesOf('<StageEditor>', module)
+storiesOf('Styling > StageEditor', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('Example > $lookup', () => {
     const store = configureStore(INITIAL_STATE);
