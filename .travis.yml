@@ -1,4 +1,4 @@
-sudo: required
+sudo: false
 dist: trusty
 language: node_js
 node_js:
@@ -14,20 +14,33 @@ before_script:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 before_install:
+  - npm i -g npm@latest
   - echo "//registry.npmjs.org/:_authToken=\${NPM_TOKEN}" >> .npmrc
-script: npm run ci
-cache:
-  directories:
-    - $HOME/.electron
-
-after_success:
-  - npm run storybook:ghpages
-  
+install:
+  - npm ci
+cache: npm
+script: 
+  - npm run check
+  - npm run cover 
+  - npm run test:karma
 deploy:
-  provider: pages
-  skip-cleanup: true
-  github-token: $GITHUB_TOKEN 
-  keep-history: true
-  local_dir: .ghpages
-  on:
-    branch: 3.0.0
+  # Build Storybook for GitHub Pages
+  - provider: script
+    script: npm run storybook:ghpages
+    on:
+      branch: 3.0.0
+  # Push to GitHub Pages
+  - provider: pages
+    skip-cleanup: true
+    github-token: $GITHUB_TOKEN 
+    keep-history: true
+    local_dir: .ghpages
+    on:
+      branch: 3.0.0
+  # TODO (@imlucas) Do we even need to do this?
+  # All we're doing is making sure webpack can 
+  # build (for the 4th time)
+  - provider: script
+    script: npm run compile
+    on:
+      branch: master
