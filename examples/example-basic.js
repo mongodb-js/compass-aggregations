@@ -4,14 +4,17 @@
  * @see https://gist.github.com/imlucas/5c92b6cfd46cba2a8bbb4a428c37c31b
  */
 import {
-  EXAMPLE, STAGE_DEFAULTS, INITIAL_INPUT_DOCUMENTS
+  EXAMPLE,
+  STAGE_DEFAULTS,
+  INITIAL_INPUT_DOCUMENTS
 } from './example-constants';
 
 import {
   ObjectId
 } from 'bson';
 
-const SOLAR_SYSTEM_DOCUMENTS = [{
+const SOLAR_SYSTEM_DOCUMENTS = [
+  {
     _id: new ObjectId('59a06674c8df9f3cd2ee7d54'),
     name: 'Earth',
     type: 'Terrestrial planet',
@@ -454,7 +457,8 @@ const SOLAR_SYSTEM_DOCUMENTS = [{
   }
 ];
 
-const MATCHING_SOLAR_SYSTEM_DOCUMENTS = [{
+const MATCHING_SOLAR_SYSTEM_DOCUMENTS = [
+  {
     _id: new ObjectId('59a06674c8df9f3cd2ee7d54'),
     name: 'Earth',
     type: 'Terrestrial planet',
@@ -661,7 +665,8 @@ const STATE = {
     documents: SOLAR_SYSTEM_DOCUMENTS
   },
   namespace: 'aggregations.solarSystem',
-  pipeline: [{
+  pipeline: [
+    {
       ...STAGE_DEFAULTS,
       id: new ObjectId().toHexString(),
       previewDocuments: MATCHING_SOLAR_SYSTEM_DOCUMENTS,
