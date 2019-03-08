@@ -20,7 +20,6 @@ install:
   - npm ci
 cache: npm
 script: 
-  - npm run check
   - npm run cover 
   - npm run test:karma
 after_success:
