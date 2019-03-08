@@ -185,6 +185,7 @@ class Pipeline extends PureComponent {
         savingPipelineApply={this.props.savingPipelineApply}
         savingPipelineCancel={this.props.savingPipelineCancel}
         savingPipelineOpen={this.props.savingPipelineOpen}
+        clonePipeline={this.props.clonePipeline}
       />
     );
 
