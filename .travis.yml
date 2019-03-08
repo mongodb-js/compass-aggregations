@@ -25,6 +25,7 @@ script:
   - npm run test:karma
 after_success:
   - npm run storybook:ghpages
+  - rm .npmrc
 deploy:
   # Push to GitHub Pages
   - provider: pages
