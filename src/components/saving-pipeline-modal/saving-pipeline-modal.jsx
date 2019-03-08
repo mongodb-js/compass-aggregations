@@ -19,7 +19,8 @@ class SavingPipelineModal extends PureComponent {
     savingPipelineCancel: PropTypes.func.isRequired,
     savingPipelineApply: PropTypes.func.isRequired,
     savingPipelineNameChanged: PropTypes.func.isRequired,
-    saveCurrentPipeline: PropTypes.func.isRequired
+    saveCurrentPipeline: PropTypes.func.isRequired,
+    clonePipeline: PropTypes.func.isRequired
   };
 
   /**
@@ -46,9 +47,15 @@ class SavingPipelineModal extends PureComponent {
 
   /**
    * Calls back to action handlers for changing the name and saving it.
+   *
+   * If canceling from `Save As...`, the current pipeline is not cloned.
    * @returns {void}
    */
   save() {
+    if (this.props.isSaveAs) {
+      this.props.clonePipeline();
+    }
+
     this.props.savingPipelineApply();
     this.props.saveCurrentPipeline();
   }
@@ -75,6 +82,7 @@ class SavingPipelineModal extends PureComponent {
               value={this.props.name}
               onChange={this.onNameChanged.bind(this)}
               className="form-control input-lg"
+              placeholder="Untitled"
             />
           </form>
         </Modal.Body>
