@@ -2,38 +2,38 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { ComponentPreview } from 'storybook/decorators';
 
-import { Provider } from 'react-redux';
 import { INITIAL_STATE as _BASE_STATE } from 'modules/settings';
-
 import { INITIAL_STATE as INITIAL_LIMIT_STATE } from 'modules/limit';
 import { INITIAL_STATE as INITIAL_MAX_TIME_MS_STATE } from 'modules/max-time-ms';
 import { INITIAL_STATE as INITIAL_LARGE_LIMIT_STATE } from 'modules/large-limit';
 
-import Settings from 'components/settings';
-import { configureStore } from 'utils/configureStore';
-
 import ACTION_PROPS from './action-creators';
 
-const INITIAL_STATE = {
+import Settings from 'components/settings';
+
+const PROPS = {
   ..._BASE_STATE,
-  isExpanded: true,
+  settings: _BASE_STATE,
+  isCommenting: true,
   limit: INITIAL_LIMIT_STATE,
   largeLimit: INITIAL_LARGE_LIMIT_STATE,
-  maxTimeMS: INITIAL_MAX_TIME_MS_STATE
+  maxTimeMS: INITIAL_MAX_TIME_MS_STATE,
+  ...ACTION_PROPS
 };
 
 storiesOf('<Settings>', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
-  .add('Expanded', () => {
-    const store = configureStore(INITIAL_STATE);
-    return (
-      <Provider store={store}>
-        <Settings
-          isCommenting
-          isExpanded
-          settings={INITIAL_STATE}
-          {...ACTION_PROPS}
-        />
-      </Provider>
-    );
-  });
+  .add('isExpanded', () => {
+    const props = {
+      ...PROPS,
+      isExpanded: true
+    };
+    return <Settings {...props} />;
+  })
+  .add('Default', () => {
+    const props = {
+      ...PROPS
+    };
+    return <Settings {...props} />;
+  })
+  ;
