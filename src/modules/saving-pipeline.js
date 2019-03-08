@@ -83,9 +83,12 @@ export const savingPipelineCancel = () => ({
 
 /**
  * Action creator for cancel events.
+ *
+ * @param {String} [name] Default `''`
+ * @param {Boolean} [isSaveAs] Default `false`
  * @returns {Object} The name changed action.
  */
-export const savingPipelineOpen = (name = '', isSaveAs = false) => {
+export const savingPipelineOpen = ({name = '', isSaveAs = false} = {}) => {
   return {
     type: SAVING_PIPELINE_OPEN,
     isSaveAs: isSaveAs,
