@@ -21,7 +21,7 @@ const PROPS = {
   ...ACTION_PROPS
 };
 
-storiesOf('<Settings>', module)
+storiesOf('Styling > Settings', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
   .add('isExpanded', () => {
     const props = {
