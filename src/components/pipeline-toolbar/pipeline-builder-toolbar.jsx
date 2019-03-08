@@ -63,12 +63,27 @@ class PipelineBuilderToolbar extends PureComponent {
     this.props.setIsModified(true);
   };
 
+  /**
+   * Handle clicks on the `Save` button.
+   *
+   * @returns {void}
+   */
   onSaveClicked = () => {
-    this.props.savingPipelineOpen();
+    if (!this.isSavedPipeline()) {
+      this.props.savingPipelineOpen();
+      return;
+    }
+    this.props.saveCurrentPipeline();
+    this.props.setIsModified(false);
   };
 
+  /**
+   * Handle clicks on the `Save As...` MenuItem.
+   *
+   * @returns {void}
+   */
   onSaveAsClicked = () => {
-    if (this.props.name === '') {
+    if (!this.isSavedPipeline()) {
       this.onSaveClicked();
       return;
     }
@@ -83,6 +98,14 @@ class PipelineBuilderToolbar extends PureComponent {
   handleSavedPipelinesClose = () => {
     this.props.savedPipelinesListToggle(0);
   };
+
+  /**
+   * Is the current pipeline already saved?
+   * @returns {Boolean}
+   */
+  isSavedPipeline() {
+    return this.props.name !== '';
+  }
 
   modifiedText() {
     if (!this.props.isModified) {
