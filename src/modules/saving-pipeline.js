@@ -12,7 +12,7 @@ export const SAVING_PIPELINE_OPEN = 'aggregations/saving-pipeline/OPEN';
 export const INITIAL_STATE = {
   isOpen: false,
   name: '',
-  isSaving: false
+  isSaveAs: false
 };
 
 /**
@@ -34,7 +34,9 @@ export default function reducer(state = INITIAL_STATE, action) {
   if (action.type === SAVING_PIPELINE_OPEN) {
     return {
       ...state,
-      isOpen: true
+      isOpen: true,
+      isSaveAs: action.isSaveAs,
+      name: action.name
     };
   }
 
@@ -83,8 +85,10 @@ export const savingPipelineCancel = () => ({
  * Action creator for cancel events.
  * @returns {Object} The name changed action.
  */
-export const savingPipelineOpen = () => {
+export const savingPipelineOpen = (name = '', isSaveAs = false) => {
   return {
-    type: SAVING_PIPELINE_OPEN
+    type: SAVING_PIPELINE_OPEN,
+    isSaveAs: isSaveAs,
+    name: name
   };
 };

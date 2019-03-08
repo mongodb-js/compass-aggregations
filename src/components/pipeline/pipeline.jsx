@@ -179,6 +179,7 @@ class Pipeline extends PureComponent {
       <SavingPipelineModal
         name={this.props.savingPipeline.name}
         isOpen={this.props.savingPipeline.isOpen}
+        isSaveAs={this.props.savingPipeline.isSaveAs}
         saveCurrentPipeline={this.props.saveCurrentPipeline}
         savingPipelineNameChanged={this.props.savingPipelineNameChanged}
         savingPipelineApply={this.props.savingPipelineApply}

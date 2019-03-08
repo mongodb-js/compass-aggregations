@@ -9,9 +9,9 @@ import { ComponentPreview } from 'storybook/decorators';
 import { action } from '@storybook/addon-actions';
 
 const PROPS = {
-  isOpen: true,
-  isSaving: false,
-  name: 'Joys Pipeline',
+  isOpen: false,
+  isSaveAs: false,
+  name: '',
   savingPipelineCancel: action('savingPipelineCancel'),
   savingPipelineApply: action('savingPipelineApply'),
   savingPipelineNameChanged: action('savingPipelineNameChanged'),
@@ -22,8 +22,42 @@ import SavingPipelineModal from 'components/saving-pipeline-modal';
 
 storiesOf('<SavingPipelineModal>', module)
   .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
-  .add('Open+Name', () => {
+  .add('isOpen', () => {
+    const props = {
+      ...PROPS,
+      isOpen: true
+    };
     return (
-      <SavingPipelineModal {...PROPS} />
+      <SavingPipelineModal {...props} />
     );
-  });
+  })
+  .add('isOpen > name', () => {
+    const props = {
+      ...PROPS,
+      name: 'Joys Pipeline',
+      isOpen: true
+    };
+    return (
+      <SavingPipelineModal {...props} />
+    );
+  })
+  .add('isOpen > isSaveAs', () => {
+    const props = {
+      ...PROPS,
+      isOpen: true,
+      name: 'Joys Pipeline',
+      isSaveAs: true
+    };
+    return (
+      <SavingPipelineModal {...props} />
+    );
+  })
+  .add('Default', () => {
+    const props = {
+      ...PROPS
+    };
+    return (
+      <SavingPipelineModal {...props} />
+    );
+  })
+  ;
