@@ -19,7 +19,7 @@
     "check": "mongodb-js-precommit './src/**/*{.js,.jsx}' './test/**/*.js' './electron/**/*.js' './config/**/*{.js,.jsx}'",
     "link-plugin": "./scripts/link.sh",
     "unlink-plugin": "./scripts/unlink.sh",
-    "prepublish": "npm run compile",
+    "prepublishOnly": "npm run compile",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:ghpages": "cross-env NODE_ENV=production build-storybook -c .storybook -o .ghpages"
   },
