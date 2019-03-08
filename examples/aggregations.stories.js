@@ -69,6 +69,8 @@ const GROUPED_STATS_EXAMPLE = {
       previewDocuments: []
     }
   ]
+BASE_STATE.dataService.dataService = {
+  aggregate: () => {}
 };
 
 storiesOf('<Aggregations>', module)

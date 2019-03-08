@@ -1,17 +1,11 @@
+import { EXAMPLE, STAGE_DEFAULTS } from './example-constants';
+import { ObjectId } from 'bson';
+
 /**
  * From @terakilobyte's aggregation examples from Education Team.
- * 
+ *
  * @see https://gist.github.com/imlucas/5c92b6cfd46cba2a8bbb4a428c37c31b
  */
-import {
-  EXAMPLE,
-  STAGE_DEFAULTS,
-  INITIAL_INPUT_DOCUMENTS
-} from './example-constants';
-
-import {
-  ObjectId
-} from 'bson';
 
 // do I have schema problems?
 // the following tells me if I have mistyped names or bad references for a lookup
@@ -19,10 +13,10 @@ const COMPLEX_EXAMPLE = {
   ...EXAMPLE,
   namespace: 'aggregations.air_alliances',
   pipeline: [{
-      ...STAGE_DEFAULTS,
-      id: new ObjectId().toHexString(),
-      stageOperator: '$lookup',
-      stage: `{
+    ...STAGE_DEFAULTS,
+    id: new ObjectId().toHexString(),
+    stageOperator: '$lookup',
+    stage: `{
   from: "air_airlines",
   let: { maybe_name: "$airlines" },
   pipeline: [
@@ -64,7 +58,6 @@ const COMPLEX_EXAMPLE = {
     }
   ],
   as: "found"
-}
 }`,
       previewDocuments: []
     },
