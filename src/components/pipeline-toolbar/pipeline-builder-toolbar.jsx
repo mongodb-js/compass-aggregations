@@ -41,11 +41,15 @@ class PipelineBuilderToolbar extends PureComponent {
 
     /**
      * Saved Pipelines
+     *
+     * TODO (@imlucas) To make this clearer for future travellers:
+     * - Rename `savedPipeline` to `savedPipelineList`
+     * - Rename `savingPipeline*` to `savePipeline`
      */
-    savedPipeline: PropTypes.object.isRequired, // TODO List of saved-pipelines.
+    savedPipeline: PropTypes.object.isRequired,
     savedPipelinesListToggle: PropTypes.func.isRequired,
     getSavedPipelines: PropTypes.func.isRequired,
-    saveCurrentPipeline: PropTypes.func.isRequired, // TODO this goes away
+    saveCurrentPipeline: PropTypes.func.isRequired,
     savingPipelineOpen: PropTypes.func.isRequired
   };
 
@@ -54,13 +58,21 @@ class PipelineBuilderToolbar extends PureComponent {
    *
    * @param {Object} evt
    */
-  onNameChange = evt => {
+  onNameChange = (evt) => {
     this.props.nameChanged(evt.target.value);
     this.props.setIsModified(true);
   };
 
   onSaveClicked = () => {
     this.props.savingPipelineOpen();
+  };
+
+  onSaveAsClicked = () => {
+    if (this.props.name === '') {
+      this.onSaveClicked();
+      return;
+    }
+    this.props.savingPipelineOpen({ name: this.props.name, isSaveAs: true });
   };
 
   handleSavedPipelinesOpen = () => {
@@ -187,7 +199,7 @@ class PipelineBuilderToolbar extends PureComponent {
             <Dropdown.Toggle className="btn-xs btn btn-primary" />
 
             <Dropdown.Menu>
-              <MenuItem onClick={this.props.clonePipeline}>
+              <MenuItem onClick={this.onSaveAsClicked.bind(this)}>
                 Save pipeline as&hellip;
               </MenuItem>
             </Dropdown.Menu>
