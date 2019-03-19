@@ -92,3 +92,20 @@ storiesOf('Components/StageEditor', module)
       </Provider>
     );
   });
+
+storiesOf('AutoCompletion', module)
+  .addDecorator(story => <ComponentPreview>{story()}</ComponentPreview>)
+  .add('Example > $project', () => {
+    /**
+     * TODO: Ace prop for triggering `autocomplete()` on render?
+     */
+    const store = configureStore({
+      ...INITIAL_STATE,
+      BASIC_EXAMPLE
+    });
+    return (
+      <Provider store={store}>
+        <StageEditor />
+      </Provider>
+    );
+  });
