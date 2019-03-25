@@ -25,25 +25,22 @@ export function generateStage(state) {
     return {};
   }
 
+  /**
+   * Now that its been validated, detect any projections
+   * and bubble them up to `state`.
+   */
   const projections = [];
   if (state.stageOperator === '$project') {
     const stageContents = stage[state.stageOperator];
     Object.keys(stageContents).map((k) => {
       const projection = stageContents[k];
-      if (projection) {
-        /**
-         * TODO (@imlucas) Make `Projection` shape same as `Field` in `FieldStore`
-         */
-        /**
-         * TODO (@imlucas) Recursive projection support? e.g. {_id: {price: "$price", storeId: "$storeId"}}
-         */
-        projections.push({
-          name: k,
-          value: JSON.stringify(projection)
-        });
-      }
+      projections.push({
+        name: k,
+        value: JSON.stringify(projection)
+      });
     });
   }
+
   state.projections = projections;
   state.isValid = true;
   state.syntaxError = null;
