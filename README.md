@@ -43,7 +43,10 @@ Setting values via configure:
 import Plugin, { configureStore, } from '@mongodb-js/compass-aggregations';
 
 const store = configureStore({
-  dataProvider: dataProvider,
+  dataProvider: {
+    error: null,
+    dataProvider: dataProvider
+  },
   namespace: 'db.coll',
   serverVersion: '4.2.0',
   fields: []
@@ -60,7 +63,10 @@ const Plugin = role.component;
 const configureStore = role.configureStore;
 const store = configureStore({
   appRegistry: appRegistry,
-  dataProvider: dataProvider,
+  dataProvider: {
+    error: null,
+    dataProvider: dataProvider
+  },
   namespace: 'db.coll',
   serverVersion: '4.2.0',
   fields: []
