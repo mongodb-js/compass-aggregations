@@ -13,3 +13,4 @@ karma.conf.js
 mocha-webpack.opts
 scripts/
 src/
+coverage/
