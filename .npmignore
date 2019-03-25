@@ -14,3 +14,4 @@ mocha-webpack.opts
 scripts/
 src/
 coverage/
+.nyc_output/
