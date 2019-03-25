@@ -1,6 +1,6 @@
 import AggregationsPlugin from './plugin';
 import configureStore from 'stores';
-import { Aggregations } from 'components/aggregations';
+import Aggregations from 'components/aggregations';
 import StageEditor from 'components/stage-editor';
 
 /**
