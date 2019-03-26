@@ -383,6 +383,20 @@ const doApplySavingPipeline = (state) => {
   return newState;
 };
 
+const doProjectionsChanged = (state) => {
+  const newState = {
+    ...state,
+    projections
+  };
+
+  newState.pipeline.map((stage, index) => {
+    stage.projections.map((projection) => {
+      projection.index = index;
+      newState.projections.push(projection);
+    });
+  });
+  return newState;
+};
 /**
  * The action to state modifier mappings.
  */
@@ -396,7 +410,8 @@ const MAPPINGS = {
   [CONFIRM_NEW]: doConfirmNewFromText,
   [TOGGLE_OVERVIEW]: doToggleOverview,
   [APPLY_SETTINGS]: doApplySettings,
-  [SAVING_PIPELINE_APPLY]: doApplySavingPipeline
+  [SAVING_PIPELINE_APPLY]: doApplySavingPipeline,
+  [PROJECTIONS_CHANGED]: doProjectionsChanged
 };
 
 /**
