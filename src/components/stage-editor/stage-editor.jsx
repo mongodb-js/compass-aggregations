@@ -97,7 +97,10 @@ class StageEditor extends Component {
    * @param {Object} prevProps - The previous properties.
    */
   componentDidUpdate(prevProps) {
-    this.completer.update(this.getFieldsAndProjections(), this.props.stageOperator);
+    this.completer.update(
+      this.getFieldsAndProjections(),
+      this.props.stageOperator
+    );
     this.completer.version = this.props.serverVersion;
     if (this.props.stageOperator !== prevProps.stageOperator && this.editor) {
       this.editor.setValue('');
@@ -135,8 +138,8 @@ class StageEditor extends Component {
   };
 
   getFieldsAndProjections() {
-    const fieldsAndProjections = [].prototype.concat.call(
-      null,
+    const fieldsAndProjections = [].concat.call(
+      [],
       this.props.fields,
       this.props.projections.filter((p) => p.index < this.props.index)
     );
