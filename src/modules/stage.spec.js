@@ -175,7 +175,7 @@ describe('Stage module', () => {
         expect(stage.projections.length).to.equal(1);
       });
       it('detects the avg_price projection', () => {
-        expect(stage.projections[0].name).to.equal('avg_price');
+        expect(stage.projections[0].name).to.equal('$avg_price');
       });
     });
 
