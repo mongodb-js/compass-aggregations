@@ -11,7 +11,7 @@ import { parse } from 'mongodb-stage-validator';
  * @param {Object} stage The validated stage object.
  * @returns {Array}
  */
-export function gatherProjections(state) {
+export function gatherProjections(state, stage) {
   /**
    * Now that its been validated, detect any projections
    * and bubble them up to `state`.
@@ -25,13 +25,15 @@ export function gatherProjections(state) {
     return projections;
   }
 
-  const stage = {};
-  try {
-    const decommented = decomment(state.stage);
-    parse(`{${state.stageOperator}: ${decommented}}`);
-    stage[state.stageOperator] = parser(decommented);
-  } catch(e) {
-    return projections;
+  if (!stage) {
+    stage = {};
+    try {
+      const decommented = decomment(state.stage);
+      parse(`{${state.stageOperator}: ${decommented}}`);
+      stage[state.stageOperator] = parser(decommented);
+    } catch (e) {
+      return projections;
+    }
   }
 
   const stageContents = stage[state.stageOperator];
@@ -43,7 +45,10 @@ export function gatherProjections(state) {
     if (projection) {
       projections.push({
         name: k,
-        value: JSON.stringify(projection)
+        value: k,
+        score: 1,
+        meta: JSON.stringify(projection),
+        version: '0.0.0'
       });
     }
   });
