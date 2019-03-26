@@ -383,14 +383,17 @@ const doApplySavingPipeline = (state) => {
   return newState;
 };
 
+import { gatherProjections } from 'modules/stage';
+
 const doProjectionsChanged = (state) => {
   const newState = {
     ...state,
-    projections
+    projections: []
   };
 
-  newState.pipeline.map((stage, index) => {
-    stage.projections.map((projection) => {
+  newState.pipeline.map((_stage, index) => {
+    _stage.projections = gatherProjections(_stage);
+    _stage.projections.map((projection) => {
       projection.index = index;
       newState.projections.push(projection);
     });

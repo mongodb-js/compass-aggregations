@@ -54,6 +54,11 @@ class StageEditor extends Component {
     projectionsChanged: PropTypes.func.isRequired
   };
 
+  static defaultProps = {
+    fields: [],
+    projections: []
+  };
+
   /**
    * Set up the autocompleters once on initialization.
    *

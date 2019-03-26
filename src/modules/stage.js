@@ -11,13 +11,26 @@ import { parse } from 'mongodb-stage-validator';
  * @param {Object} stage The validated stage object.
  * @returns {Array}
  */
-export function gatherProjections(state, stage) {
+export function gatherProjections(state) {
   /**
    * Now that its been validated, detect any projections
    * and bubble them up to `state`.
    */
   const projections = [];
   if (state.stageOperator !== '$project') {
+    return projections;
+  }
+
+  if (!state.isEnabled || !state.stageOperator || state.stage === '') {
+    return projections;
+  }
+
+  const stage = {};
+  try {
+    const decommented = decomment(state.stage);
+    parse(`{${state.stageOperator}: ${decommented}}`);
+    stage[state.stageOperator] = parser(decommented);
+  } catch(e) {
     return projections;
   }
 
