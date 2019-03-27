@@ -122,7 +122,7 @@ class StageEditor extends Component {
    */
   onStageChange = (value) => {
     this.props.stageChanged(value, this.props.index);
-    this.props.projectionsChanged(this.props.projections);
+    this.props.projectionsChanged();
     this.props.setIsModified(true);
 
     if (
@@ -142,11 +142,21 @@ class StageEditor extends Component {
     this.props.runStage(this.props.index);
   };
 
+  /**
+   * Combines all fields and projections into a single array for
+   * auto-completer.
+   * @returns {Array}
+   */
   getFieldsAndProjections() {
+    const { fields, projections, index } = this.props;
+    const previouslyDefinedProjections = projections.filter(
+      (p) => p.index < index
+    );
+
     const fieldsAndProjections = [].concat.call(
       [],
-      this.props.fields,
-      this.props.projections.filter((p) => p.index < this.props.index)
+      fields,
+      previouslyDefinedProjections
     );
     return fieldsAndProjections;
   }

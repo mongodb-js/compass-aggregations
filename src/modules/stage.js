@@ -44,8 +44,8 @@ export function gatherProjections(state, stage) {
      */
     if (projection) {
       projections.push({
-        name: `$${k}`,
-        value: `$${k}`,
+        name: k,
+        value: k,
         score: 1,
         meta: JSON.stringify(projection),
         version: '0.0.0'
