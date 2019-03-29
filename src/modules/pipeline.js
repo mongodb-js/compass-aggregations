@@ -166,7 +166,6 @@ const changeStage = (state, action) => {
   newState[action.index].stage = action.stage;
   newState[action.index].isComplete = false;
   newState[action.index].fromStageOperators = false;
-  // TODO (imlucas) Recompute top-level pipeline.projections here?
   return newState;
 };
 
@@ -227,7 +226,6 @@ const moveStage = (state, action) => {
   if (action.fromIndex === action.toIndex) return state;
   const newState = copyState(state);
   newState.splice(action.toIndex, 0, newState.splice(action.fromIndex, 1)[0]);
-  // TODO (lucas) Projection index updates would need to happen here.
   return newState;
 };
 
