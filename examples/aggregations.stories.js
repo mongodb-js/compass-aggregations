@@ -8,7 +8,7 @@ import Aggregations from 'components/aggregations';
 import { configureStore } from 'utils/configureStore';
 
 import BASIC_EXAMPLE from './example-basic.js';
-import COMPLEX_EXAMPLE from './example-complex.js';
+import SCHEMA_CHECKER_EXAMPLE from './example-schema-checker.js';
 import ARRAY_STATS_EXAMPLE from './example-array-stats.js';
 import GROUPED_STATS_EXAMPLE from './example-grouped-stats.js';
 import PEARSONS_RHO_EXAMPLE from './example-pearsons-rho.js';
@@ -48,7 +48,7 @@ storiesOf('Examples', module)
   .add('Basic', () => loadAggregation(BASIC_EXAMPLE))
   .add('Grouped Stats', () => loadAggregation(GROUPED_STATS_EXAMPLE))
   .add('Array Stats', () => loadAggregation(ARRAY_STATS_EXAMPLE))
-  .add('Very Complex', () => loadAggregation(COMPLEX_EXAMPLE))
+  .add('Schema Checker', () => loadAggregation(SCHEMA_CHECKER_EXAMPLE))
   .add('Pearsons Rho', () => loadAggregation(PEARSONS_RHO_EXAMPLE))
   .add('Default', () => {
     const initialState = {
