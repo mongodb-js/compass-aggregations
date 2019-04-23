@@ -58,7 +58,8 @@ import {
   closeImport,
   changeText,
   createNew,
-  confirmNew
+  confirmNew,
+  openCreateView
 } from 'modules/import-pipeline';
 
 import {
@@ -201,7 +202,8 @@ const MappedAggregations = connect(
     savingPipelineCancel,
     savingPipelineOpen,
     projectionsChanged,
-    newPipelineFromPaste
+    newPipelineFromPaste,
+    openCreateView
   }
 )(Aggregations);
 
