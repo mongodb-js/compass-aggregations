@@ -94,7 +94,7 @@ class PipelineBuilderToolbar extends PureComponent {
     this.props.savingPipelineOpen({ name: this.props.name, isSaveAs: true });
   };
 
-  onSaveAsView = () => {}
+  onSaveAsView = () => {};
 
   handleSavedPipelinesOpen = () => {
     this.props.getSavedPipelines();
@@ -137,16 +137,21 @@ class PipelineBuilderToolbar extends PureComponent {
 
   renderSaveDropdownMenu() {
     const children = [
-      (<MenuItem onClick={this.onSaveAsClicked.bind(this)}>
+      <MenuItem
+        key="save-pipeline-as"
+        onClick={this.onSaveAsClicked.bind(this)}>
         Save pipeline as&hellip;
-      </MenuItem>)
+      </MenuItem>
     ];
 
-    const serverViewsAvailable = semver.gte(this.props.serverVersion, VIEWS_MIN_SERVER_VERSION);
+    const serverViewsAvailable = semver.gte(
+      this.props.serverVersion,
+      VIEWS_MIN_SERVER_VERSION
+    );
 
     if (serverViewsAvailable) {
       children.push(
-        <MenuItem onClick={this.onSaveAsView.bind(this)}>
+        <MenuItem key="create-a-view" onClick={this.onSaveAsView.bind(this)}>
           Create a View
         </MenuItem>
       );
@@ -238,9 +243,7 @@ class PipelineBuilderToolbar extends PureComponent {
             </Button>
 
             <Dropdown.Toggle className="btn-xs btn btn-primary" />
-            <Dropdown.Menu>
-              {this.renderSaveDropdownMenu()}
-            </Dropdown.Menu>
+            <Dropdown.Menu>{this.renderSaveDropdownMenu()}</Dropdown.Menu>
           </Dropdown>
         </div>
         <div
