@@ -42,6 +42,7 @@ class PipelineBuilderToolbar extends PureComponent {
     toggleOverview: PropTypes.func.isRequired,
 
     serverVersion: PropTypes.string.isRequired,
+    openCreateView: PropTypes.func.isRequired,
 
     /**
      * Saved Pipelines
@@ -93,8 +94,6 @@ class PipelineBuilderToolbar extends PureComponent {
     }
     this.props.savingPipelineOpen({ name: this.props.name, isSaveAs: true });
   };
-
-  onSaveAsView = () => {};
 
   handleSavedPipelinesOpen = () => {
     this.props.getSavedPipelines();
@@ -151,7 +150,7 @@ class PipelineBuilderToolbar extends PureComponent {
 
     if (serverViewsAvailable) {
       children.push(
-        <MenuItem key="create-a-view" onClick={this.onSaveAsView.bind(this)}>
+        <MenuItem key="create-a-view" onClick={this.props.openCreateView}>
           Create a View
         </MenuItem>
       );
