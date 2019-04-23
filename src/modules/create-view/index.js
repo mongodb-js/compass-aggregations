@@ -33,7 +33,7 @@ import { reset, RESET } from 'modules/create-view/reset';
  */
 const OPEN = 'aggregations/create-view/OPEN';
 
-const INITIAL_STATE = {
+export const INITIAL_STATE = {
   isRunning: IS_RUNNING_INITIAL_STATE,
   isVisible: IS_VISIBLE_INITIAL_STATE,
   name: NAME_INITIAL_STATE,
@@ -67,7 +67,7 @@ const rootReducer = (state, action) => {
   if (action.type === RESET) {
     return {
       ...state,
-      INITIAL_STATE
+      ...INITIAL_STATE
     };
   } else if (action.type === OPEN) {
     return {

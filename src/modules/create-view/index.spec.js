@@ -2,7 +2,7 @@ import reducer, { createView, INITIAL_STATE } from 'modules/create-view';
 import { reset } from 'modules/create-view/reset';
 import { CLEAR_ERROR, HANDLE_ERROR } from 'modules/create-view/error';
 
-describe('create database module', () => {
+describe('create view module', () => {
   describe('#reducer', () => {
     describe('when an action is provided', () => {
       describe('when the action is reset', () => {
@@ -10,7 +10,8 @@ describe('create database module', () => {
 
         it('returns the reset state', () => {
           expect(reducer({ dataService: dataService }, reset())).to.deep.equal({
-            ...INITIAL_STATE
+            ...INITIAL_STATE,
+            dataService: dataService
           });
         });
       });

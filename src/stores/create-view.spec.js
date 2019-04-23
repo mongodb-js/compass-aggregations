@@ -1,6 +1,6 @@
 import AppRegistry from 'hadron-app-registry';
-import store from 'stores/create-database';
-import { reset } from 'modules/reset';
+import store from 'stores/create-view';
+import { reset } from 'modules/create-view/reset';
 
 describe('CreateViewStore [Store]', () => {
   beforeEach(() => {
@@ -42,13 +42,13 @@ describe('CreateViewStore [Store]', () => {
       });
 
       it('sets the pipeline', () => {
-        expect(store.getState().isVisible).to.deep.equal([
+        expect(store.getState().pipeline).to.deep.equal([
           { $project: { a: 1 } }
         ]);
       });
 
       it('sets the source', () => {
-        expect(store.getState().isVisible).to.equal('dataService.test');
+        expect(store.getState().source).to.equal('dataService.test');
       });
     });
   });

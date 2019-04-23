@@ -23,7 +23,12 @@ import { exportToLanguage } from 'modules/export-to-language';
 import { openLink } from 'modules/link';
 import { toggleOverview } from 'modules/is-overview-on';
 import { toggleFullscreen } from 'modules/is-fullscreen-on';
-import { deletePipeline, newPipeline, clonePipeline } from 'modules';
+import {
+  deletePipeline,
+  newPipeline,
+  clonePipeline,
+  openCreateView
+} from 'modules';
 import {
   runStage,
   runOutStage,
@@ -58,8 +63,7 @@ import {
   closeImport,
   changeText,
   createNew,
-  confirmNew,
-  openCreateView
+  confirmNew
 } from 'modules/import-pipeline';
 
 import {
