@@ -38,7 +38,8 @@ class PipelineToolbar extends PureComponent {
     toggleSettingsIsExpanded: PropTypes.func.isRequired,
     isFullscreenOn: PropTypes.bool.isRequired,
     toggleFullscreen: PropTypes.func.isRequired,
-    savingPipelineOpen: PropTypes.func.isRequired
+    savingPipelineOpen: PropTypes.func.isRequired,
+    serverVersion: PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -77,6 +78,7 @@ class PipelineToolbar extends PureComponent {
           isOverviewOn={this.props.isOverviewOn}
           toggleOverview={this.props.toggleOverview}
           savingPipelineOpen={this.props.savingPipelineOpen}
+          serverVersion={this.props.serverVersion}
         />
         <PipelinePreviewToolbar
           toggleComments={this.props.toggleComments}

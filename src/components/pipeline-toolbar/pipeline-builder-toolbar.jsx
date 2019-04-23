@@ -6,6 +6,9 @@ import { Tooltip } from 'hadron-react-components';
 import { Dropdown, MenuItem, Button } from 'react-bootstrap';
 import OverviewToggler from './overview-toggler';
 import CollationCollapser from './collation-collapser';
+import semver from 'semver';
+
+const VIEWS_MIN_SERVER_VERSION = '3.4.0';
 
 import {
   TOOLTIP_EXPORT_TO_LANGUAGE,
@@ -37,6 +40,8 @@ class PipelineBuilderToolbar extends PureComponent {
 
     isOverviewOn: PropTypes.bool.isRequired,
     toggleOverview: PropTypes.func.isRequired,
+
+    serverVersion: PropTypes.string.isRequired,
 
     /**
      * Saved Pipelines
@@ -89,6 +94,8 @@ class PipelineBuilderToolbar extends PureComponent {
     this.props.savingPipelineOpen({ name: this.props.name, isSaveAs: true });
   };
 
+  onSaveAsView = () => {}
+
   handleSavedPipelinesOpen = () => {
     this.props.getSavedPipelines();
     this.props.savedPipelinesListToggle(1);
@@ -126,6 +133,25 @@ class PipelineBuilderToolbar extends PureComponent {
         - <span>Modified</span>
       </div>
     );
+  }
+
+  renderSaveDropdownMenu() {
+    const children = [
+      (<MenuItem onClick={this.onSaveAsClicked.bind(this)}>
+        Save pipeline as&hellip;
+      </MenuItem>)
+    ];
+
+    const serverViewsAvailable = semver.gte(this.props.serverVersion, VIEWS_MIN_SERVER_VERSION);
+
+    if (serverViewsAvailable) {
+      children.push(
+        <MenuItem onClick={this.onSaveAsView.bind(this)}>
+          Create a View
+        </MenuItem>
+      );
+    }
+    return children;
   }
 
   /**
@@ -212,11 +238,8 @@ class PipelineBuilderToolbar extends PureComponent {
             </Button>
 
             <Dropdown.Toggle className="btn-xs btn btn-primary" />
-
             <Dropdown.Menu>
-              <MenuItem onClick={this.onSaveAsClicked.bind(this)}>
-                Save pipeline as&hellip;
-              </MenuItem>
+              {this.renderSaveDropdownMenu()}
             </Dropdown.Menu>
           </Dropdown>
         </div>

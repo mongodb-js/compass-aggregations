@@ -210,6 +210,7 @@ class Pipeline extends PureComponent {
           isFullscreenOn={this.props.isFullscreenOn}
           toggleFullscreen={this.props.toggleFullscreen}
           savingPipelineOpen={this.props.savingPipelineOpen}
+          serverVersion={this.props.serverVersion}
         />
         {this.renderCollationToolbar()}
         <Splitter isCollationExpanded={this.props.isCollationExpanded} />
