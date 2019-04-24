@@ -71,7 +71,6 @@ class CreateViewModal extends PureComponent {
             <ModalInput
               autoFocus
               id="create-view-name"
-              name="View Name"
               value={this.props.name}
               onChangeHandler={this.onNameChange}
             />
@@ -103,7 +102,7 @@ class CreateViewModal extends PureComponent {
           <TextButton
             className="btn btn-primary btn-sm"
             dataTestId="create-view-button"
-            text="Create View"
+            text="Create"
             clickHandler={this.props.createView}
           />
         </Modal.Footer>
