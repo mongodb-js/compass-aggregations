@@ -1,43 +1,21 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { ComponentPreview } from 'storybook/decorators';
 
 import { Provider } from 'react-redux';
 import { INITIAL_STATE } from 'modules/create-view';
 import CreateViewModal from 'components/create-view-modal';
 
-import { configureStore } from 'utils/configureStore';
+import { configureCreateViewStore as configureStore } from 'utils/configureStore';
 
 const BASE_STATE = {
   ...INITIAL_STATE
 };
 
-function loadAggregation(state = {}) {
-  const store = configureStore({
-    ...BASE_STATE,
-    ...state
-  });
-  return (
-    <Provider store={store}>
-      <CreateViewModal />
-    </Provider>
-  );
-}
-
-storiesOf('Examples/Create View', module)
-  .add('Default', () => {
-    const store = configureStore({
-      ...BASE_STATE
-    });
-    return (
-      <Provider store={store}>
-        <CreateViewModal />
-      </Provider>
-    );
-  })
+storiesOf('Components/Create View', module)
   .add('Visible', () => {
     const store = configureStore({
-      ...BASE_STATE
+      ...BASE_STATE,
+      isVisible: true
     });
     return (
       <Provider store={store}>
@@ -66,6 +44,16 @@ storiesOf('Examples/Create View', module)
       error: {
         message: 'meeep!! Whats the error message?!'
       }
+    });
+    return (
+      <Provider store={store}>
+        <CreateViewModal />
+      </Provider>
+    );
+  })
+  .add('Default', () => {
+    const store = configureStore({
+      ...BASE_STATE
     });
     return (
       <Provider store={store}>
