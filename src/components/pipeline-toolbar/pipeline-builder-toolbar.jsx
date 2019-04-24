@@ -150,7 +150,7 @@ class PipelineBuilderToolbar extends PureComponent {
     if (serverViewsAvailable) {
       children.push(
         <MenuItem key="create-a-view" onClick={this.props.openCreateView}>
-          Create a View
+          Create a view
         </MenuItem>
       );
     }
