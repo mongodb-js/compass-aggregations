@@ -1,7 +1,6 @@
 import { TextButton } from 'hadron-react-buttons';
 import React, { PureComponent } from 'react';
 import { Modal } from 'react-bootstrap';
-import classnames from 'classnames';
 import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
@@ -63,7 +62,7 @@ class CreateViewModal extends PureComponent {
           <Modal.Title>Create a View</Modal.Title>
         </Modal.Header>
 
-        <Modal.Body className={classnames(styles['create-view-modal-body'])}>
+        <Modal.Body className={styles['create-view-modal-body']}>
           <form
             name="create-view-modal-form"
             onSubmit={this.onFormSubmit}
@@ -92,7 +91,7 @@ class CreateViewModal extends PureComponent {
         </Modal.Body>
 
         <Modal.Footer
-          className={classnames(styles['create-view-modal-footer'])}>
+          className={styles['create-view-modal-footer']}>
           <TextButton
             className="btn btn-default btn-sm"
             dataTestId="cancel-create-view-button"
