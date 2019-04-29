@@ -13,6 +13,7 @@ class PipelineToolbar extends PureComponent {
   static displayName = 'PipelineToolbarComponent';
 
   static propTypes = {
+    isAtlasDeployed: PropTypes.bool.isRequired,
     savedPipelinesListToggle: PropTypes.func.isRequired,
     getSavedPipelines: PropTypes.func.isRequired,
     newPipeline: PropTypes.func.isRequired,
@@ -59,6 +60,7 @@ class PipelineToolbar extends PureComponent {
           [styles['pipeline-toolbar-border']]: !this.props.isCollationExpanded
         })}>
         <PipelineBuilderToolbar
+          isAtlasDeployed={this.props.isAtlasDeployed}
           savedPipelinesListToggle={this.props.savedPipelinesListToggle}
           getSavedPipelines={this.props.getSavedPipelines}
           savedPipeline={this.props.savedPipeline}
@@ -79,6 +81,7 @@ class PipelineToolbar extends PureComponent {
           savingPipelineOpen={this.props.savingPipelineOpen}
         />
         <PipelinePreviewToolbar
+          isAtlasDeployed={this.props.isAtlasDeployed}
           toggleComments={this.props.toggleComments}
           toggleSample={this.props.toggleSample}
           toggleAutoPreview={this.props.toggleAutoPreview}

@@ -15,6 +15,7 @@ class PipelinePreviewToolbar extends PureComponent {
   static displayName = 'PipelinePreviewToolbarComponent';
 
   static propTypes = {
+    isAtlasDeployed: PropTypes.bool.isRequired,
     toggleSample: PropTypes.func.isRequired,
     toggleAutoPreview: PropTypes.func.isRequired,
     isSampling: PropTypes.bool.isRequired,
@@ -48,24 +49,26 @@ class PipelinePreviewToolbar extends PureComponent {
   }
 
   renderSampleToggle() {
-    return (
-      <div
-        className={styles['toggle-sample']}
-        data-tip={TOOLTIP_SAMPLING_MODE}
-        data-for="sampling-mode"
-        data-place="top"
-        data-html="true">
-        <Switch
-          className={styles.switch}
-          checked={this.props.isSampling}
-          onChange={this.props.toggleSample}
-          onColor="rgb(19, 170, 82)"
-          style={{ backgroundColor: 'rgb(255,255,255)' }}
-        />
-        <span className={styles['toggle-sample-label']}>Sample Mode</span>
-        <Tooltip id="sampling-mode" />
-      </div>
-    );
+    if (!this.props.isAtlasDeployed) {
+      return (
+        <div
+          className={styles['toggle-sample']}
+          data-tip={TOOLTIP_SAMPLING_MODE}
+          data-for="sampling-mode"
+          data-place="top"
+          data-html="true">
+          <Switch
+            className={styles.switch}
+            checked={this.props.isSampling}
+            onChange={this.props.toggleSample}
+            onColor="rgb(19, 170, 82)"
+            style={{ backgroundColor: 'rgb(255,255,255)' }}
+          />
+          <span className={styles['toggle-sample-label']}>Sample Mode</span>
+          <Tooltip id="sampling-mode" />
+        </div>
+      );
+    }
   }
 
   renderFullscreenButton() {

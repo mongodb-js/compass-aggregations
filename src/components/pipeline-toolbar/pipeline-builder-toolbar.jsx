@@ -21,6 +21,7 @@ class PipelineBuilderToolbar extends PureComponent {
   static displayName = 'PipelineBuilderToolbarComponent';
 
   static propTypes = {
+    isAtlasDeployed: PropTypes.bool.isRequired,
     clonePipeline: PropTypes.func.isRequired,
     exportToLanguage: PropTypes.func.isRequired,
     newPipeline: PropTypes.func.isRequired,
@@ -128,29 +129,78 @@ class PipelineBuilderToolbar extends PureComponent {
     );
   }
 
-  /**
-   * Renders the pipeline builder toolbar.
-   *
-   * @returns {React.Component} The component.
-   */
-  render() {
-    const clickHandler = this.props.savedPipeline.isListVisible
-      ? this.handleSavedPipelinesClose
-      : this.handleSavedPipelinesOpen;
+  renderExportToLanguage() {
+    if (!this.props.isAtlasDeployed) {
+      return (
+        <div
+          className={styles['pipeline-builder-toolbar-export-to-language']}
+          data-tip={TOOLTIP_EXPORT_TO_LANGUAGE}
+          data-for="export-to-language"
+          data-place="top"
+          data-html="true">
+          <IconButton
+            className="btn btn-xs btn-default"
+            iconClassName={classnames(styles['export-icon'])}
+            clickHandler={this.props.exportToLanguage}
+            title="Export To Language" />
+          <Tooltip id="export-to-language" />
+        </div>
+      );
+    }
+  }
 
-    const savePipelineClassName = classnames({
-      btn: true,
-      'btn-xs': true,
-      'btn-primary': true,
-      [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
-    });
+  renderPipelineName() {
+    if (!this.props.isAtlasDeployed) {
+      return (
+        <div className={classnames( styles['pipeline-builder-toolbar-add-wrapper'])}>
+          <div className={styles['pipeline-builder-toolbar-name']}>
+            {this.props.name || 'Untitled'}
+          </div>
+          {this.renderIsModifiedIndicator()}
+        </div>
+      );
+    }
+  }
 
-    return (
-      <div className={classnames(styles['pipeline-builder-toolbar'])}>
-        <OverviewToggler
-          isOverviewOn={this.props.isOverviewOn}
-          toggleOverview={this.props.toggleOverview}
-        />
+  renderSavePipeline() {
+    if (!this.props.isAtlasDeployed) {
+      const savePipelineClassName = classnames({
+        btn: true,
+        'btn-xs': true,
+        'btn-primary': true,
+        [styles['pipeline-builder-toolbar-save-pipeline-button']]: true
+      });
+
+      return (
+        <div>
+          <Dropdown id="save-pipeline-actions">
+            <Button
+              className={savePipelineClassName}
+              variant="primary"
+              onClick={this.onSaveClicked.bind(this)}>
+              Save
+            </Button>
+
+            <Dropdown.Toggle className="btn-xs btn btn-primary" />
+
+            <Dropdown.Menu>
+              <MenuItem onClick={this.onSaveAsClicked.bind(this)}>
+                Save pipeline as&hellip;
+              </MenuItem>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      );
+    }
+  }
+
+  renderToggleSavedPipelines() {
+    if (!this.props.isAtlasDeployed) {
+      const clickHandler = this.props.savedPipeline.isListVisible
+        ? this.handleSavedPipelinesClose
+        : this.handleSavedPipelinesOpen;
+
+      return (
         <span
           data-tip={TOOLTIP_OPEN_SAVED_PIPELINES}
           data-for="open-saved-pipelines"
@@ -165,10 +215,25 @@ class PipelineBuilderToolbar extends PureComponent {
               styles['pipeline-builder-toolbar-open-saved-pipelines-button']
             )}
             iconClassName="fa fa-folder-open-o"
-            clickHandler={clickHandler}
-          />
+            clickHandler={clickHandler} />
           <Tooltip id="open-saved-pipelines" />
         </span>
+      );
+    }
+  }
+
+  /**
+   * Renders the pipeline builder toolbar.
+   *
+   * @returns {React.Component} The component.
+   */
+  render() {
+    return (
+      <div className={classnames(styles['pipeline-builder-toolbar'])}>
+        <OverviewToggler
+          isOverviewOn={this.props.isOverviewOn}
+          toggleOverview={this.props.toggleOverview} />
+        {this.renderToggleSavedPipelines()}
         <div>
           <Dropdown id="new-pipeline-actions" className="btn-group">
             <Button
@@ -191,49 +256,10 @@ class PipelineBuilderToolbar extends PureComponent {
         </div>
         <CollationCollapser
           isCollationExpanded={this.props.isCollationExpanded}
-          collationCollapseToggled={this.props.collationCollapseToggled}
-        />
-        <div
-          className={classnames(
-            styles['pipeline-builder-toolbar-add-wrapper']
-          )}>
-          <div className={styles['pipeline-builder-toolbar-name']}>
-            {this.props.name || 'Untitled'}
-          </div>
-          {this.renderIsModifiedIndicator()}
-        </div>
-        <div>
-          <Dropdown id="save-pipeline-actions">
-            <Button
-              className={savePipelineClassName}
-              variant="primary"
-              onClick={this.onSaveClicked.bind(this)}>
-              Save
-            </Button>
-
-            <Dropdown.Toggle className="btn-xs btn btn-primary" />
-
-            <Dropdown.Menu>
-              <MenuItem onClick={this.onSaveAsClicked.bind(this)}>
-                Save pipeline as&hellip;
-              </MenuItem>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-        <div
-          className={styles['pipeline-builder-toolbar-export-to-language']}
-          data-tip={TOOLTIP_EXPORT_TO_LANGUAGE}
-          data-for="export-to-language"
-          data-place="top"
-          data-html="true">
-          <IconButton
-            className="btn btn-xs btn-default"
-            iconClassName={classnames(styles['export-icon'])}
-            clickHandler={this.props.exportToLanguage}
-            title="Export To Language"
-          />
-          <Tooltip id="export-to-language" />
-        </div>
+          collationCollapseToggled={this.props.collationCollapseToggled} />
+        {this.renderPipelineName()}
+        {this.renderSavePipeline()}
+        {this.renderExportToLanguage()}
       </div>
     );
   }
