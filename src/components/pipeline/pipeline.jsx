@@ -155,7 +155,6 @@ class Pipeline extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    console.log('Pipeline#render', this.props);
     const importPipelineModal = (
       <ImportPipeline
         isOpen={this.props.isImportPipelineOpen}

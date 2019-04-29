@@ -339,7 +339,6 @@ MAPPINGS[LOADING_STAGE_RESULTS] = stageResultsLoading;
  */
 export default function reducer(state, action) {
   const defaultState = state ? state : [ emptyStage() ];
-  console.log('pipeline .defaultState', defaultState);
   const fn = MAPPINGS[action.type];
   return fn ? fn(defaultState, action) : defaultState;
 }
