@@ -120,6 +120,10 @@ export const refreshInputDocuments = () => {
     const state = getState();
     const dataService = state.dataService.dataService;
     const ns = state.namespace;
+
+    const options = {
+      maxTimeMS: state.settings.maxTimeMS
+    };
     if (dataService) {
       dispatch(loadingInputDocuments());
       dataService.count(ns, FILTER, OPTIONS, (error, count) => {
@@ -130,6 +134,9 @@ export const refreshInputDocuments = () => {
             cursor.close();
           });
         });
+      dataService.count(ns, FILTER, options, (error, count) => {
+          }
+        );
       });
     }
   };
