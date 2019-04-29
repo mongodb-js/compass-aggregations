@@ -28,6 +28,8 @@ import error, {
 
 import { reset, RESET } from 'modules/create-view/reset';
 
+const parseNs = require('mongodb-ns');
+
 /**
  * Open action name.
  */
@@ -121,6 +123,7 @@ export const createView = () => {
 
     const viewName = state.name;
     const viewSource = state.source;
+    const { database } = parseNs(state.source);
     const viewPipeline = state.pipeline;
     const options = {};
 
@@ -134,6 +137,12 @@ export const createView = () => {
           return stopWithError(dispatch, e);
         }
         global.hadronApp.appRegistry.emit('refresh-data');
+
+        global.hadronApp.appRegistry.emit(
+          'open-namespace-in-new-tab',
+          `${database}.${viewName}`,
+          true
+        );
         dispatch(reset());
       });
     } catch (e) {
