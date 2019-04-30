@@ -61,6 +61,7 @@ import importPipeline, {
 } from './import-pipeline';
 import { getObjectStore } from 'utils/indexed-db';
 import appRegistry, {
+  localAppRegistryEmit,
   globalAppRegistryEmit,
   INITIAL_STATE as APP_REGISTRY_STATE
 } from 'mongodb-redux-common/app-registry';
@@ -596,7 +597,7 @@ export const getPipelineFromIndexedDB = (pipelineId) => {
 export const openCreateView = () => {
   return (dispatch, getState) => {
     dispatch(
-      appRegistryEmit('open-create-view', {
+      localAppRegistryEmit('open-create-view', {
         source: getState().namespace,
         pipeline: getState().pipeline
       })
