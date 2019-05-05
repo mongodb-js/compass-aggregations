@@ -27,6 +27,7 @@ import error, {
 } from 'modules/create-view/error';
 
 import { reset, RESET } from 'modules/create-view/reset';
+import { globalAppRegistryEmit } from 'mongodb-redux-common/app-registry';
 
 const parseNs = require('mongodb-ns');
 
@@ -136,13 +137,8 @@ export const createView = () => {
         if (e) {
           return stopWithError(dispatch, e);
         }
-        global.hadronApp.appRegistry.emit('refresh-data');
-
-        global.hadronApp.appRegistry.emit(
-          'open-namespace-in-new-tab',
-          `${database}.${viewName}`,
-          true
-        );
+        dispatch(globalAppRegistryEmit('refresh-data'));
+        dispatch(globalAppRegistryEmit('open-namespace-in-new-tab', `${database}.${viewName}`, true));
         dispatch(reset());
       });
     } catch (e) {
