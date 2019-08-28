@@ -5,4 +5,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  :global {
+    i.info-sprinkle {
+      display: inline-block;
+      font: normal normal normal 14px/1 FontAwesome;
+      font-size: inherit;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      margin: 0 5px;
+      cursor: pointer;
+      color: #bfbfbe;
+
+      &:before {
+        content: "\f05a";
+      }
+    }
+  }
 }
