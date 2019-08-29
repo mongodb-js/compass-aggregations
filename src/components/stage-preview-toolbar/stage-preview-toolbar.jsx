@@ -80,9 +80,10 @@ class StagePreviewToolbar extends PureComponent {
         if (this.props.stageOperator === OUT && this.props.isValid) {
           return `Documents will be saved to the collection: ${decomment(this.props.stageValue)}`;
         }
+        const stageInfo = STAGE_SPRINKLE_MAPPINGS[this.props.stageOperator];
         return (
           <div>
-            <span>Output after {this.props.stageOperator} stage</span>
+            <span>Output after <span onClick={this.props.openLink.bind(this, stageInfo.link)} className={classnames(styles['stage-preview-toolbar-link'])}>{this.props.stageOperator}</span> stage</span>
             {this.renderInfoSprinkle()}
             <span>(Sample of {this.props.count} {this.getWord()})</span>
           </div>
