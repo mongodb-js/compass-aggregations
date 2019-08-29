@@ -41,18 +41,17 @@ class StagePreviewToolbar extends PureComponent {
    *
    * @returns {Component} The component.
    */
-  renderInfoSprinkle() {
+  renderInfoSprinkle(stageInfo) {
     if (this.props.stageOperator) {
-      const sprinkleInfo = STAGE_SPRINKLE_MAPPINGS[this.props.stageOperator];
       return (
         <span
-          data-tip={sprinkleInfo.tooltip}
+          data-tip={stageInfo.tooltip}
           data-for="stage-tooltip"
           data-place="top"
           data-html="true">
           <InfoSprinkle
             onClickHandler={this.props.openLink}
-            helpLink={sprinkleInfo.link}
+            helpLink={stageInfo.link}
           />
           <Tooltip id="stage-tooltip" />
         </span>
@@ -84,7 +83,7 @@ class StagePreviewToolbar extends PureComponent {
         return (
           <div>
             <span>Output after <span onClick={this.props.openLink.bind(this, stageInfo.link)} className={classnames(styles['stage-preview-toolbar-link'])}>{this.props.stageOperator}</span> stage</span>
-            {this.renderInfoSprinkle()}
+            {this.renderInfoSprinkle(stageInfo)}
             <span>(Sample of {this.props.count} {this.getWord()})</span>
           </div>
         );
