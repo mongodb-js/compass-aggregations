@@ -82,7 +82,13 @@ class StagePreviewToolbar extends PureComponent {
         const stageInfo = STAGE_SPRINKLE_MAPPINGS[this.props.stageOperator];
         return (
           <div>
-            <span>Output after <span onClick={this.props.openLink.bind(this, stageInfo.link)} className={classnames(styles['stage-preview-toolbar-link'])}>{this.props.stageOperator}</span> stage</span>
+            <span>
+              Output after <span
+                onClick={this.props.openLink.bind(this, stageInfo.link)}
+                className={classnames(styles['stage-preview-toolbar-link'])}>
+                  {this.props.stageOperator}
+                </span> stage
+            </span>
             {this.renderInfoSprinkle(stageInfo)}
             <span>(Sample of {this.props.count} {this.getWord()})</span>
           </div>
