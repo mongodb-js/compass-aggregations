@@ -134,7 +134,7 @@ export const STAGE_SPRINKLE_MAPPINGS = {
   },
   $merge: {
     link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_merge',
-    tooltip: ''
+    tooltip: 'Merges the resulting documents of the aggregation into a collection.'
   },
   $out: {
     link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/out/#pipe._S_out',
@@ -158,7 +158,7 @@ export const STAGE_SPRINKLE_MAPPINGS = {
   },
   $searchBeta: {
     link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/sample/#pipe._S_searchBeta',
-    tooltip: ''
+    tooltip: 'Perform a full text search.'
   },
   $skip: {
     link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/skip/#pipe._S_skip',
