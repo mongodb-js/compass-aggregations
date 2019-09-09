@@ -133,7 +133,7 @@ export const STAGE_SPRINKLE_MAPPINGS = {
     tooltip: 'Filters the document stream to allow only matching documents to pass through to subsequent stages.'
   },
   $merge: {
-    link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/match/#pipe._S_merge',
+    link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/merge/#pipe._S_merge',
     tooltip: 'Merges the resulting documents into a collection, optionally overriding existing documents.'
   },
   $out: {
@@ -157,7 +157,7 @@ export const STAGE_SPRINKLE_MAPPINGS = {
     tooltip: 'Randomly selects the specified number of documents from its input.'
   },
   $searchBeta: {
-    link: 'https://docs.mongodb.com/manual/reference/operator/aggregation/sample/#pipe._S_searchBeta',
+    link: 'https://docs.atlas.mongodb.com/reference/full-text-search/query-syntax/#pipe._S_searchBeta',
     tooltip: 'Performs a full-text search on the specified field(s).'
   },
   $skip: {
