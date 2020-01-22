@@ -26,9 +26,6 @@
     "preanalyze": "mkdir -p .ghpages && cross-env NODE_ENV=production webpack --profile --json --config ./config/webpack.prod.config.js > .ghpages/stats.json",
     "analyze": "webpack-bundle-analyzer .ghpages/stats.json --no-open  --report .ghpages/report.html --mode static --bundleDir lib"
   },
-  "precommit": [
-    "check"
-  ],
   "license": "Apache-2.0",
   "dependency-check": {
     "ignore": [
@@ -56,7 +53,7 @@
     "mongodb-ace-autocompleter": "^0.3.3",
     "mongodb-ace-mode": "^0.4.0",
     "mongodb-ace-theme": "^0.0.1",
-    "mongodb-data-service": "^15.2.0",
+    "mongodb-data-service": "^16.0.0",
     "mongodb-js-metrics": "^4.2.0",
     "mongodb-query-parser": "^1.4.1",
     "prop-types": "^15.7.2",
@@ -135,7 +132,7 @@
     "mongodb-ace-mode": "^0.4.1",
     "mongodb-ace-theme": "^0.0.1",
     "mongodb-connection-model": "^14.2.5",
-    "mongodb-data-service": "^15.2.0",
+    "mongodb-data-service": "^16.0.0",
     "mongodb-js-metrics": "^4.2.0",
     "mongodb-js-precommit": "^2.0.0",
     "mongodb-query-parser": "^1.4.1",
