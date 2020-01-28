@@ -43,7 +43,7 @@
   },
   "peerDependencies": {
     "@hot-loader/react-dom": "^16.8.4",
-    "@mongodb-js/compass-crud": "^6.2.4",
+    "@mongodb-js/compass-crud": "^8.3.0",
     "@mongodb-js/compass-field-store": "^4.0.4",
     "@mongodb-js/compass-export-to-language": "^6.0.3",
     "bson-transpilers": "^0.13.3",
@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@hot-loader/react-dom": "^16.8.4",
-    "@mongodb-js/compass-crud": "^6.2.4",
+    "@mongodb-js/compass-crud": "^8.3.0",
     "@mongodb-js/compass-export-to-language": "^6.0.3",
     "@mongodb-js/compass-field-store": "^4.0.4",
     "@storybook/addon-actions": "^5.0.3",
