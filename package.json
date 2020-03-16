@@ -48,6 +48,7 @@
     "bson-transpilers": "^0.13.3",
     "hadron-react-buttons": "^3.1.0",
     "hadron-react-components": "^3.2.1",
+    "electron": "*",
     "mongodb-ace-autocompleter": "*",
     "mongodb-ace-mode": "*",
     "mongodb-ace-theme": "*",
