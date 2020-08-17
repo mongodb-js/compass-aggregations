@@ -153,7 +153,7 @@ describe('StagePreviewToolbar [Component]', () => {
 
       it('renders the $out stage text', () => {
         expect(component.find(`.${styles['stage-preview-toolbar']}`)).
-          to.have.text('Unable to parse the location for the out stage.');
+          to.have.text('Unable to parse the destination for the out stage.');
       });
     });
 

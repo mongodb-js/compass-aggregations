@@ -62,7 +62,7 @@ class StagePreviewToolbar extends PureComponent {
       // The validity check may not have been run yet, in which
       // case certain inputs like """ may cause decommenting to error.
       // https://jira.mongodb.org/browse/COMPASS-4368
-      return 'Unable to parse the location for the out stage.';
+      return 'Unable to parse the destination for the out stage.';
     }
   }
 
