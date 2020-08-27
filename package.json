@@ -71,7 +71,7 @@
     "@mongodb-js/compass-export-to-language": "^6.0.3",
     "@mongodb-js/compass-field-store": "^6.0.0",
     "@storybook/addon-actions": "^5.0.3",
-    "@storybook/addon-knobs": "^5.0.3",
+    "@storybook/addon-knobs": "^6.0.19",
     "@storybook/addon-links": "^5.0.3",
     "@storybook/addon-options": "^5.0.3",
     "@storybook/react": "^5.0.3",
