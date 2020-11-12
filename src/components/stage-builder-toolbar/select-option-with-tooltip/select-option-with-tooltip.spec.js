@@ -24,10 +24,10 @@ describe('SelectOptionWithTooltip [Component]', () => {
   });
 
   it('renders the tooltip', () => {
-    expect(component.find(Option)).to.be.present();
+    expect(component.find(Tooltip)).to.be.present();
   });
 
   it('renders the react-select-plus option', () => {
-    expect(component.find(Tooltip)).to.be.present();
+    expect(component.find(Option)).to.be.present();
   });
 });
