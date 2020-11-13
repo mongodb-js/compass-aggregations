@@ -3,6 +3,8 @@ const path = require('path');
 const https = require('https');
 const fs = require('fs');
 const stream = require('stream');
+const util = require('util');
+
 const pipeline = util.promisify(stream.pipeline);
 
 const download = (url, destDir) => {
