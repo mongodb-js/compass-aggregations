@@ -63,7 +63,7 @@
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
     "react-dom": "^16.8.0",
-    "react-ace": "^6.4.0",
+    "react-ace": "^8.1.0",
     "react-bootstrap": "^0.32.4"
   },
   "devDependencies": {
@@ -151,7 +151,7 @@
     "pre-commit": "^1.2.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.0",
-    "react-ace": "^6.4.0",
+    "react-ace": "^8.1.0",
     "react-dom": "^16.8.0",
     "react-hot-loader": "^4.8.0",
     "resolve": "^1.10.0",
