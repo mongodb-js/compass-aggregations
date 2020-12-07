@@ -2,10 +2,12 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { Modal } from 'react-bootstrap';
+import 'ace-builds';
+import 'ace-builds/webpack-resolver';
 import AceEditor from 'react-ace';
+import 'ace-builds/src-noconflict/ext-language_tools';
 import { TextButton } from 'hadron-react-buttons';
 
-import 'brace/ext/language_tools';
 import 'mongodb-ace-mode';
 import 'mongodb-ace-theme';
 

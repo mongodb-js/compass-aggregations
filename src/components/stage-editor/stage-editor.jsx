@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import 'ace-builds';
+import 'ace-builds/webpack-resolver';
 import AceEditor from 'react-ace';
-import ace from 'brace';
+import 'ace-builds/src-noconflict/ext-language_tools';
 import classnames from 'classnames';
 import debounce from 'lodash.debounce';
 import { StageAutoCompleter } from 'mongodb-ace-autocompleter';
 
 import styles from './stage-editor.less';
 
-import 'brace/ext/language_tools';
 import 'mongodb-ace-mode';
 import 'mongodb-ace-theme';
 
