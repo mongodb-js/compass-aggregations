@@ -11,6 +11,11 @@ function makeDragSource(component) {
         index: props.index,
         stageOperator: props.stageOperator
       };
+    },
+    canDrag: () => {
+      console.log('can drag', window.isResizingStage);
+      return false;
+      // return !window.isResizingStage;
     }
   };
 

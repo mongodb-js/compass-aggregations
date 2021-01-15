@@ -1,14 +1,19 @@
 @import (reference) "~less/compass/_theme.less";
 
+.stage-editor-container {
+  position: relative;
+  padding: 10px 18px 10px 18px;
+}
+
 .stage-editor {
   flex-shrink: 0;
-  position: relative;
-  margin: 10px 18px 10px 18px;
+  margin: 0;
   padding: 10px 0px 10px 0px;
   overflow: hidden;
   background: @gray8;
   border-left: 2px solid @gray10;
-  width: 350px;
+  // width: 350px;
+  width: 100%;
   min-height: 180px;
 
   &-errormsg {
@@ -21,7 +26,8 @@
     background: @redLight3;
     border: 1px solid @redLight2;
     min-height: 20px;
-    width: 350px;
+    // width: 350px;
+    width: 100%;
     word-break: break-all;
     color: @redDark2;
     font-size: x-small;
@@ -38,7 +44,8 @@
     background: @yellowLight3;
     border: 1px solid @yellowLight2;
     min-height: 20px;
-    width: 350px;
+    // width: 350px;
+    width: 100%;
     word-break: break-all;
     color: @yellowDark2;
     font-size: x-small;

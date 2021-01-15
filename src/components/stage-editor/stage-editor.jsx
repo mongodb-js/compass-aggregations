@@ -204,7 +204,7 @@ class StageEditor extends Component {
    */
   render() {
     return (
-      <div>
+      <div className={classnames(styles['stage-editor-container'])}>
         <div className={classnames(styles['stage-editor'])}>
           <AceEditor
             mode="mongodb"

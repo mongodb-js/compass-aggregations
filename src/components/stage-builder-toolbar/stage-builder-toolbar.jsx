@@ -18,6 +18,7 @@ class StageBuilderToolbar extends PureComponent {
   static propTypes = {
     allowWrites: PropTypes.bool.isRequired,
     env: PropTypes.string.isRequired,
+    error: PropTypes.string,
     isExpanded: PropTypes.bool.isRequired,
     isEnabled: PropTypes.bool.isRequired,
     stageOperator: PropTypes.string,
@@ -41,7 +42,9 @@ class StageBuilderToolbar extends PureComponent {
    */
   render() {
     return (
-      <div className={classnames(styles['stage-builder-toolbar'])}>
+      <div className={classnames(styles['stage-builder-toolbar'], {
+        [styles['stage-builder-toolbar-errored']]: this.props.error
+      })}>
         <StageGrabber />
         <StageCollapser
           isExpanded={this.props.isExpanded}
