@@ -9,7 +9,7 @@ import { generateStage } from 'modules/stage';
 /**
  * State `null` when there is no error, or string if there's an error.
  */
-export const INITIAL_STATE = 'error: unable to update view because';
+export const INITIAL_STATE = null;
 
 // Action for when an error occurs when updating a view.
 export const ERROR_UPDATING_VIEW = 'aggregations/update-view/ERROR_UPDATING_VIEW';
