@@ -82,7 +82,8 @@ export const updateView = () => {
             { numStages: viewPipeline.length }
           )
         );
-        const metadata = { namespace: viewNamespace,
+        const metadata = {
+          namespace: viewNamespace,
           isReadonly: true,
           sourceName: state.namespace,
           editViewName: null,
