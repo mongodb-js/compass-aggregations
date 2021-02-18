@@ -1,3 +1,4 @@
+import classnames from 'classnames';
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import styles from './splitter.less';
@@ -9,11 +10,13 @@ class Splitter extends PureComponent {
   static displayName = 'SplitterComponent';
 
   static propTypes = {
-    isCollationExpanded: PropTypes.bool
+    isCollationExpanded: PropTypes.bool,
+    isEditingView: PropTypes.bool
   };
 
   static defaultProps = {
-    isCollationExpanded: false
+    isCollationExpanded: false,
+    isEditingView: false
   };
 
   /**
@@ -22,15 +25,14 @@ class Splitter extends PureComponent {
    * @returns {Component} The component.
    */
   render() {
-    if (this.props.isCollationExpanded) {
-      return (
-        <div
-          key="splitter"
-          className={styles['splitter-expanded']}
-        />
-      );
-    }
-    return <div key="splitter" className={styles.splitter} />;
+    return (
+      <div
+        className={classnames(styles.splitter, {
+          [styles['splitter-editing-view']]: this.props.isEditingView,
+          [styles['splitter-editing-collation']]: this.props.isCollationExpanded
+        })}
+      />
+    );
   }
 }
 

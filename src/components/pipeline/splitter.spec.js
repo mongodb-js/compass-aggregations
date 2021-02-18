@@ -14,9 +14,15 @@ describe('Splitter [Component]', () => {
   it('renders the wrapper div', () => {
     component = mount(<Splitter />);
     expect(component.find(`.${styles.splitter}`)).to.be.present();
+    expect(component.find(`.${styles['splitter-editing-view']}`)).to.not.be.present();
+    expect(component.find(`.${styles['splitter-editing-collation']}`)).to.not.be.present();
   });
-  it('renders as expanded', () => {
+  it('renders editing-collation', () => {
     component = mount(<Splitter isCollationExpanded />);
-    expect(component.find(`.${styles['splitter-expanded']}`)).to.be.present();
+    expect(component.find(`.${styles['splitter-editing-collation']}`)).to.be.present();
+  });
+  it('renders view-collation', () => {
+    component = mount(<Splitter isEditingView />);
+    expect(component.find(`.${styles['splitter-editing-view']}`)).to.be.present();
   });
 });

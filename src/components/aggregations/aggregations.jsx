@@ -25,8 +25,7 @@ import {
   deletePipeline,
   newPipeline,
   clonePipeline,
-  openCreateView,
-  updateView
+  openCreateView
 } from 'modules';
 import {
   runStage,
@@ -81,6 +80,10 @@ import {
   savingPipelineOpen
 } from 'modules/saving-pipeline';
 import { projectionsChanged } from 'modules/projections';
+import {
+  dismissViewError,
+  updateView
+} from 'modules/update-view';
 
 import styles from './aggregations.less';
 
@@ -144,7 +147,8 @@ const mapStateToProps = (state) => ({
   projections: state.projections,
   editViewName: state.editViewName,
   isNewPipelineConfirm: state.isNewPipelineConfirm,
-  setIsNewPipelineConfirm: state.setIsNewPipelineConfirm
+  setIsNewPipelineConfirm: state.setIsNewPipelineConfirm,
+  updateViewError: state.updateViewError
 });
 
 /**
@@ -214,7 +218,8 @@ const MappedAggregations = connect(
     newPipelineFromPaste,
     updateView,
     openCreateView,
-    setIsNewPipelineConfirm
+    setIsNewPipelineConfirm,
+    dismissViewError
   }
 )(Aggregations);
 
