@@ -11,8 +11,6 @@ import SavePipeline from 'components/save-pipeline';
 import Settings from 'components/settings';
 import PipelineToolbar from 'components/pipeline-toolbar';
 import CollationToolbar from './collation-toolbar';
-import Splitter from './splitter';
-import ModifySourceBanner from 'components/modify-source-banner';
 import RestorePipelineModal from './modals/restore-pipeline-modal';
 import ImportPipeline from './modals/import-pipeline';
 import ConfirmImportPipeline from './modals/confirm-import-pipeline';
@@ -144,12 +142,6 @@ class Pipeline extends PureComponent {
       );
     }
     return null;
-  }
-
-  renderModifyingViewSourceBanner() {
-    if (this.props.editViewName) {
-      return (<ModifySourceBanner editViewName={this.props.editViewName} />);
-    }
   }
 
   renderModifyingViewSourceError() {
@@ -285,11 +277,6 @@ class Pipeline extends PureComponent {
           setIsNewPipelineConfirm={this.props.setIsNewPipelineConfirm}
         />
         {this.renderCollationToolbar()}
-        <Splitter
-          isCollationExpanded={this.props.isCollationExpanded}
-          isEditingView={this.props.editViewName}
-        />
-        {this.renderModifyingViewSourceBanner()}
         {this.renderModifyingViewSourceError()}
         <PipelineWorkspace {...this.props} />
         {this.renderSavePipeline()}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import classnames from 'classnames';
 import Pipeline from 'components/pipeline';
 import { namespaceChanged } from 'modules/namespace';
 import { nameChanged } from 'modules/name';
@@ -100,7 +99,7 @@ class Aggregations extends Component {
    */
   render() {
     return (
-      <div className={classnames(styles.aggregations)}>
+      <div className={styles.aggregations}>
         <Pipeline {...this.props} />
       </div>
     );
