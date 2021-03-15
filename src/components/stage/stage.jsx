@@ -1,6 +1,4 @@
-/* eslint no-unused-vars: 0 */
 import React, { Component } from 'react';
-// import { findDOMNode } from 'react-dom';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import StageEditorToolbar from 'components/stage-editor-toolbar';
@@ -130,7 +128,6 @@ class Stage extends Component {
           right: <ResizeHandle />,
         }}
       >
-        {/* <> */}
         <StageEditorToolbar
           allowWrites={this.props.allowWrites}
           connectDragSource={this.props.connectDragSource}
@@ -171,7 +168,6 @@ class Stage extends Component {
             newPipelineFromPaste={this.props.newPipelineFromPaste}
           />
         )}
-        {/* </> */}
       </Resizable>
     );
   }
