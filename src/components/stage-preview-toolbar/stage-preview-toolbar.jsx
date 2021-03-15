@@ -134,7 +134,7 @@ class StagePreviewToolbar extends PureComponent {
   render() {
     return (
       <div className={classnames(styles['stage-preview-toolbar'], {
-        [styles['stage-builder-toolbar-errored']]: this.props.error
+        [styles['stage-preview-toolbar-errored']]: this.props.error
       })}>
         {this.getText()}
       </div>

@@ -12,9 +12,12 @@ function makeDragSource(component) {
         stageOperator: props.stageOperator
       };
     },
-    canDrag: () => {
+    canDrag: (props, monitor) => {
       console.log('can drag', window.isResizingStage);
+      console.log('props', props);
+      console.log('monitor', monitor);
       return false;
+      // return true;
       // return !window.isResizingStage;
     }
   };

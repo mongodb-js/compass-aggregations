@@ -1,21 +1,58 @@
 @import (reference) "~less/compass/_theme.less";
 
-.stage {
+.stage-container {
+  margin: 0px 9px 0px;
+  padding-bottom: 15px;
+  border-left: 2px solid @gray6;// #89979B;
   position: relative;
-  margin: 0px 15px 15px;
-  border: 1px solid @gray6;
-  border-radius: 4px;
-  box-shadow: 1px 1px 1px @gray6;
-  background: @pw;
 
-  display: flex;
-  flex-direction: row;
+  &:before {
+    position: absolute;
+    // left: -8px;
+    left: -2px;
+    top: 10px;
+    content: '';
+    width: 4px;
+    height: 16px;
+    background-color: @gray8;
+  }
+  &:after {
+    position: absolute;
+    left: -6px;
+    top: 12px;
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid @gray6;// #89979B;
+  }
 
-  &-errored {
-    border: 1px solid @redBase;
+  &-is-first {
+    &:before {
+      position: absolute;
+      left: -2px;
+      top: 0px;
+      content: '';
+      width: 4px;
+      height: 26px;
+      background-color: @gray8;
+    }
+  }
+
+  .stage {
+    position: relative;
+    margin: 0px 9px 0px;
+    border: 1px solid @gray6;
     border-radius: 4px;
-    margin: 0px 15px 15px;
+    box-shadow: 1px 1px 1px @gray6;
     background: @pw;
+
+    display: flex;
+    flex-direction: row;
+
+    &-errored {
+      border-color: @redBase;
+    }
   }
 }
 
