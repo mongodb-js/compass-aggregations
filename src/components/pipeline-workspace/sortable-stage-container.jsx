@@ -11,9 +11,6 @@ function makeDragSource(component) {
         index: props.index,
         stageOperator: props.stageOperator
       };
-    },
-    canDrag: () => {
-      return true;
     }
   };
 

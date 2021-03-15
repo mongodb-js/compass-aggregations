@@ -37,11 +37,4 @@ class SortableStageList extends Component {
   }
 }
 
-//   {this.props.renderItem(
-//     item,
-//     i,
-
-//   )}
-// </SortableStageContainer>);
-
 export default SortableStageList;
