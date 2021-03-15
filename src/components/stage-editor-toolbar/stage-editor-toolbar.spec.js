@@ -35,6 +35,7 @@ describe('StageEditorToolbar [Component]', () => {
       <StageEditorToolbar
         stage=""
         env="atlas"
+        connectDragSource={(reactNode) => reactNode}
         isEnabled
         isExpanded
         allowWrites
@@ -48,7 +49,8 @@ describe('StageEditorToolbar [Component]', () => {
         openLink={openLinkSpy}
         isCommenting
         stageAddedAfter={stageAddedAfterSpy}
-        stageDeleted={stageDeletedSpy} />
+        stageDeleted={stageDeletedSpy}
+      />
     );
   });
 

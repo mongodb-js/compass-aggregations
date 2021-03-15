@@ -12,13 +12,8 @@ function makeDragSource(component) {
         stageOperator: props.stageOperator
       };
     },
-    canDrag: (props, monitor) => {
-      console.log('can drag', window.isResizingStage);
-      console.log('props', props);
-      console.log('monitor', monitor);
-      return false;
-      // return true;
-      // return !window.isResizingStage;
+    canDrag: () => {
+      return true;
     }
   };
 
@@ -79,8 +74,10 @@ class SortableStageContainer extends Component {
     connectDragPreview: PropTypes.func.isRequired,
     isOver: PropTypes.bool.isRequired,
     isDragging: PropTypes.bool.isRequired,
-    children: PropTypes.node.isRequired,
-    onMove: PropTypes.func.isRequired
+    index: PropTypes.number.isRequired,
+    item: PropTypes.object.isRequired,
+    onMove: PropTypes.func.isRequired,
+    renderItem: PropTypes.func.isRequired
   };
 
   componentDidMount() {
@@ -97,13 +94,17 @@ class SortableStageContainer extends Component {
   }
 
   render() {
-    const connectDragSource = this.props.connectDragSource;
     const connectDropTarget = this.props.connectDropTarget;
 
-    return connectDragSource(
-      connectDropTarget(
-        <div>{this.props.children}</div>
-      ));
+    return connectDropTarget(
+      <div>
+        {this.props.renderItem(
+          this.props.item,
+          this.props.index,
+          this.props.connectDragSource
+        )}
+      </div>
+    );
   }
 }
 

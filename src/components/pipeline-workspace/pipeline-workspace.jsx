@@ -58,9 +58,10 @@ class PipelineWorkspace extends PureComponent {
     }
   }
 
-  renderStage = (stage, i) => {
+  renderStage = (stage, i, connectDragSource) => {
     return (<Stage
       allowWrites={this.props.allowWrites}
+      connectDragSource={connectDragSource}
       env={this.props.env}
       stage={stage.stage}
       stageOperator={stage.stageOperator}

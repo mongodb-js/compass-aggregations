@@ -42,6 +42,7 @@ class Stage extends Component {
   static propTypes = {
     allowWrites: PropTypes.bool.isRequired,
     env: PropTypes.string.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
     stage: PropTypes.string.isRequired,
     stageOperator: PropTypes.string,
     snippet: PropTypes.string,
@@ -118,13 +119,9 @@ class Stage extends Component {
       <Resizable
         className={styles['stage-editor']}
         defaultSize={{
-          width: '385px',
+          width: '388px',
           height: 'auto'
         }}
-        id="aaaa"
-        // id="content"
-        // minHeight={defaultShellHeightClosed}
-        // maxHeight={800}
         minWidth="260px"
         maxWidth="92%"
         enable={resizeableDirections}
@@ -136,6 +133,7 @@ class Stage extends Component {
         {/* <> */}
         <StageEditorToolbar
           allowWrites={this.props.allowWrites}
+          connectDragSource={this.props.connectDragSource}
           env={this.props.env}
           isExpanded={this.props.isExpanded}
           isEnabled={this.props.isEnabled}

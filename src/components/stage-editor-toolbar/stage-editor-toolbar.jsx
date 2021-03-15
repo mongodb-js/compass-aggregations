@@ -17,6 +17,7 @@ class StageEditorToolbar extends PureComponent {
   static displayName = 'StageEditorToolbar';
   static propTypes = {
     allowWrites: PropTypes.bool.isRequired,
+    connectDragSource: PropTypes.func.isRequired,
     env: PropTypes.string.isRequired,
     error: PropTypes.string,
     isExpanded: PropTypes.bool.isRequired,
@@ -41,7 +42,9 @@ class StageEditorToolbar extends PureComponent {
    * @returns {React.Component} The component.
    */
   render() {
-    return (
+    const { connectDragSource } = this.props;
+
+    return connectDragSource(
       <div className={classnames(styles['stage-editor-toolbar'], {
         [styles['stage-editor-toolbar-errored']]: this.props.error
       })}>
