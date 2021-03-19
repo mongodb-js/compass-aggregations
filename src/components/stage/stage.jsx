@@ -124,6 +124,7 @@ class Stage extends Component {
         maxWidth="92%"
         enable={resizeableDirections}
         ref={c => { this.resizableRef = c; }}
+        handleWrapperClass={styles['stage-resize-handle-wrapper']}
         handleComponent={{
           right: <ResizeHandle />,
         }}
