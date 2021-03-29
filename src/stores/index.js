@@ -1,5 +1,4 @@
 import configureStore, {
-  refreshInput,
   setDataProvider,
   setNamespace,
   setServerVersion,
@@ -8,12 +7,10 @@ import configureStore, {
   setLocalAppRegistry,
   setIsAtlas,
   setAllowWrites,
-  setOutResultsFn,
   setViewSource
 } from './store';
 export default configureStore;
 export {
-  refreshInput,
   setDataProvider,
   setNamespace,
   setServerVersion,
@@ -22,6 +19,5 @@ export {
   setLocalAppRegistry,
   setIsAtlas,
   setAllowWrites,
-  setOutResultsFn,
   setViewSource
 };

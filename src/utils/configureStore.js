@@ -6,7 +6,7 @@ import {
 
 import reduxThunk from 'redux-thunk';
 
-import rootReducer from 'modules';
+import rootReducer from '../modules';
 
 let composeEnhancers = compose;
 

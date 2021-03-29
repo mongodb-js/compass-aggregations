@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import app from 'hadron-app';
 import AppRegistry from 'hadron-app-registry';
 import { AppContainer } from 'react-hot-loader';
-import AggregationsPlugin, { activate, CreateViewPlugin, DuplicateViewPlugin } from 'plugin';
-import configureStore, { setDataProvider, setNamespace } from 'stores';
-import configureCreateViewStore from 'stores/create-view';
-import ExportToLanguagePlugin, {
-  configureStore as configureExportToLangStore
-} from '@mongodb-js/compass-export-to-language';
+// // Data service initialization and connection.
+import Connection from 'mongodb-connection-model';
+import DataService from 'mongodb-data-service';
+
+import AggregationsPlugin, { activate } from '../../src';
+import configureStore, { setDataProvider, setNamespace } from '../../src/stores';
+// import configureCreateViewStore from 'stores/create-view';
+// import ExportToLanguagePlugin, {
+//   configureStore as configureExportToLangStore
+// } from '@mongodb-js/compass-export-to-language';
 
 // Import global less file. Note: these styles WILL NOT be used in compass, as compass provides its own set
 // of global styles. If you are wishing to style a given component, you should be writing a less file per
@@ -31,37 +35,25 @@ root.style = 'height: 100vh';
 root.id = 'root';
 document.body.appendChild(root);
 
-// // Data service initialization and connection.
-import Connection from 'mongodb-connection-model';
-import DataService from 'mongodb-data-service';
-
 const localAppRegistry = new AppRegistry();
 const store = configureStore({
   localAppRegistry: localAppRegistry,
   globalAppRegistry: appRegistry,
   serverVersion: '4.4.0',
   env: 'adl',
-  fields: [
-    { name: 'harry',
-      value: 'harry',
-      score: 1,
-      meta: 'field',
-      version: '0.0.0' },
-    { name: 'potter',
-      value: 'potter',
-      score: 1,
-      meta: 'field',
-      version: '0.0.0' }
-  ]
-});
-
-const exportToLangStore = configureExportToLangStore({
-  localAppRegistry: localAppRegistry
-});
-
-const createViewStore = configureCreateViewStore({
-  localAppRegistry: localAppRegistry,
-  globalAppRegistry: appRegistry
+  fields: [{
+    name: 'harry',
+    value: 'harry',
+    score: 1,
+    meta: 'field',
+    version: '0.0.0'
+  }, {
+    name: 'potter',
+    value: 'potter',
+    score: 1,
+    meta: 'field',
+    version: '0.0.0'
+  }]
 });
 
 const connection = new Connection({
@@ -74,7 +66,6 @@ const dataService = new DataService(connection);
 dataService.connect((error, ds) => {
   appRegistry.emit('data-service-connected', error, ds);
   setDataProvider(store, error, ds);
-  setDataProvider(createViewStore, error, ds);
   setNamespace(store, 'echo.bands');
   // setViewSource(store, 'citibike.tripsOfShortDuration', [{ $match: { gender: 1 }}]);
 });
@@ -85,9 +76,9 @@ const render = Component => {
     <AppContainer>
       <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
         <Component store={store} />
-        <CreateViewPlugin store={createViewStore} />
-        <DuplicateViewPlugin />
-        <ExportToLanguagePlugin store={exportToLangStore} />
+        {/* <CreateViewPlugin store={createViewStore} /> */}
+        {/* <DuplicateViewPlugin /> */}
+        {/* <ExportToLanguagePlugin store={exportToLangStore} /> */}
       </div>
     </AppContainer>,
     document.getElementById('root')
