@@ -77,7 +77,6 @@ const doNamespaceChanged = (state, action) => {
   const newState = {
     ...INITIAL_STATE,
     env: state.env,
-    sourceName: state.sourceName,
     isAtlasDeployed: state.isAtlasDeployed,
     allowWrites: state.allowWrites,
     serverVersion: state.serverVersion,
