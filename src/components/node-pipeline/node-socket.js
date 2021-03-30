@@ -3,10 +3,18 @@ const defaultBackground = 'white';
 // 'rgba(220, 240, 240, 0.3)';
 const defaultHoverBorder = 'purple';
 const defaultBorder = 'black';
-const defaultSocketSize = 5;
-const defaultHoveredSize = 6;
+const defaultSocketSize = 8;
+const defaultHoveredSize = defaultSocketSize + 3;
+const textPadding = defaultSocketSize / 2;
 
 const textStyle = 'black';
+
+const UNSET_TITLE = 'UNSET_TITLE';
+
+export const SOCKET_TYPES = {
+  INPUT: 'INPUT',
+  OUTPUT: 'OUTPUT'
+};
 
 function getDistanceBetweenPoints(
   x2, y2, x1, y1
@@ -20,15 +28,20 @@ function getDistanceBetweenPoints(
 export default class Socket {
   constructor({
     id,
-    title = null,
+    title = UNSET_TITLE,
     x,
     y,
     radius = defaultSocketSize,
     hoveredRadius = defaultHoveredSize,
     background = defaultBackground,
-    border = defaultBorder
+    border = defaultBorder,
+    attachedFieldId = null,
+    type
   }) {
     this.title = title;
+    if (title === UNSET_TITLE) {
+      this.title = 'Click and drag to connect to another stage';
+    }
     this.x = x;
     this.y = y;
 
@@ -39,6 +52,9 @@ export default class Socket {
 
     this.radius = radius;
     this.hoveredRadius = hoveredRadius;
+
+    this.attachedFieldId = attachedFieldId;
+    this.type = type;
   }
 
   moveSocket(dx, dy) {
@@ -72,7 +88,7 @@ export default class Socket {
       // Show a hover tooltip.
       ctx.fillStyle = textStyle;
       ctx.textAlign = 'center';
-      ctx.fillText(this.title, this.x + (this.width / 2), this.y - radius);
+      ctx.fillText(this.title, this.x, this.y - (radius + textPadding));
     }
   }
 }
