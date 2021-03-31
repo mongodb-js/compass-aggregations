@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
+import { MOUSE_TARGET_TYPES } from './mouse-target-types';
 
-import Socket, { SOCKET_TYPES } from './node-socket';
+import Socket, { SOCKET_TYPES } from './socket';
 
 const defaultBackground = 'rgba(240, 240, 240, 0.5)';
 const defaultHoverBorder = 'purple';
@@ -121,8 +122,27 @@ export default class Node {
     );
   }
 
+  socketsContainPoint(x, y) {
+    const maxNodeBoundary = 40;
+    if ((
+      this.x - maxNodeBoundary > x || this.x + this.width + maxNodeBoundary < x
+    ) || (
+      this.y - maxNodeBoundary > y || this.y + this.height + maxNodeBoundary < y
+    )) {
+      // Basic bound check before looking at nodes.
+      return false;
+    }
+
+    for (const socket of Object.values(this.sockets)) {
+      if (socket.containsPoint(x, y)) {
+        return socket;
+      }
+    }
+  }
+
   render({
     ctx,
+    mouseTarget,
     mouseX,
     mouseY
   }) {
@@ -130,6 +150,9 @@ export default class Node {
 
     ctx.fillStyle = this.background;
     ctx.strokeStyle = isHovered ? defaultHoverBorder : this.border;
+    if (mouseTarget && mouseTarget.type === MOUSE_TARGET_TYPES.NODE && mouseTarget.id === this.id) {
+      ctx.strokeStyle = 'cyan';
+    }
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.strokeRect(this.x, this.y, this.width, this.height);
 
@@ -140,20 +163,23 @@ export default class Node {
     this.renderSockets({
       ctx,
       mouseX,
-      mouseY
+      mouseY,
+      mouseTarget
     });
   }
 
   renderSockets({
     ctx,
     mouseX,
-    mouseY
+    mouseY,
+    mouseTarget
   }) {
     for (const socket of Object.values(this.sockets)) {
       socket.render({
         ctx,
         mouseX,
-        mouseY
+        mouseY,
+        mouseTarget
       });
     }
   }

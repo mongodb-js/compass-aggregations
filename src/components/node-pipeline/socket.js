@@ -1,9 +1,12 @@
+import { MOUSE_TARGET_TYPES } from './mouse-target-types';
 
 const defaultBackground = 'white';
 // 'rgba(220, 240, 240, 0.3)';
 const defaultHoverBorder = 'purple';
+const defaultConnectedBackground = 'green';
 const defaultBorder = 'black';
 const defaultSocketSize = 8;
+const defaultConnectedSocketSize = defaultSocketSize * (6 / 8);
 const defaultHoveredSize = defaultSocketSize + 3;
 const textPadding = defaultSocketSize / 2;
 
@@ -33,10 +36,12 @@ export default class Socket {
     y,
     radius = defaultSocketSize,
     hoveredRadius = defaultHoveredSize,
+    connectedRadius = defaultConnectedSocketSize,
     background = defaultBackground,
+    connectedBackground = defaultConnectedBackground,
     border = defaultBorder,
     attachedFieldId = null,
-    type
+    type // SOCKET_TYPES
   }) {
     this.title = title;
     if (title === UNSET_TITLE) {
@@ -49,12 +54,16 @@ export default class Socket {
 
     this.background = background;
     this.border = border;
+    this.connectedBackground = connectedBackground;
 
     this.radius = radius;
     this.hoveredRadius = hoveredRadius;
+    this.connectedRadius = connectedRadius;
 
     this.attachedFieldId = attachedFieldId;
-    this.type = type;
+    this.type = type; // SOCKET_TYPES
+
+    this.isConnected = false;
   }
 
   moveSocket(dx, dy) {
@@ -70,6 +79,7 @@ export default class Socket {
 
   render({
     ctx,
+    mouseTarget,
     mouseX,
     mouseY
   }) {
@@ -89,6 +99,17 @@ export default class Socket {
       ctx.fillStyle = textStyle;
       ctx.textAlign = 'center';
       ctx.fillText(this.title, this.x, this.y - (radius + textPadding));
+    }
+
+    if (this.isConnected || (
+      mouseTarget
+      && mouseTarget.type === MOUSE_TARGET_TYPES.SOCKET
+      && mouseTarget.id === this.id
+    )) {
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.connectedRadius, 0, 2 * Math.PI, false);
+      ctx.fillStyle = this.connectedBackground;
+      ctx.fill();
     }
   }
 }

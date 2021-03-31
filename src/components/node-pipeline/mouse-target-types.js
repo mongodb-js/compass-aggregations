@@ -1,0 +1,6 @@
+
+export const MOUSE_TARGET_TYPES = {
+  NODE: 'NODE',
+  SOCKET: 'SOCKET',
+  CONNECTOR: 'CONNECTOR'
+};

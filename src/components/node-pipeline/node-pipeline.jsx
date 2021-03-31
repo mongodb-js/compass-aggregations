@@ -6,6 +6,10 @@ import { BasicStageNode, DataSourceNode } from './node';
 import Viewport from './viewport';
 
 import styles from './node-pipeline.less';
+import { MOUSE_TARGET_TYPES } from './mouse-target-types';
+import Connector from './connector';
+import { SOCKET_TYPES } from './socket';
+// import { SOCKET_TYPES } from './socket';
 
 const defaultCanvasSize = 500;
 
@@ -42,9 +46,16 @@ class NodePipeline extends Component {
   mouseY = 0;
   mouseDragStartX = 0;
   mouseDragStartY = 0;
-  mouseTargetId = null;
+  mouseDragOriginalStartX = 0;
+  mouseDragOriginalStartY = 0;
+
+  mouseTarget = {
+    type: null, // MOUSE_TARGET_TYPES
+    id: null
+  };
   mouseFocus = null;
   nodes = { };
+  connectors = { };
   viewport = new Viewport();
 
   componentDidMount() {
@@ -113,6 +124,149 @@ class NodePipeline extends Component {
     this.viewport.width = Math.max(this.viewport.width, canvasWidth);
     this.viewport.height = Math.max(this.viewport.height, canvasHeight);
   }
+
+  createConnectingConnector = () => {
+    const id = uuidv4();
+    const mouseTarget = this.mouseTarget;
+
+    let start;
+    let end;
+    if (this.nodes[mouseTarget.nodeId].sockets[mouseTarget.id].type === SOCKET_TYPES.INPUT) {
+      start = {
+        nodeId: mouseTarget.nodeId,
+        socketId: mouseTarget.id
+      };
+    } else {
+      end = {
+        nodeId: mouseTarget.nodeId,
+        socketId: mouseTarget.id
+      };
+    }
+
+    this.connectingConnector = new Connector({
+      id,
+      end,
+      start
+    });
+  };
+
+  // eslint-disable-next-line complexity
+  tryToConnectSockets = (
+    mouseX,
+    mouseY
+  ) => {
+    const endMouseTarget = this.findMouseTarget(
+      mouseX - this.viewport.panningX,
+      mouseY - this.viewport.panningY
+    );
+
+    if (!endMouseTarget || endMouseTarget.type !== MOUSE_TARGET_TYPES.SOCKET) {
+      // No socket trying to connect to.
+      console.log('No target to connect to.');
+      return;
+    }
+
+    if (!this.connectingConnector) {
+      // No connecting connector? This shouldn't really happen...
+      console.log('??? investigate');
+      return;
+    }
+
+    if (endMouseTarget.id === this.connectingConnector.id) {
+      // Didn't connect to different socket.
+      console.log('Not connecting, same socket.');
+      return;
+    }
+
+    if ((
+      !this.connectingConnector.start
+      || !this.nodes[this.connectingConnector.start.nodeId]
+      || !this.nodes[this.connectingConnector.start.nodeId].sockets[this.connectingConnector.start.socketId]
+    ) && (
+      !this.connectingConnector.end
+      || !this.nodes[this.connectingConnector.end.nodeId]
+      || !this.nodes[this.connectingConnector.end.nodeId].sockets[this.connectingConnector.end.socketId]
+    )) {
+      // Socket where started the dragging from no longer exists.
+      console.log('Not connecting, socket no longer exists.');
+      return;
+    }
+
+    const startNode = this.nodes[
+      this.connectingConnector.start
+        ? this.connectingConnector.start.nodeId
+        : this.connectingConnector.end.nodeId
+    ];
+    const startSocket = startNode.sockets[
+      this.connectingConnector.start
+        ? this.connectingConnector.start.socketId
+        : this.connectingConnector.end.socketId
+    ];
+
+    const endNode = this.nodes[endMouseTarget.nodeId];
+    const endSocket = endNode.sockets[endMouseTarget.id];
+
+    if (startSocket.type === endSocket.type) {
+      // Both inputs or outputs.
+      console.log('Not connecting, same socket type.');
+      return;
+    }
+
+    // If input is already connected we disconnect.
+    // TODO: Maybe we will allow multiple connections.
+    if (startSocket.isConnected) {
+      const connectedConnectorId = startSocket.connectedConnectorId;
+      startSocket.connectedConnectorId = null;
+      startSocket.isConnected = false;
+
+      delete this.connectors[connectedConnectorId];
+    }
+
+    // If output is already connected we disconnect.
+    // TODO: Maybe we will allow multiple connections.
+    if (endSocket.isConnected) {
+      const connectedConnectorId = endSocket.connectedConnectorId;
+      endSocket.connectedConnectorId = null;
+      endSocket.isConnected = false;
+
+      delete this.connectors[connectedConnectorId];
+    }
+
+    let start;
+    let end;
+    if (startSocket.type === SOCKET_TYPES.INPUT) {
+      start = {
+        socketId: startSocket.id,
+        nodeId: startNode.id
+      };
+      end = {
+        socketId: endSocket.id,
+        nodeId: endNode.id
+      };
+    } else {
+      start = {
+        socketId: endSocket.id,
+        nodeId: endNode.id
+      };
+      end = {
+        socketId: startSocket.id,
+        nodeId: startNode.id
+      };
+    }
+
+    const id = uuidv4();
+    this.connectors[id] = new Connector({
+      id,
+      start,
+      end
+    });
+
+    endSocket.isConnected = true;
+    endSocket.connectedConnectorId = id;
+    startSocket.isConnected = true;
+    startSocket.connectedConnectorId = id;
+  }
+
   // onCanvasClick = () => {
   //   console.log('on click');
   //   this.didClick = true;
@@ -154,10 +308,13 @@ class NodePipeline extends Component {
     this.mouseDragStartX = mouseX;
     this.mouseDragStartY = mouseY;
 
-    if (this.mouseTargetId) {
-      // TODO: Find what kind of id it is and handle it seperately.
-      // Nodes, connectors, groups etc.
-      this.nodes[this.mouseTargetId].dragNode(dx, dy);
+    if (this.mouseTarget) {
+      if (
+        this.mouseTarget.type === MOUSE_TARGET_TYPES.NODE
+        && this.nodes[this.mouseTarget.id]
+      ) {
+        this.nodes[this.mouseTarget.id].dragNode(dx, dy);
+      }
       return;
     }
 
@@ -194,41 +351,71 @@ class NodePipeline extends Component {
     this.mouseDragStartX = mouseX;
     this.mouseDragStartY = mouseY;
 
-    const mouseTarget = this.findMouseTarget(
+    this.mouseTarget = this.findMouseTarget(
       mouseX - this.viewport.panningX,
       mouseY - this.viewport.panningY
     );
-    if (mouseTarget) {
-      this.mouseTargetId = mouseTarget.id;
+
+    if (this.mouseTarget && this.mouseTarget.type === MOUSE_TARGET_TYPES.SOCKET) {
+      this.createConnectingConnector(this.mouseTarget);
     }
   }
-  endMouseAction = () => {
+  endMouseAction = (mouseEvent) => {
     if (this.currentCursorStyle !== MOUSE_CURSORS.GRAB) {
       this.canvasRef.style.cursor = MOUSE_CURSORS.GRAB;
       this.currentCursorStyle = MOUSE_CURSORS.GRAB;
     }
+    if (this.connectingConnector) {
+      // TODO: See if we're in a place to connect.
+      if (this.mouseTarget && this.mouseTarget.type === MOUSE_TARGET_TYPES.SOCKET) {
+        const mouseX = mouseEvent.clientX - this.canvasOffsetX;
+        const mouseY = mouseEvent.clientY - this.canvasOffsetY;
+
+        this.tryToConnectSockets(
+          mouseX,
+          mouseY
+        );
+      }
+      this.connectingConnector = null;
+    }
     this.mouseDown = false;
-    this.mouseTargetId = null;
+    this.mouseTarget = null;
   }
 
   onCanvasMouseUp = (mouseEvent) => {
     mouseEvent.preventDefault();
 
-    this.endMouseAction();
+    this.endMouseAction(mouseEvent);
 
     console.log('mouse up');
   }
   onCanvasMouseOut = (mouseEvent) => {
     mouseEvent.preventDefault();
 
-    this.endMouseAction();
+    this.endMouseAction(mouseEvent);
     console.log('mouse out');
   }
 
   findMouseTarget = (x, y) => {
     for (const node of Object.values(this.nodes)) {
+      // First check the sockets.
+      const socket = node.socketsContainPoint(x, y);
+      if (socket) {
+        return {
+          nodeId: node.id,
+          id: socket.id,
+          socketType: socket.type,
+          type: MOUSE_TARGET_TYPES.SOCKET
+        };
+      }
+
+      // TODO: We'll have to think about z indexes.
+
       if (node.containsPoint(x, y)) {
-        return node;
+        return {
+          id: node.id,
+          type: MOUSE_TARGET_TYPES.NODE
+        };
       }
     }
   }
@@ -254,10 +441,32 @@ class NodePipeline extends Component {
         ctx,
         // mouseDown: this.mouseDown,
         mouseX,
-        mouseY
+        mouseY,
+        mouseTarget: this.mouseTarget
       });
     }
 
+    for (const connector of Object.values(this.connectors)) {
+      connector.render({
+        ctx,
+        // mouseDown: this.mouseDown,
+        mouseX,
+        mouseY,
+        mouseTarget: this.mouseTarget,
+        nodes: this.nodes
+      });
+    }
+
+    if (this.connectingConnector) {
+      this.connectingConnector.render({
+        ctx,
+        // mouseDown: this.mouseDown,
+        mouseX,
+        mouseY,
+        mouseTarget: this.mouseTarget,
+        nodes: this.nodes
+      });
+    }
 
     ctx.restore();
     if (this.mounted) {
