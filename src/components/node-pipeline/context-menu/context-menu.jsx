@@ -6,14 +6,18 @@ import styles from './context-menu.less';
 
 class ContextMenu extends Component {
   static propTypes = {
+    addNodeClicked: PropTypes.func,
     contextMenuX: PropTypes.number,
-    contextMenuY: PropTypes.number
+    contextMenuY: PropTypes.number,
+    mouseTarget: PropTypes.object
   };
 
   render() {
     const {
+      addNodeClicked,
       contextMenuX,
-      contextMenuY
+      contextMenuY,
+      mouseTarget
     } = this.props;
 
     return (
@@ -24,7 +28,27 @@ class ContextMenu extends Component {
           top: contextMenuY
         }}
       >
-        Context Menu
+        <div>
+          Context Menu
+        </div>
+        {!mouseTarget && (
+          <ul
+            className={styles['context-menu-options']}
+          >
+            <li>
+              <a
+                onClick={() => { addNodeClicked('data-source'); }}
+                href="#"
+              >Data Source</a>
+            </li>
+            <li>
+              <a
+                onClick={() => { addNodeClicked('$match'); }}
+                href="#"
+              >$match</a>
+            </li>
+          </ul>
+        )}
       </div>
     );
   }

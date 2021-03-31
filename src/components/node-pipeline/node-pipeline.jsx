@@ -267,6 +267,37 @@ class NodePipeline extends Component {
     startSocket.connectedConnectorId = id;
   }
 
+  addNodeClicked = (nodeType) => {
+    const {
+      contextMenuX,
+      contextMenuY
+    } = this.state;
+
+    const id = uuidv4();
+    const ctx = this.canvasRef.getContext('2d');
+    if (nodeType === '$match') {
+      this.nodes[id] = new BasicStageNode({
+        ctx,
+        id,
+        title: '$match',
+        x: contextMenuX,
+        y: contextMenuY
+      });
+    } else if (nodeType === 'data-source') {
+      this.nodes[id] = new DataSourceNode({
+        ctx,
+        id,
+        // title: 'Da',
+        x: contextMenuX,
+        y: contextMenuY
+      });
+    }
+
+    this.setState({
+      showContextMenu: false
+    });
+  }
+
   // onCanvasClick = () => {
   //   console.log('on click');
   //   this.didClick = true;
@@ -510,8 +541,10 @@ class NodePipeline extends Component {
         </div>
         {showContextMenu && (
           <ContextMenu
+            addNodeClicked={this.addNodeClicked}
             contextMenuX={contextMenuX}
             contextMenuY={contextMenuY}
+            mouseTarget={this.mouseTarget}
           />
         )}
       </Fragment>
