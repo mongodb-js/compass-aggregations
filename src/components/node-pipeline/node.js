@@ -144,7 +144,8 @@ export default class Node {
     ctx,
     mouseTarget,
     mouseX,
-    mouseY
+    mouseY,
+    connectingNode
   }) {
     const isHovered = this.containsPoint(mouseX, mouseY);
 
@@ -164,22 +165,26 @@ export default class Node {
       ctx,
       mouseX,
       mouseY,
-      mouseTarget
+      mouseTarget,
+      connectingNode
     });
-  }
+  }s
 
   renderSockets({
     ctx,
     mouseX,
     mouseY,
-    mouseTarget
+    mouseTarget,
+    connectingNode
   }) {
     for (const socket of Object.values(this.sockets)) {
       socket.render({
         ctx,
         mouseX,
         mouseY,
-        mouseTarget
+        mouseTarget,
+        connectingNode,
+        parentNode: this
       });
     }
   }

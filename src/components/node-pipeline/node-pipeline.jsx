@@ -166,18 +166,6 @@ class NodePipeline extends Component {
       return;
     }
 
-    if (!this.connectingConnector) {
-      // No connecting connector? This shouldn't really happen...
-      console.log('??? investigate');
-      return;
-    }
-
-    if (endMouseTarget.id === this.connectingConnector.id) {
-      // Didn't connect to different socket.
-      console.log('Not connecting, same socket.');
-      return;
-    }
-
     if ((
       !this.connectingConnector.start
       || !this.nodes[this.connectingConnector.start.nodeId]
@@ -206,9 +194,7 @@ class NodePipeline extends Component {
     const endNode = this.nodes[endMouseTarget.nodeId];
     const endSocket = endNode.sockets[endMouseTarget.id];
 
-    if (startSocket.type === endSocket.type) {
-      // Both inputs or outputs.
-      console.log('Not connecting, same socket type.');
+    if (!endSocket.canConnectToSocket(startSocket)) {
       return;
     }
 
@@ -275,18 +261,19 @@ class NodePipeline extends Component {
 
     const id = uuidv4();
     const ctx = this.canvasRef.getContext('2d');
-    if (nodeType === '$match') {
-      this.nodes[id] = new BasicStageNode({
-        ctx,
-        id,
-        title: '$match',
-        x: contextMenuX,
-        y: contextMenuY
-      });
-    } else if (nodeType === 'data-source') {
+    if (nodeType === 'data-source') {
       this.nodes[id] = new DataSourceNode({
         ctx,
         id,
+        // title: '$match',
+        x: contextMenuX,
+        y: contextMenuY
+      });
+    } else {
+      this.nodes[id] = new BasicStageNode({
+        ctx,
+        id,
+        title: nodeType,
         // title: 'Da',
         x: contextMenuX,
         y: contextMenuY
@@ -468,12 +455,19 @@ class NodePipeline extends Component {
     const mouseY = this.mouseY - this.viewport.panningY;
 
     for (const node of Object.values(this.nodes)) {
+      let connectingNode;
+      if (this.connectingConnector && this.connectingConnector.start) {
+        connectingNode = this.nodes[this.connectingConnector.start.nodeId];
+      } else if (this.connectingConnector && this.connectingConnector.end) {
+        connectingNode = this.nodes[this.connectingConnector.end.nodeId];
+      }
       node.render({
         ctx,
         // mouseDown: this.mouseDown,
         mouseX,
         mouseY,
-        mouseTarget: this.mouseTarget
+        mouseTarget: this.mouseTarget,
+        connectingNode
       });
     }
 

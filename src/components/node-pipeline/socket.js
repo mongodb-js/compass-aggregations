@@ -77,11 +77,31 @@ export default class Socket {
     ) < this.hoveredRadius;
   }
 
+  canConnectToSocket(socket) {
+    if (this.id === socket.id) {
+      // Didn't connect to different socket.
+      console.log('Not connecting, same socket.');
+      return false;
+    }
+
+    if (this.type === socket.type) {
+      // Both inputs or outputs.
+      console.log('Not connecting, same socket type.');
+
+      return false;
+    }
+
+    return true;
+  }
+
+  // eslint-disable-next-line complexity
   render({
     ctx,
     mouseTarget,
     mouseX,
-    mouseY
+    mouseY,
+    connectingNode,
+    parentNode
   }) {
     const isHovered = this.containsPoint(mouseX, mouseY);
 
@@ -94,8 +114,16 @@ export default class Socket {
     ctx.strokeStyle = isHovered ? defaultHoverBorder : this.border;
     ctx.stroke();
 
-    if (isHovered && this.title) {
-      // Show a hover tooltip.
+    // Show a hover tooltip.
+    if (isHovered && connectingNode && mouseTarget && mouseTarget.type === MOUSE_TARGET_TYPES.SOCKET && this.canConnectToSocket(connectingNode)) {
+      ctx.fillStyle = textStyle;
+      ctx.textAlign = 'center';
+      ctx.fillText(
+        `Connect ${connectingNode.title} to ${parentNode.title}`,
+        this.x,
+        this.y - (radius + textPadding)
+      );
+    } else if (isHovered && this.title) {
       ctx.fillStyle = textStyle;
       ctx.textAlign = 'center';
       ctx.fillText(this.title, this.x, this.y - (radius + textPadding));

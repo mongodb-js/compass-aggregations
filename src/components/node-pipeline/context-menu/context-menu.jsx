@@ -1,6 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 // import { connect } from 'react-redux';
+import { STAGE_OPERATORS } from 'mongodb-ace-autocompleter';
+import { Tooltip } from 'hadron-react-components';
 
 import styles from './context-menu.less';
 
@@ -12,13 +14,59 @@ class ContextMenu extends Component {
     mouseTarget: PropTypes.object
   };
 
+  state = {
+    searchText: ''
+  }
+
+  renderContentMenuItem(item) {
+    const {
+      description,
+      name
+    } = item;
+
+    const { addNodeClicked } = this.props;
+
+    return (
+      <li
+        data-tip={description}
+        data-place="right"
+        data-for={`select-option-${name}`}
+        key={`stage-option-${name}`}
+      >
+        <a
+          onClick={() => { addNodeClicked(name); }}
+          href="#"
+        >{name}</a>
+
+        <Tooltip
+          className={styles.tooltip}
+          id={`select-option-${name}`}
+        />
+      </li>
+    );
+  }
+
   render() {
     const {
-      addNodeClicked,
       contextMenuX,
       contextMenuY,
       mouseTarget
     } = this.props;
+
+    const { searchText } = this.state;
+
+    // const operators = STAGE_OPERATORS.filter((o) => {
+    //   if ((o.name === OUT || o.name === MERGE) && !this.props.allowWrites) return false;
+    //   return semver.gte(this.props.serverVersion, o.version) &&
+    //     this.isSupportedEnv(o.env, this.props.env);
+    // });
+
+    const operators = STAGE_OPERATORS.filter(
+      operator => (
+        !searchText
+        || `${operator.name}`.includes(`${searchText}`.toLowerCase())
+      )
+    );
 
     return (
       <div
@@ -28,14 +76,26 @@ class ContextMenu extends Component {
           top: contextMenuY
         }}
       >
-        <div>
-          Context Menu
-        </div>
         {!mouseTarget && (
-          <ul
-            className={styles['context-menu-options']}
-          >
-            <li>
+          <Fragment>
+            <div>
+              <input
+                className={styles['context-menu-search-input']}
+                type="text"
+                onChange={e => { this.setState({ searchText: e.target.value }); }}
+                value={searchText}
+                placeholder="Search for a stage..."
+              />
+            </div>
+            <ul
+              className={styles['context-menu-options']}
+            >
+
+              {operators.map(
+                operator => this.renderContentMenuItem(operator)
+              )}
+
+              {/* <li>
               <a
                 onClick={() => { addNodeClicked('data-source'); }}
                 href="#"
@@ -46,8 +106,9 @@ class ContextMenu extends Component {
                 onClick={() => { addNodeClicked('$match'); }}
                 href="#"
               >$match</a>
-            </li>
-          </ul>
+            </li> */}
+            </ul>
+          </Fragment>
         )}
       </div>
     );
