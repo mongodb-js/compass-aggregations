@@ -33,6 +33,22 @@ export default class Connector {
   //   ) < this.hoveredRadius;
   // }
 
+  isConnectedToNode(nodeId) {
+    return (
+      (this.start && this.start.nodeId === nodeId)
+      || (this.end && this.end.nodeId === nodeId)
+    );
+  }
+
+  // removeAllReferencesToNode(nodeId) {
+  //   if (this.start && this.start.nodeId === nodeId) {
+  //     this.start = null;
+  //   }
+  //   if (this.end && this.end.nodeId === nodeId) {
+  //     this.end = null;
+  //   }
+  // }
+
   // eslint-disable-next-line complexity
   render({
     ctx,

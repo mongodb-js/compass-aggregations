@@ -10,6 +10,12 @@ const textStyle = 'black';
 const padding = 25;
 const minWidth = 100;
 
+export const NODE_TYPES = {
+  BASIC_STAGE: 'BASIC_STAGE',
+  DATA_SOURCE: 'DATA_SOURCE',
+  VARIABLE: 'VARIABLE'
+};
+
 export default class Node {
   constructor({
     ctx,
@@ -19,6 +25,7 @@ export default class Node {
     y,
     background = defaultBackground,
     border = defaultBorder,
+    type = NODE_TYPES.BASIC_STAGE
     // sockets = {},
     // socketInputs = 0,
     // socketOutputs = 0
@@ -26,7 +33,7 @@ export default class Node {
     this.title = title;
     this.x = x;
     this.y = y;
-
+    this.type = type;
     this.id = id;
 
     this.background = background;
@@ -69,6 +76,10 @@ export default class Node {
     // TODO: We could add this.calculateSocketLocations(); here.
 
     return socketId;
+  }
+
+  disconnectSocket(socketId) {
+    this.sockets[socketId].disconnect();
   }
 
   calculateSocketLocations() {
@@ -195,7 +206,8 @@ export class DataSourceNode extends Node {
   constructor(props) {
     super({
       ...props,
-      title: 'Data Source'
+      title: 'Data Source',
+      type: NODE_TYPES.DATA_SOURCE
     });
 
     this.addSocket({
@@ -207,7 +219,8 @@ export class DataSourceNode extends Node {
 export class BasicStageNode extends Node {
   constructor(props) {
     super({
-      ...props
+      ...props,
+      type: NODE_TYPES.BASIC_STAGE
     });
 
     this.addSocket({

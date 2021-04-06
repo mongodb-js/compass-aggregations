@@ -2,7 +2,9 @@ import React, { Component, Fragment } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import ContextMenu from './context-menu/context-menu';
-import { BasicStageNode, DataSourceNode } from './node';
+import CanvasContextMenu from './context-menu/canvas-context-menu';
+import NodeContextMenu from './context-menu/node-context-menu';
+import { BasicStageNode, DataSourceNode, NODE_TYPES } from './node';
 import Viewport from './viewport';
 
 import styles from './node-pipeline.less';
@@ -39,6 +41,7 @@ class NodePipeline extends Component {
   canvasContainerRef = null;
   canvasRef = null;
   currentCursorStyle = null;
+  connectingConnector = null;
   // didClick = false;
   mounted = false;
   mouseDown = false;
@@ -53,7 +56,6 @@ class NodePipeline extends Component {
     type: null, // MOUSE_TARGET_TYPES
     id: null
   };
-  mouseFocus = null;
   nodes = { };
   connectors = { };
   viewport = new Viewport();
@@ -79,8 +81,7 @@ class NodePipeline extends Component {
       ctx,
       id,
       x: 100,
-      y: 100,
-      title: 'Data Source'
+      y: 100
     });
     const id2 = uuidv4();
     this.nodes[id2] = new BasicStageNode({
@@ -254,11 +255,6 @@ class NodePipeline extends Component {
   }
 
   addNodeClicked = (nodeType) => {
-    const {
-      contextMenuX,
-      contextMenuY
-    } = this.state;
-
     const id = uuidv4();
     const ctx = this.canvasRef.getContext('2d');
     if (nodeType === 'data-source') {
@@ -266,8 +262,8 @@ class NodePipeline extends Component {
         ctx,
         id,
         // title: '$match',
-        x: contextMenuX,
-        y: contextMenuY
+        x: this.mouseX - this.viewport.panningX,
+        y: this.mouseY - this.viewport.panningY
       });
     } else {
       this.nodes[id] = new BasicStageNode({
@@ -275,15 +271,93 @@ class NodePipeline extends Component {
         id,
         title: nodeType,
         // title: 'Da',
-        x: contextMenuX,
-        y: contextMenuY
+        x: this.mouseX - this.viewport.panningX,
+        y: this.mouseY - this.viewport.panningY
       });
     }
 
+    this.resetMouse();
+  }
+
+  duplicateNodeClicked = (nodeId) => {
+    console.log('duplicateNodeClicked', nodeId);
+    if (!this.nodes[nodeId]) {
+      return;
+    }
+
+    // Clean up connections.
+    // Clean up sockets?
+    // Duplicate node.
+
+    const nodeToDuplicate = this.nodes[nodeId];
+
+    const id = uuidv4();
+
+    if (nodeToDuplicate.type === NODE_TYPES.DATA_SOURCE) {
+      this.nodes[id] = new DataSourceNode({
+        ...nodeToDuplicate,
+        ctx: this.canvasRef.getContext('2d'),
+        id,
+        x: nodeToDuplicate.x + nodeToDuplicate.width + 5
+      });
+    } else {
+      this.nodes[id] = new BasicStageNode({
+        ...nodeToDuplicate,
+        ctx: this.canvasRef.getContext('2d'),
+        id,
+        x: nodeToDuplicate.x + nodeToDuplicate.width + 5
+      });
+    }
+
+    this.resetMouse();
+  }
+
+  removeNodeClicked = (nodeId) => {
+    if (!this.nodes[nodeId]) {
+      return;
+    }
+
+    // Clean up connections.
+    const connectorsToRemove = [];
+    for (const connector of Object.values(this.connectors)) {
+      const isConnected = connector.isConnectedToNode(nodeId);
+
+      if (!isConnected) {
+        continue;
+      }
+
+      if (connector.start && connector.start.nodeId !== nodeId
+        && this.nodes[connector.start.nodeId]
+      ) {
+        this.nodes[connector.start.nodeId].disconnectSocket(connector.start.socketId);
+      } else if (connector.end && connector.end.nodeId !== nodeId
+        && this.nodes[connector.end.nodeId]
+      ) {
+        this.nodes[connector.end.nodeId].disconnectSocket(connector.end.socketId);
+      }
+
+      connectorsToRemove.push(connector.id);
+    }
+
+    connectorsToRemove.forEach(connectorIdToRemove => {
+      delete this.connectors[connectorIdToRemove];
+    });
+
+    // Delete node.
+    delete this.nodes[nodeId];
+
+    this.resetMouse();
+  }
+
+  resetMouse = () => {
+    // Reset mouse target and close any open view.
+    this.connectingConnector = null;
+    this.mouseTarget = null;
     this.setState({
       showContextMenu: false
     });
   }
+
 
   // onCanvasClick = () => {
   //   console.log('on click');
@@ -347,6 +421,14 @@ class NodePipeline extends Component {
     const mouseX = mouseEvent.clientX - this.canvasOffsetX;
     const mouseY = mouseEvent.clientY - this.canvasOffsetY;
 
+    this.mouseDragStartX = mouseX;
+    this.mouseDragStartY = mouseY;
+
+    this.mouseTarget = this.findMouseTarget(
+      mouseX - this.viewport.panningX,
+      mouseY - this.viewport.panningY
+    );
+
     if (mouseEvent.button === 2) {
       // Right click.
       // TODO: Show different context menus based on mouse target.
@@ -365,14 +447,6 @@ class NodePipeline extends Component {
     }
 
     this.mouseDown = true;
-
-    this.mouseDragStartX = mouseX;
-    this.mouseDragStartY = mouseY;
-
-    this.mouseTarget = this.findMouseTarget(
-      mouseX - this.viewport.panningX,
-      mouseY - this.viewport.panningY
-    );
 
     if (this.mouseTarget && this.mouseTarget.type === MOUSE_TARGET_TYPES.SOCKET) {
       this.createConnectingConnector(this.mouseTarget);
@@ -533,13 +607,27 @@ class NodePipeline extends Component {
             height={canvasHeight}
           />
         </div>
-        {showContextMenu && (
+        {showContextMenu
+        && (!this.mouseTarget || (this.mouseTarget && this.mouseTarget.type === MOUSE_TARGET_TYPES.NODE))
+        && (
           <ContextMenu
-            addNodeClicked={this.addNodeClicked}
             contextMenuX={contextMenuX}
             contextMenuY={contextMenuY}
-            mouseTarget={this.mouseTarget}
-          />
+          >
+            {!this.mouseTarget && (
+              <CanvasContextMenu
+                addNodeClicked={this.addNodeClicked}
+              />
+            )}
+            {this.mouseTarget && this.mouseTarget.type === MOUSE_TARGET_TYPES.NODE && (
+              <NodeContextMenu
+                nodeId={this.mouseTarget.id}
+                duplicateNodeClicked={this.duplicateNodeClicked}
+                removeNodeClicked={this.removeNodeClicked}
+              />
+            )}
+
+          </ContextMenu>
         )}
       </Fragment>
     );

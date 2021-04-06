@@ -71,6 +71,10 @@ export default class Socket {
     this.y += dy;
   }
 
+  disconnect() {
+    this.isConnected = false;
+  }
+
   containsPoint(x, y) {
     return getDistanceBetweenPoints(
       this.x, this.y, x, y
