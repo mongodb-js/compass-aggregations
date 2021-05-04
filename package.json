@@ -137,7 +137,7 @@
     "mongodb-connection-model": "^19.1.0",
     "mongodb-data-service": "19.2.0",
     "mongodb-js-metrics": "^5.0.0",
-    "mongodb-js-precommit": "^2.0.0",
+    "mongodb-js-precommit": "^2.2.1",
     "mongodb-query-parser": "^2.3.0",
     "mongodb-reflux-store": "0.0.1",
     "mongodb-schema": "^8.2.3",
