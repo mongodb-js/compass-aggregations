@@ -1,3 +1,7 @@
+:warning: This project has been moved to https://github.com/mongodb-js/compass/tree/master/packages/compass-aggregations
+
+---
+
 # compass-aggregations [![][travis_img]][travis_url] [![][storybook_img]][storybook_url]
 
 > Compass Plugin for the MongoDB Aggregation Pipeline Builder.
